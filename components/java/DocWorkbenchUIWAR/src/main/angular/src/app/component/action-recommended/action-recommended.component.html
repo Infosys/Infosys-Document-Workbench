@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-6"></div>
+  <div class="col-md-6">
+    <div *ngIf="!isDataLoaded" class="loading-dots">
+      <div class="loading-dots--dot"></div>
+      <div class="loading-dots--dot"></div>
+      <div class="loading-dots--dot"></div>
+    </div>
+    <ng-container *ngIf="actionNameTxt!=null && isDataLoaded">
+      <a title="{{actionNameTxt}}" (click)="executeAction()" style="color: white;" class="btn btn-sm btn-primary float-md-right urlhide">
+        {{actionNameTxt}} </a>
+    </ng-container>
+  </div>
+</div>

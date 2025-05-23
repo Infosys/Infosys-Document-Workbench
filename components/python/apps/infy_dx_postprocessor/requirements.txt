@@ -1,0 +1,13 @@
+#[dev-packages]
+pytest==6.2.5
+pytest-cov==2.12.1
+autopep8==1.5.1
+
+
+
+#[packages]
+schedule==1.0.0
+#Internal Libraries in Alphabetical Order
+./lib/infy_common_utils-0.0.8-py3-none-any.whl
+./lib/infy_telemetry_sdk-0.0.5-py3-none-any.whl
+./lib/infy_token_extractor-0.0.2-py3-none-any.whl

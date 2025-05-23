@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://www.drools.org/xsd/kmodule">
+	<kbase name="stateful" packages="statefulPkg" declarativeAgenda="enabled">
+		<ksession name="statefulSession" type="stateful" />
+	</kbase>
+	<kbase name="stateless" packages="statelessPkg">
+		<ksession name="statelessSession" type="stateless" />
+	</kbase>
+</kmodule>

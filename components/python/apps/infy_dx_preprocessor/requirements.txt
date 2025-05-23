@@ -1,0 +1,9 @@
+#[dev-packages]
+autopep8==1.5.1
+
+#[packages]
+schedule==1.0.0
+# Internal libraries in alphabetical order
+./lib/infy_common_utils-0.0.8-py3-none-any.whl
+./lib/infy_telemetry_sdk-0.0.5-py3-none-any.whl
+./lib/infy_ocr_generator-0.0.13-py3-none-any.whl[tesseract]

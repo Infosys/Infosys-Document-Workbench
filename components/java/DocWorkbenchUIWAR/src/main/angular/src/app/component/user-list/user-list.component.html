@@ -1,0 +1,138 @@
+<div class="row">
+  <div class="col-md-5 font-16 pt-2">
+    User List
+  </div>
+  <div class="col-md-2 text-right ">
+  </div>
+  <div class="col-md-1 text-right">
+  </div>
+  <div class="col-md-3 text-right">
+    <div class="row">
+    </div>
+  </div>
+  <div class="col-md-1 font-12 mt-3 text-right">
+    <ng-container *ngIf="getFeature(bmodel.FID.USER_LIST).isVisible">
+      <span class="nia-reload-button" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.USE_LIS.REFRESH);refreshComponent()"></span>
+    </ng-container>
+  </div>
+</div>
+
+<ng-container *ngIf="!getFeature(bmodel.FID.USER_LIST).isVisible">
+  <div class="nia-content-not-allowed">{{bmodel.FID_ERR_MSG.NOT_ALLOWED}}</div>
+</ng-container>
+
+<ng-container *ngIf="getFeature(bmodel.FID.USER_LIST).isVisible">
+  <div *ngIf="!isDataLoaded" class="loading-dots">
+    <br />
+    <br />
+    <div class="loading-dots--dot"></div>
+    <div class="loading-dots--dot"></div>
+    <div class="loading-dots--dot"></div>
+  </div>
+  <ng-container *ngIf="isDataLoaded">
+    <table class="table table-hover table-sm font-12 bg-white user-tbl-columns">
+      <thead>
+        <tr>
+          <th>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+          </th>
+          <th>Full name</th>
+          <th>Email ID</th>
+          <th>Login ID</th>
+          <th>User Type</th>
+          <th>Enabled</th>
+          <th>Role</th>
+          <th>Settings</th>
+        </tr>
+      </thead>
+
+      <tbody *ngIf="isDataLoaded" [ngStyle]="{'height':conenteHeightInPx + 'px'}">
+        <tr *ngFor="let userData of userDataList; let i=index" (click)="onRowClick(i)"
+          [class.active]="i == selectedRow">
+
+          <td>
+            <input type="checkbox" [(ngModel)]="userData.optionChecked" (change)="onRowChecboxClick(userData)" />
+          </td>
+
+          <td>{{userData.userFullName}}</td>
+          <td>{{userData.userEmail}}</td>
+          <td>{{userData.userName}}</td>
+          <td>{{userData.userTypeTxt}}</td>
+          <td>
+            <input type="checkbox" [checked]="userData.accountEnabled"
+              *ngIf="getFeature(bmodel.FID.USER_EDIT).isVisible"
+              [disabled]="!getFeature(bmodel.FID.USER_EDIT).isEnabled || (!userData.optionChecked)"
+              [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.USER_EDIT).isEnabled"
+              [(ngModel)]="userData.accountEnabled" (change)="editEnabled(userData.accountEnabled)">
+          </td>
+          <td>
+            <select [(ngModel)]="userData.roleTypeCde" *ngIf="getFeature(bmodel.FID.USER_EDIT).isVisible"
+              [disabled]="!getFeature(bmodel.FID.USER_EDIT).isEnabled || (!userData.optionChecked)"
+              [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.USER_EDIT).isEnabled" (change)="editRole()"  >
+              <option *ngFor="let r of roleDataList" [ngValue]="r.cde">{{r.txt}}</option>
+            </select>
+          </td>
+          <td>
+            <input type="button" class="btn btn-sm btn-outline-primary" style="font-size: 1em; line-height: 1em;" value="{{userData.uiShowQueueList ? 'Hide Queues' : 'Show Queues'}}"
+              (click)='toggleShowUserQueueList(userData)' />
+            <ng-container *ngIf="userData.uiShowQueueList">
+              <br/>
+              <br/>
+              <ng-container *ngFor="let q of queueDataList;">
+                <span>
+                  <input type="checkbox" [checked]="isQueueAssigned(userData, q.cde)"
+                    *ngIf="getFeature(bmodel.FID.USER_EDIT).isVisible"
+                    [disabled]="!getFeature(bmodel.FID.USER_EDIT).isEnabled || (!userData.optionChecked)"
+                    [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.USER_EDIT).isEnabled"
+                    (change)="editQueue(userData, q.cde)">
+
+                  {{q.txt}} ({{q.cde}})</span><br />
+              </ng-container>
+            </ng-container>
+          </td>
+
+        </tr>
+      </tbody>
+
+    </table>
+  </ng-container>
+</ng-container>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="p-1">
+      <input type="button" class="btn btn-sm btn-outline-primary float-md-left" [disabled]="!isCancelAllowed"
+        value="CANCEL" (click)="cancelModal()" />
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="p-1" style="width: 50%; margin: 0 auto;">
+      <input type="button" class="btn btn-sm btn-outline-primary"
+        *ngIf="getFeature(bmodel.FID.AUDIT_USER_VIEW).isVisible"
+        [disabled]="!getFeature(bmodel.FID.AUDIT_USER_VIEW).isEnabled || (!isCancelAllowed)"
+        [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.AUDIT_USER_VIEW).isEnabled || (!isCancelAllowed)"
+        value="USER HISTORY" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.USE_LIS.USER_HIS);open(audit)" />
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="p-1">
+      <input type="button" *ngIf="getFeature(bmodel.FID.USER_EDIT).isVisible"
+        class="btn btn-sm btn-outline-primary float-md-right"
+        [disabled]="!getFeature(bmodel.FID.USER_EDIT).isEnabled || (!isSaveAllowed)"
+        [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.USER_EDIT).isEnabled || (!isSaveAllowed)" value="SAVE"
+        (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.USE_LIS.SAVE);saveModal()" />
+    </div>
+  </div>
+</div>
+<ng-template #audit let-c="close" let-d="dismiss">
+  <div id="content">
+    <div class="row" style="width:65vw;height:84vh;margin-left:-5vw;">
+      <div class="col-md-12 nia-modal p-2">
+        <app-audit [title]="'User History'" [auditData]=auditData (close)="c('Close click')"></app-audit>
+      </div>
+    </div>
+  </div>
+</ng-template>

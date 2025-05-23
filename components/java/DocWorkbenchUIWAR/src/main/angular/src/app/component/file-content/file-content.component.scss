@@ -1,0 +1,146 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+// div {
+//     border:1px solid red;
+// }
+
+.enlarge-popout {
+  height: 75vh;
+  margin-left: -22vw;
+}
+
+.nav-tabs > ul {
+  height: 35px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.nav-tabs > ul > li {
+  float: right;
+}
+
+.nav-tabs > li > a {
+  display: block;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.nav-tabs > li > a:hover {
+  cursor: pointer;
+}
+
+.nav-tabs > li > a.active {
+  background-color: #4c7ebb;
+  color: white;
+  cursor: default;
+}
+
+.nav-tabs > li > a.disabled {
+  cursor: not-allowed !important;
+  color: gray !important;
+  background: transparent !important;
+  text-decoration: none !important;
+  pointer-events: none;
+}
+
+// Style for div element only
+div.right-align-children {
+  display: inline-block;
+  text-align: right;
+  width: 100%;
+}
+
+// Style for div element only
+div.align-siblings-horizontally {
+  display: inline-block;
+  // margin-top: 1vh;
+}
+
+.nia-overlay {
+  ::ng-deep .content-container {
+    background-color: rgb(192, 191, 191, 0.5);
+    cursor: not-allowed;
+  }
+}
+
+mat-slide-toggle {
+  position: absolute;
+}
+
+/* Styles for tab labels */
+::ng-deep a.mat-tab-link {
+  // min-width: 25px !important;
+  min-width: 9vw;
+  max-width: 9vw;
+  height: 25px;
+  background-color: transparent;
+  color: black;
+  font-size: 12px;
+  text-align: start;
+  cursor: pointer;
+}
+
+/* Styles for the active tab label */
+::ng-deep a.mat-tab-link.mat-tab-label-active {
+  // min-width: 25px !important;
+  min-width: 9vw;
+  max-width: 9vw;
+  height: 25px;
+  background-color: #4c7ebb;
+  color: white;
+  cursor: not-allowed;
+  // pointer-events: none;
+}
+
+::ng-deep .mat-tab-header,
+.mat-tab-nav-bar {
+  border-bottom: none;
+}
+
+.content-header {
+  background-color: #e8e6dc !important;
+  padding: 5px;
+}
+
+.mat-icon{
+  font-size: 15px;
+  padding: 0;
+}
+
+.file-reader-mode{
+  .nav-link{
+    padding: 0px 2px;
+  }
+
+  .nav-tabs > li{
+    padding-top: 0px;
+      padding-bottom: 0px;
+  }
+  .nav-tabs > li > a{
+      padding-top: 0px;
+      padding-bottom: 0px;
+      height: 20px;
+  }
+  :disabled{
+    cursor: not-allowed;
+  }
+}
+
+.button-icon{
+  font-size: 17px;
+  padding-right: 7px;
+  position: relative;
+  top: 3px;
+  margin-top: -10px;
+  display: inline-block;
+}

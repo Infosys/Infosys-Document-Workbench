@@ -1,0 +1,348 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+div {
+  padding: 0;
+  margin: 0;
+}
+
+// div {
+//     border:1px solid red;
+// }
+
+// table,
+// th,
+// td {
+//   border: 1px solid black;
+// }
+.table-hover tbody tr:hover {
+  background-color: #d6effd;
+}
+
+thead {
+  background-color: #e8e6dc !important;
+}
+
+.table tr.active td {
+  background-color: #123456 !important;
+  color: white;
+}
+
+.table tr.active td a {
+  color: white;
+}
+
+.email-tbl-columns {
+  // Local variable declarations
+  $table-col-index-map: (
+    sentiment-indicator: 1,
+    attachment-indicator: 2,
+    case-number: 3,
+    from: 4,
+    subject: 5,
+    category: 6,
+    received-date: 7,
+    assigned-to: 8,
+    case-reviewer:9,
+    status: 10,
+  );
+
+  $table-col-width-map: (
+    sentiment-indicator: 2%,
+    attachment-indicator: 2%,
+    case-number: 5%,
+    from: 14%,
+    subject: 10%,
+    category: 10%,
+    received-date: 27vw,//Don't change to % then doc list will be in 2 lines.
+    assigned-to: 10%,
+    case-reviewer:10%,
+    status: 10%,
+  );
+
+  // Column=Sentiment Indicator
+  th:nth-child(#{map-get($table-col-index-map, sentiment-indicator )}) {
+    text-align: right;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, sentiment-indicator )}) {
+    width: #{map-get($table-col-width-map, sentiment-indicator)};
+    text-align: right;
+  }
+
+  // Column=Attachment Indicator
+  th:nth-child(#{map-get($table-col-index-map, attachment-indicator )}) {
+    text-align: right;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, attachment-indicator )}) {
+    width: #{map-get($table-col-width-map, attachment-indicator)};
+    text-align: right;
+  }
+
+  // Column=Case Number
+  th:nth-child(#{map-get($table-col-index-map, case-number )}) {
+    text-align: right;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, case-number )}) {
+    width: #{map-get($table-col-width-map, case-number)};
+    text-align: right;
+  }
+
+  // Column=From
+  td:nth-child(#{map-get($table-col-index-map, from )}) {
+    width: #{map-get($table-col-width-map, from)};
+  }
+
+  // Column=Subject
+  td:nth-child(#{map-get($table-col-index-map, subject )}) {
+    width: #{map-get($table-col-width-map, subject)};
+  }
+
+  // Column=Category
+  td:nth-child(#{map-get($table-col-index-map, category)}) {
+    width: #{map-get($table-col-width-map, category)};
+  }
+
+  // Column=Received Date
+  td:nth-child(#{map-get($table-col-index-map, received-date )}) {
+    width: #{map-get($table-col-width-map, received-date)};
+    min-width: 12.7vw;
+  }
+
+  // Column=Case Owner
+  td:nth-child(#{map-get($table-col-index-map, assigned-to )}) {
+    width: #{map-get($table-col-width-map, assigned-to)};
+  }
+
+  // Column=Case Reviewer
+  th:nth-child(#{map-get($table-col-index-map, case-reviewer)}) {
+    width: #{map-get($table-col-width-map, case-reviewer)};
+  }
+  td:nth-child(#{map-get($table-col-index-map, case-reviewer )}) {
+    width: #{map-get($table-col-width-map, case-reviewer)};
+  }
+
+  // Column=Status
+  td:nth-child(#{map-get($table-col-index-map, status )}) {
+    width: #{map-get($table-col-width-map, status)};
+    
+  }
+
+  .urlhide-from {
+    min-width: 15vw;
+    max-width: 15vw;
+  }
+
+  .urlhide-subject {
+    min-width: 7vw;
+    max-width: 7vw;
+  }
+
+  .urlhide-category, .urlhide-assignedTo,.urlhide-user {
+    min-width: 7vw;
+    max-width: 7vw;
+  }
+}
+
+.doc-tbl-columns {
+  // Local variable declarations
+  $table-col-index-map: (
+    case-number: 1,
+    document-name: 2,
+    document-type: 3,
+    received-date: 4,
+    assigned-to: 5,
+    case-reviewer:6,
+    status: 7,
+  );
+
+  $table-col-width-map: (
+    case-number: 10%,
+    document-name: 16%,
+    document-type: 16%,
+    received-date: 24%,
+    assigned-to: 10%,
+    case-reviewer:10%,
+    status: 14%,
+  );
+
+  // Column=Case Number
+  th:nth-child(#{map-get($table-col-index-map, case-number )}) {
+    text-align: right;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, case-number )}) {
+    width: #{map-get($table-col-width-map, case-number)};
+    text-align: right;
+  }
+
+  // Column=Document Name
+  td:nth-child(#{map-get($table-col-index-map, document-name )}) {
+    width: #{map-get($table-col-width-map, document-name)};
+  }
+
+  // Column=Document Type
+  td:nth-child(#{map-get($table-col-index-map, document-type )}) {
+    width: #{map-get($table-col-width-map, document-type)};
+  }
+
+  // Column=Received Date
+  td:nth-child(#{map-get($table-col-index-map, received-date )}) {
+    width: #{map-get($table-col-width-map, received-date)};
+  }
+
+  // Column=Case Owner
+  td:nth-child(#{map-get($table-col-index-map, assigned-to )}) {
+    width: #{map-get($table-col-width-map, assigned-to)};
+  }
+
+  // Column=Case Reviewer
+  td:nth-child(#{map-get($table-col-index-map, case-reviewer )}) {
+    width: #{map-get($table-col-width-map, case-reviewer)};
+  }
+
+  // Column=Status
+  td:nth-child(#{map-get($table-col-index-map, status )}) {
+    width: #{map-get($table-col-width-map, status)};
+  }
+
+  .urlhide-document-name {
+    min-width: 15vw;
+    max-width: 15vw;
+  }
+
+  .urlhide-assignedTo,.urlhide-user  {
+    min-width: 9vw;
+    max-width: 9vw;
+  }
+
+  .urlhide-document-type {
+    min-width: 10vw;
+    max-width: 10vw;
+  }
+}
+
+.urlhide {
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+}
+
+// Commented css class in doc-list html.
+// .proxy-sidebar {
+//   padding-left: 0.5em;
+//   padding-right: 0;
+// }
+
+tbody {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+thead,
+tbody {
+  display: block;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+  position: relative;
+  float: left;
+  padding: 6px 12px;
+  margin-left: -1px;
+  line-height: 1.42857143;
+  color: #4c7ebb;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.pagination > .disabled > a,
+.pagination > .disabled > a:focus,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > span,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > span:hover {
+  cursor: not-allowed;
+  color: gray !important;
+  background: transparent !important;
+  text-decoration: none !important;
+  pointer-events: none;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+  z-index: 3;
+  color: #fff;
+  display: block;
+  cursor: pointer;
+  background-color: #4c7ebb;
+  border-color: #4c7ebb;
+}
+
+.nav-tabs > ul {
+  height: 35px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.nav-tabs > ul > li {
+  float: left;
+}
+
+.nav-tabs > li > a {
+  display: block;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+}
+
+.nav-tabs > li > a:hover {
+  cursor: pointer;
+}
+
+.nav-tabs > li > .active {
+  background-color: #4c7ebb;
+  color: white;
+}
+
+.filter-active {
+  border-bottom: 2px solid blue;
+}
+
+.mat-icon{
+  font-size: 20px;
+  // padding-right: 7px;
+  position: relative;
+  // top: 5px;
+  // margin-top: -10px;
+  display: inline-block;
+  padding-top: 3px;
+}
+
+.search-summary {
+  font-size:12px;
+  color:gray;
+}

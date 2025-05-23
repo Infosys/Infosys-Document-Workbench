@@ -1,0 +1,77 @@
+	{
+	"folders": [
+		{
+			"path": ".",
+			"name": "main"
+		},
+		{
+			"path": "../config/",
+			"name": "[1. External Config Folder]",
+		},
+		{
+			"path": "../../../middleware/airflow/dags",
+			"name": "[2. DAGS]"
+		},
+		{
+			"path": "../../processors/config/",
+			"name": "[3. DPP Config Folder]"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			".venv": true,
+			"logs": true,
+			"**/__pycache__": true,
+			"archive": true,
+			"dist": true,
+			"build": true,
+			"*.egg-info": true,
+			".pytest_cache": true,
+			"target": true
+		},
+		"editor.formatOnSave": true,
+		"python.linting.pep8Enabled": true,
+		"python.linting.pylintPath": "pylint",
+		"python.linting.pylintArgs": [
+			"--rcfile",
+			"../apps.pylintrc"
+		],
+		"python.linting.pylintEnabled": true
+	},
+	"launch": {
+		"configurations": [
+			{
+				"name": "Python: app_executor_container",
+				"type": "python",
+				"request": "launch",
+				"program": "app_executor_container.py",
+				"console": "integratedTerminal",
+				"cwd": "${workspaceFolder:main}/src",
+				"justMyCode": false,
+				"args": [
+					"--request_id",
+					"R-12d1cd23-8697-425b-8f4a-c6c8642f4626",
+					"--indexer_outfile_path",
+					"C:/workarea/documentworkbench/data/output/R-12d1cd23-8697-425b-8f4a-c6c8642f4626_indexer_response.json",
+					"--master_config",
+					"C:DocWorkbench/components/python/apps/config/master_client_config.json",
+					// "c:/workarea/documentworkbench/data/output/R-b75b8aa0-9e36-4f77-a8dd-52c821aa3492_indexer_response.json",
+					//"--rd_profile_name",
+					// "invoice_broadband",
+					// "--extractor_outfile_path",
+					// "c:/workarea/documentworkbench/data/output/R-12d1cd23-8697-425b-8f4a-c6c8642f4626_extract_response.json",
+				],
+			},
+			{
+				"name": "Python: app_scheduler",
+				"type": "python",
+				"request": "launch",
+				"program": "app_scheduler.py",
+				"console": "integratedTerminal",
+				"cwd": "${workspaceFolder:main}/src",
+				"justMyCode": false
+			}
+		],
+		"compounds": []
+	}
+}

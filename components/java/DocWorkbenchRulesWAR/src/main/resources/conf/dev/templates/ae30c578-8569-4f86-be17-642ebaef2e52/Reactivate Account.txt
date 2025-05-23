@@ -1,0 +1,10 @@
+Hi <<From>>, 
+
+Your reactivation request for Account # <<Account Number>> is Successful.
+
+Please let us know if you've any other questions.
+
+<<Campaign Banner>>
+
+Thanks,
+Customer Support Team

@@ -1,0 +1,204 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+// div {
+//     border:1px solid red;
+// }
+
+// th, td {
+//   border:1px solid orange;
+// }
+
+:host {
+  --content-height: 580px; // Default value
+  --queue-table-width: 1100px; // Default value
+}
+
+thead {
+  background-color: #E8E6DC !important;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #D6EFFD;
+}
+
+.attr-value-dirty::after {
+  content: "*";
+  position: absolute;
+  vertical-align: super;
+  margin-top: -5px;
+  font-weight: bold;
+  margin-left: 2px;
+}
+
+tbody {
+  display: block;
+  height: var(--content-height) !important;
+  overflow: auto;
+}
+
+thead,
+tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  /* even columns width , fix width of table too*/
+}
+
+$myMatRadioRippleColor: #499fdc;
+
+::ng-deep .mat-radio-button.mat-accent {
+  &.mat-radio-checked .mat-radio-outer-circle {
+    border-color: $myMatRadioRippleColor;
+  }
+
+  .mat-radio-inner-circle {
+    color: $myMatRadioRippleColor;
+    background-color: $myMatRadioRippleColor ;
+  }
+
+  .mat-radio-ripple .mat-ripple-element {
+    background-color: $myMatRadioRippleColor  !important;
+  }
+}
+
+//To reduce datepicker height
+::ng-deep {
+  .mat-form-field-infix {
+    border: 0px !important;
+  }
+
+  .mat-form-field {
+    width: 100px;
+  }
+}
+
+
+.queue-tbl-columns {
+
+  $queue-table-width: var(--queue-table-width);
+
+  // Local variable declarations
+  $table-col-index-map: (column-one: 1,
+    column-two: 2,
+    column-three: 3,
+    column-four: 4,
+    column-five: 5,
+    column-six: 6);
+
+  $table-col-width-map: (column-one: .03,
+    column-two: .08,
+    column-three: .25,
+    column-four: .16,
+    column-five: .10,
+    column-six: .27,
+  );
+
+  // Column1
+  th:nth-child(#{map-get($table-col-index-map, column-one )}) {
+    $my-width: #{map-get($table-col-width-map, column-one)};
+    width: calc(#{$queue-table-width} * #{$my-width});
+    text-align: right;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, column-one )}) {
+    $my-width: #{map-get($table-col-width-map, column-one)};
+    width: calc(#{$queue-table-width} * #{$my-width});
+    text-align: right;
+  }
+
+  // Column2
+  th:nth-child(#{map-get($table-col-index-map, column-two )}) {
+    $my-width: #{map-get($table-col-width-map, column-two)};
+    width: calc(#{$queue-table-width} * #{$my-width});
+    padding-right: 0.8rem; // Since column width is small, add right padding
+    text-align: right;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, column-two )}) {
+    $my-width: #{map-get($table-col-width-map, column-two)};
+    width: calc(#{$queue-table-width} * #{$my-width});
+    padding-right: 0.8rem; // Since column width is small, add right padding
+    text-align: right;
+  }
+
+  // Column3
+  th:nth-child(#{map-get($table-col-index-map, column-three )}) {
+    $my-width: #{map-get($table-col-width-map, column-three)};
+    width: calc(#{$queue-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, column-three )}) {
+    $my-width: #{map-get($table-col-width-map, column-three)};
+    width: calc(#{$queue-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  // Column4
+  th:nth-child(#{map-get($table-col-index-map, column-four )}) {
+    $my-width: #{map-get($table-col-width-map, column-four)};
+    width: calc(#{$queue-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, column-four )}) {
+    $my-width: #{map-get($table-col-width-map, column-four)};
+    width: calc(#{$queue-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  // Column5
+  th:nth-child(#{map-get($table-col-index-map, column-five )}) {
+    $my-width: #{map-get($table-col-width-map, column-five)};
+    width: calc(#{$queue-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, column-five )}) {
+    $my-width: #{map-get($table-col-width-map, column-five)};
+    width: calc(#{$queue-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  // Column6
+  th:nth-child(#{map-get($table-col-index-map, column-six )}) {
+    $my-width: #{map-get($table-col-width-map, column-six)};
+    width: calc(#{$queue-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, column-six )}) {
+    $my-width: #{map-get($table-col-width-map, column-six)};
+    width: calc(#{$queue-table-width} * #{$my-width});
+    text-align: left;
+  }
+}
+
+.footnote {
+  font-size: 10px;
+  // color:gray;
+}
+
+.mat-paginator {
+  height: 28px;
+
+  ::ng-deep .mat-paginator-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 25px;
+    padding: 0px;
+    flex-wrap: wrap-reverse;
+    width: 100%;
+  }
+
+  ::ng-deep .mat-paginator-range-actions {
+    display: flex;
+    align-items: center;
+    height: 10px;
+  }
+}

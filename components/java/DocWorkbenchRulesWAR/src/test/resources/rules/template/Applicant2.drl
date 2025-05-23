@@ -1,0 +1,23 @@
+package com.infosys.ainauto.rulesadapter.test
+
+import com.infosys.ainauto.docwb.rules.model.Applicant
+
+rule "Is Young?"
+salience 30
+activation-group "myGroup2"
+when
+    $a : Applicant( age < 50 )    
+then
+    $a.setResult( "Young" );
+    System.out.println("Young");
+end
+
+rule "Is Old?"
+salience 40
+activation-group "myGroup2"
+when
+    $a : Applicant( age > 50 )    
+then
+    $a.setResult( "Old" );
+    System.out.println("Old");
+end

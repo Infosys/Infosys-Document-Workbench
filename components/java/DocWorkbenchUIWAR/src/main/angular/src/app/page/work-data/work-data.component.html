@@ -1,0 +1,84 @@
+<div *ngIf="!isDataReady" class="loading-dots">
+  <div class="loading-dots--dot"></div>
+  <div class="loading-dots--dot"></div>
+  <div class="loading-dots--dot"></div>
+</div>
+<div *ngIf="!isDocTypeFile && isDataReady">
+  <div class="row mt-1" [style.minHeight.px]="modelCaseDetailsTopHeight">
+    <!-- 3rd Row -->
+    <div class="col-md-7">
+      <app-file-content [isCaseEmail]="isCaseEmail" [isDocTypeFile]="isDocTypeFile" [isDataReady]="isDataReady"
+        [height]="modelDocContentHeight" [minbodyheight]=modelDocContentBodyHeight [documentData]="documentData"
+        [attachmentDataList]="model.attachmentDataList" [queueNameCde]=model.queueNameCde
+        [attachmentAttrDataList]="model.attachmentAttrDataList" [isEnableAnnotation]="model.isEnableAnnotation">
+      </app-file-content>
+      <!--<app-basic-block text="Doc Content"></app-basic-block>-->
+    </div>
+    <div class="col-md-5 pl-0">
+      <!-- <div class="row"> -->
+      <app-extracted-data [isDataReady]=isDataReady [minheight]=modelDocContentHeight [document]=documentData
+        [attributeAttributeMapping]=model.attributeAttributeMapping
+        [attachmentDataList]="model.selectedAttachmentDataList" [attachmentAttrDataList]="model.attachmentAttrDataList">
+      </app-extracted-data>
+      <!-- </div>
+    <div class="row"> -->
+
+      <!-- </div> -->
+      <!--<app-basic-block text="Extracted Data"></app-basic-block>-->
+    </div>
+  </div>
+  <div class="row mt-1" [style.minHeight.px]="modelCaseDetailsMiddleHeight">
+    <!-- 4th Row -->
+    <div class="col-md-6">
+      <app-action-list [isDocTypeFile]="isDocTypeFile" [isDataReady]=isDataReady [minheight]=modelTaskListHeight
+        [document]=documentData [isEnableAnnotation]="isEnableAnnotation" [docUserDataList]="model.docUserDataList"></app-action-list>
+    </div>
+    <div class="col-md-6 pl-0">
+      <app-email-outbound-list [isDataReady]=isDataReady [minheight]=modelSentEmailListHeight [document]=documentData>
+      </app-email-outbound-list>
+      <!--<app-basic-block text="Comments"></app-basic-block>-->
+    </div>
+  </div>
+  <div class="row mt-1" [style.height.px]="modelCaseDetailsHeight">
+    <div class="col-md-12">
+      <app-case-panel [isDataReady]=isDataReady [document]=documentData [docUserDataList]="model.docUserDataList"></app-case-panel>
+    </div>
+  </div>
+</div>
+<div *ngIf="isDocTypeFile && isDataReady" [style.minHeight.px]="modelCaseDetailsTopHeight">
+  <div class="row mt-1">
+    <div class="col-md-7">
+      <app-file-content [isCaseEmail]="isCaseEmail" [isDocTypeFile]="isDocTypeFile" [isDataReady]="isDataReady"
+        [height]="modelFileContentHeight" [documentData]="documentData" [attachmentDataList]="model.attachmentDataList"
+        [queueNameCde]=model.queueNameCde [attachmentAttrDataList]="model.attachmentAttrDataList"
+        [isEnableAnnotation]="model.isEnableAnnotation">
+      </app-file-content>
+    </div>
+    <ng-container *ngIf="!model.shouldLoadExtractionPathView">
+      <div class="col-md-5 pl-0">
+        <app-extracted-data [isDocTypeFile]="isDocTypeFile" [isDataReady]="isDataReady"
+          [minheight]="modelFileExtractedDataHeight" [document]="documentData" [queueNameCde]=model.queueNameCde
+          [attributeAttributeMapping]="model.attributeAttributeMapping" [attachmentDataList]="model.selectedAttachmentDataList"
+          [attachmentAttrDataList]="model.attachmentAttrDataList">
+        </app-extracted-data>
+        <app-action-list [isDocTypeFile]="isDocTypeFile" [isDataReady]="isDataReady" [minheight]="modelTaskListHeight"
+          [document]="documentData" [isEnableAnnotation]="model.isEnableAnnotation" [docUserDataList]="model.docUserDataList" (isComponentMinimized)="minHeightHandler($event)"></app-action-list>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="model.shouldLoadExtractionPathView">
+      <div class="col-md-5">
+        <app-extraction-path [isDocTypeFile]="isDocTypeFile" [isDataReady]="isDataReady"
+          [minheight]="modelFileExtractedDataHeight" [document]="documentData" [queueNameCde]=model.queueNameCde
+          [attachmentDataList]="model.selectedAttachmentDataList" [attachmentAttrDataList]="model.attachmentAttrDataList">
+        </app-extraction-path>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="row" [style.height.px]="modelCaseDetailsHeight">
+    <div class="col-md-12">
+      <app-case-panel [isDataReady]=isDataReady [document]=documentData [docUserDataList]="model.docUserDataList"></app-case-panel>
+    </div>
+  </div>
+
+</div>

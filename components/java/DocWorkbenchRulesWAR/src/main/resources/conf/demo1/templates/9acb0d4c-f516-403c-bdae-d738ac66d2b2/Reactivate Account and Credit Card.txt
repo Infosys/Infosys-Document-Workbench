@@ -1,0 +1,10 @@
+Hi <<From>>, 
+
+Your reactivation request for Account # <<Account Number>> is <<Reactivate Account>> & the reactivation request for Credit Card # FindReplace((<<CreditCard Number>>||\d{4}-\d{4}-\d{4}||XXXX-XXXX-XXXX)) is <<Reactivate Credit Card:Output:ReactivationStatus>>.
+
+Please let us know if you've any other questions.
+
+<<Campaign Banner>>
+
+Thanks,
+Customer Support Team

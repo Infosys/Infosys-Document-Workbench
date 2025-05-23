@@ -1,0 +1,126 @@
+<div class="row">
+  <div class="col-md-11 font-16">
+    {{title}}
+  </div>
+  <div class="col-md-1 font-12 text-right pt-1">
+    <span class="nia-wrong-button" (click)="closeWindow()"></span>
+  </div>
+</div>
+<div class="bg-white">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="p-1 content-text font-12">
+        <div *ngIf="!isDataLoaded" class="loading-dots">
+          <br />
+          <br />
+          <div class="loading-dots--dot"></div>
+          <div class="loading-dots--dot"></div>
+          <div class="loading-dots--dot"></div>
+          <br />
+          <br />
+        </div>
+        <table *ngIf="isDataLoaded" class="table table-fixed table-hover table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>User</th>
+              <th>Activity</th>
+              <th>Current Value</th>
+              <th>Previous Value</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let au of auditDataList; let i=index">
+              <tr>
+                <td>
+                  {{au.auditId}}.
+                </td>
+                <td>
+                  {{au.auditLoginId}}
+                </td>
+                <td class="urlhide-default">
+                  <div [innerHtml]="au.auditMessage">
+                  </div>
+                </td>
+
+                <td class="urlhide urlhide-audit-value" title={{au.currentValue}}>
+                  <ng-container *ngIf="testJSON(au.currentValue)">
+                    <b><span class="nia-popout-button"
+                        (click)="open(jsonTabularData, au.currentValue, au.previousValue)"></span>
+                      {{au.currentValue}}
+                    </b>
+                  </ng-container>
+                  <ng-container *ngIf="!testJSON(au.currentValue)"><b>{{au.currentValue}}</b></ng-container>
+                </td>
+                <td class="urlhide urlhide-audit-value" title={{au.previousValue}}>
+                  <ng-container *ngIf="testJSON(au.previousValue)">
+                    <b><span class="nia-popout-button"
+                        (click)="open(jsonTabularData, au.currentValue, au.previousValue)"></span>
+                      {{au.previousValue}}
+                    </b>
+                  </ng-container>
+                  <ng-container *ngIf="!testJSON(au.previousValue)"><b>{{au.previousValue}}</b></ng-container>
+                </td>
+
+                <!-- <ng-container *ngIf="!testJSON(au.currentValue) || !testJSON(au.previousValue) ">
+                <td >
+                  <b>
+                    {{au.currentValue}}
+
+                  </b>
+                </td>
+                <td >
+                  <b>
+                    {{au.previousValue}}
+
+                  </b>
+                </td>
+                </ng-container>  -->
+                <td>
+                  {{au.createDtm}}
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div style="text-align: center; height:35px; padding-top: 5px;">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination font-14" style="text-align: center;
+      display: inline-flex;">
+          <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="setPage(1)">First</a>
+          </li>
+          <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+          </li>
+          <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+            <a (click)="setPage(page)">{{page}}</a>
+          </li>
+          <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.currentPage + 1)">Next</a>
+          </li>
+          <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.totalPages)">Last</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #jsonTabularData let-c="close" let-d="dismiss">
+  <div id="content">
+    <div class="row" style="width:65vw;height:84vh;margin-left:-5vw;">
+      <div class="col-md-12 nia-modal p-2">
+        <app-json-tabular-data [closeButton]="true" [currentJsonValue]=currentJsonValue
+          [previousJsonValue]=previousJsonValue [minheight]="77" [isTableView]=false (close)="c('Close click');">
+        </app-json-tabular-data>
+      </div>
+    </div>
+  </div>
+</ng-template>

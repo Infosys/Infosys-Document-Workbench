@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property resource="application.properties" />
+	<property name="LOG_PATH" value="${docwb.engine.logs.path}" />
+	<property name="LOG_FILE" value="docwb-engine-2" />
+	<property name="ERROR_LOG_FILE" value="docwb-engine-2-error" />
+	<property name="PERF_LOG_FILE" value="docwb-engine-2-perf" />
+	<property name="LOG_PATTERN"
+		value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%24t] [%-18X{schedulerName}] [%-20X{templateName}] %C{1.}:%L - %m%n" />
+	<property name="PERF_LOG_PATTERN"
+		value="%d{yyyy-MM-dd HH:mm:ss.SSS},%t,%X{schedulerName},%X{templateName},%m%n" />
+	<appender name="Console"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>${LOG_PATTERN}</Pattern>
+		</layout>
+	</appender>
+
+	<appender name="RollingFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/${LOG_FILE}.log</file>
+		<encoder
+			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>${LOG_PATTERN}</Pattern>
+		</encoder>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- rollover daily and when the file reaches 10 MegaBytes -->
+			<fileNamePattern>${LOG_PATH}/archived/${LOG_FILE}-%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<maxFileSize>5MB</maxFileSize>
+			<maxHistory>30</maxHistory>
+			<totalSizeCap>100MB</totalSizeCap>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="RollingFileError"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/${ERROR_LOG_FILE}.log</file>
+		<encoder
+			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>${LOG_PATTERN}</Pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- rollover daily and when the file reaches 10 MegaBytes -->
+			<fileNamePattern>${LOG_PATH}/archived/${ERROR_LOG_FILE}-%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<maxFileSize>5MB</maxFileSize>
+			<maxHistory>90</maxHistory>
+			<totalSizeCap>100MB</totalSizeCap>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="RollingFilePerf"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/${PERF_LOG_FILE}.csv</file>
+		<encoder
+			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>${PERF_LOG_PATTERN}</Pattern>
+		</encoder>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- rollover daily and when the file reaches 10 MegaBytes -->
+			<fileNamePattern>${LOG_PATH}/archived/${PERF_LOG_FILE}-%d{yyyy-MM-dd}.%i.csv.zip
+			</fileNamePattern>
+			<maxFileSize>5MB</maxFileSize>
+			<maxHistory>90</maxHistory>
+			<totalSizeCap>100MB</totalSizeCap>
+		</rollingPolicy>
+	</appender>
+
+	<!-- LOG everything at INFO level -->
+	<root level="info">
+		<appender-ref ref="RollingFile" />
+		<appender-ref ref="Console" />
+		<appender-ref ref="RollingFileError" />
+	</root>
+
+	<!-- LOG "com.infosys*" at DEBUG level -->
+	<logger name="com.infosys" level="debug" additivity="false">
+		<appender-ref ref="RollingFile" />
+		<appender-ref ref="Console" />
+		<appender-ref ref="RollingFileError" />
+	</logger>
+
+	<logger name="performance" level="info">
+		<appender-ref ref="RollingFilePerf" />
+	</logger>
+
+</configuration>

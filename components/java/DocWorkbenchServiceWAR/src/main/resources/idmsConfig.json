@@ -1,0 +1,46 @@
+{
+	"idmsConfig": {
+		"tenantConfig": [
+			{
+				"tenantIds": [
+					"<TenantId>"
+				],
+				"dbAuthentication": [
+					"admin",
+					"docwbadmin",
+					"docwbagent",
+		    			"dxcasecreator",
+					"docwbengine"
+					
+				],
+				"serviceAccountNames": [
+					"dxcasecreator",
+					"docwbservice",
+					"docwbengine"
+				],
+				"newUserAccountSetting": {
+					"activateAccountEnabled": true,
+					"addRole": {
+						"enabled": true,
+						"roleTypeCde": 104
+					},
+					"addQueue": {
+						"enabled": false,
+						"queueNameCde": 5
+					}
+				}
+			}
+		],
+		"ldapAuthEnabled": true,
+		"ldapConfig": {
+			"providerUrl": "<Company/Personal LDAP URL>",
+			"userDomainPrefix": "CompanyDomainPrefix",
+			"baseDn": "dc=ad,dc=companyname,dc=com",
+			"searchFilter": "(&(sAMAccountName={sAMAccountName})(memberOf=))",
+			"docwbToLdapMapping": {
+				"fullName": "displayName",
+				"email": "mail"
+			}
+		}
+	}
+}

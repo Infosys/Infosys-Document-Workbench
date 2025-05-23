@@ -1,0 +1,37 @@
+{
+    "config": {
+    "environment": "local",
+    "docwbServiceBaseUrl": "http://localhost:80/docwbservice",
+    "docwbFileServerBaseUrl": "http://localhost:80/docwbservice",
+    "docwbWebBaseUrl": "http://localhost:80/docwb",
+    "tenantId": "<TenantId>",
+    "modelServiceUrl":"http://localhost:8003",
+    "title": "Document Workbench",
+    "origDocAnnWhenPlainTxtAvailable": 2,
+    "origDocAnnWhenPlainTxtUnavailable": 3,
+    "sidebar": {
+      "queueModeFlatVisible": true,
+      "queueModeFlatEnabled": true,
+      "queueModeHierarchyVisible": true,
+      "queueModeHierarchyEnabled": true,
+      "queueModeHierarchyDelimiter": ":"
+    },
+    "telemetry": {
+      "enabled": false,
+      "serviceBaseUrl": "http://localhost:80/telemetryservice", 
+      "authtoken": {
+        "tokenName": "web-core"
+      }
+    },
+    "application": {
+      "webVersionValidation": {
+        "enabled": true,
+        "checkIntervalInSecs": 300
+      }
+    },
+    "queue":{
+      "queueVisibilityAfterClosureInDays":7
+    }
+    
+  }
+}

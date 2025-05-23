@@ -1,0 +1,40 @@
+{
+    "version": "0.0.1",
+    "type": "LocalCacheManager",
+    "name": "Infosys Document Workbench Installation",
+    "user_cache_manager": {
+        "bucket": "infydocwb_setup"
+    },
+    "properties": [
+        {
+            "key": "db_server_hostname",
+            "value_default": "localhost",
+            "comment": "'localhost' if local. 'IP address' or hostname if DB server is remote."
+        },
+        {
+            "key": "db_server_port",
+            "value_default": "5432",
+            "comment": "Usually 5432 for PostgreSQL"
+        },
+        {
+            "key": "db_name",
+            "value_default": "postgres",
+            "comment": "A default database to connect to for creating the IDW database"
+        },
+        {
+            "key": "db_username",
+            "value_default": "postgres",
+            "comment": "An account in the DB with sufficient privileges to create a database and tables."
+        },
+        {
+            "key": "db_password",
+            "value_default": "",
+            "comment": "Password for the DB Username"
+        },
+        {
+            "key": "tenant_id",
+            "value_default": "",
+            "comment": "Unique identifier used to distinguish and manage data for different tenants in a multi-tenant architecture"
+        }
+    ]
+}

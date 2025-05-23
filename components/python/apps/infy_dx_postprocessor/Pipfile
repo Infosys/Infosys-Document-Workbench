@@ -1,0 +1,20 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest = "==6.2.5"
+pytest-cov = "==2.12.1"
+autopep8 = "==1.5.1"
+
+[packages]
+schedule = "==1.0.0"
+
+#Internal Libraries in Alphabetical Order
+infy_common_utils = {path = "./lib/infy_common_utils-0.0.8-py3-none-any.whl"}
+infy_telemetry_sdk = {path = "./lib/infy_telemetry_sdk-0.0.5-py3-none-any.whl"}
+infy_token_extractor = {path = "./lib/infy_token_extractor-0.0.2-py3-none-any.whl"}
+
+[requires]
+python_version = "3"

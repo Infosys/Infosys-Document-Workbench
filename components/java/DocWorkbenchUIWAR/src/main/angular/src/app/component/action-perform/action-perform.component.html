@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-md-11 font-16">
+    Perform Action
+  </div>
+  <div class="col-md-1 font-12 text-right pt-1">
+    <span class="nia-wrong-button" (click)="closeWindow()"></span>
+  </div>
+</div>
+<div class="bg-white">
+  <div class="row mt-2 mb-2">
+    <div class="col-md-6 p-1">
+      <div class="dropdown">
+        <select class="form-control form-control-sm font-14" [(ngModel)]="actionNameCdeSelected"
+          (change)="showParameters()">
+          <ng-container *ngFor="let a of actionDataList">
+            <option [value]="a.actionNameCde">
+              {{a.actionNameTxt}}
+            </option>
+          </ng-container>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="p-1 content-text font-12">
+        <div *ngIf="!isDataLoaded" class="loading-dots">
+          <br />
+          <br />
+          <div class="loading-dots--dot"></div>
+          <div class="loading-dots--dot"></div>
+          <div class="loading-dots--dot"></div>
+          <br />
+          <br />
+        </div>
+        <table *ngIf="isDataLoaded" class="table table-fixed table-hover table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Parameter</th>
+              <th>Attribute</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pa of paramAttrMappingDataList; let i=index">
+              <td>
+                {{i+1}}.
+              </td>
+              <td>
+                {{pa.paramNameTxt}}
+              </td>
+              <td>
+                <select [ngModel]="pa.attrNameTxt" #t name="{{i}}"
+                  (ngModelChange)="updateItemSelected(i,t.selectedIndex)">
+                  <ng-container *ngFor="let attrNameTxt of attrNameTxtList;let j=index">
+                    <option [ngValue]="attrNameTxtList[j]">
+                      {{attrNameTxt}}</option>
+                  </ng-container>
+                </select>
+              </td>
+              <td>
+                <ng-container *ngIf="attrValueList!=null && attrValueList.length>0 ">
+                  <span>{{attrValueList[t.selectedIndex]}}</span>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 p-2">
+      <div class="">
+        <input type="button" value="Cancel" (click)="closeWindow()" class="btn btn-sm btn-outline-primary" />
+        <input type="button" value="Execute" (click)="executeAction()" 
+          class="btn btn-sm btn-primary float-md-right" [disabled]="!isFormValid || isBtnExecuteClicked || actionNameCdeSelected<1" />
+      </div>
+    </div>
+
+  </div>
+  <div class="row" *ngIf="executeStatusMessage">
+    <div class="col-md-12 p-0 text-center">
+      <div class="">
+        <span class="font-12 text-danger">{{executeStatusMessage}}</span>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,1105 @@
+{
+  "environment": "local",
+  "documentTemplates": [
+    {
+      "profile": "sample_internet_bill_bsnl",
+      "enabled": true,
+      "ruleDefinitions": [
+        {
+          "named_rule_def_id": "bid-document-type"
+        },
+        {
+          "business_attribute_name": "Invoice Number",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "invoicenum"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Account Number",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "accountno"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_cus_account_no",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Vendor Name",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "vendorname"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Tariff Plan",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "tariffplan"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "named_rule_def_id": "bid-document-receive-date"
+        },
+        {
+          "named_rule_def_id": "bid-document-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-work-folder-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-batch-id"
+        },
+        {
+          "named_rule_def_id": "bid-category"
+        },
+        {
+          "named_rule_def_id": "bid-document-name"
+        },
+        {
+          "named_rule_def_id": "bid-document-metadata"
+        }
+      ],
+      "docwbCaseDefinition": {
+        "rule_name": "rule_sys_case_definition",
+        "default": {
+          "is_primary_document": null,
+          "related_case_num": null,
+          "tenant_id": null,
+          "doc_type_cde": null,
+          "add_business_attribute_annotation": true,
+          "assign_user_login_id_to_queue": [
+            "docwbagent"
+          ],
+          "assign_case_to_user_login_id": "docwbagent",
+          "update_case_to_for_your_review": false,
+          "update_case_to_closed": true,
+          "audit_data": [
+            {
+              "activity": "AutoDocExtraction",
+              "value": "SUCCESS"
+            }
+          ],
+          "doc_queue_name": "[System]-Default",
+          "doc_queue_name_cde": 0,
+          "attachment_file_path": ""
+        }
+      }
+    },
+    {
+      "profile": "sample_internet_bill_airtel",
+      "enabled": true,
+      "ruleDefinitions": [
+        {
+          "named_rule_def_id": "bid-document-type"
+        },
+        {
+          "business_attribute_name": "Statement Period",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "statementperiod"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Amount Payable::list",
+          "enabled": true,
+          "docwb_attribute_name_cde": 2003,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "amountpayable"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Amount Payable",
+          "enabled": true,
+          "docwb_attribute_name_cde": 1003,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "amountpayable"
+          ],
+          "rule_names": [
+            "rule_sys_list_first_item"
+          ]
+        },
+        {
+          "named_rule_def_id": "bid-document-receive-date"
+        },
+        {
+          "named_rule_def_id": "bid-document-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-work-folder-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-batch-id"
+        },
+        {
+          "named_rule_def_id": "bid-category"
+        },
+        {
+          "named_rule_def_id": "bid-document-name"
+        },
+        {
+          "named_rule_def_id": "bid-document-metadata"
+        }
+      ],
+      "docwbCaseDefinition": {
+        "rule_name": "rule_sys_case_definition",
+        "default": {
+          "is_primary_document": null,
+          "related_case_num": null,
+          "tenant_id": null,
+          "doc_type_cde": null,
+          "add_business_attribute_annotation": true,
+          "assign_user_login_id_to_queue": [
+            "docwbagent"
+          ],
+          "assign_case_to_user_login_id": "docwbagent",
+          "update_case_to_for_your_review": false,
+          "doc_queue_name": "Customer Care (Test)",
+          "doc_queue_name_cde": 0,
+          "attachment_file_path": ""
+        }
+      }
+    },
+    {
+      "profile": "sample_infosys_annual_report",
+      "enabled": true,
+      "ruleDefinitions": [
+        {
+          "named_rule_def_id": "bid-document-type"
+        },
+        {
+          "business_attribute_name": "Revenue in crore",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "revenueincrore"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Revenue Growth",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "revenuegrowth"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Operating Margin",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "operatingmargin"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Free Cashflow in CR",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "freecashflowincr"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "named_rule_def_id": "bid-document-receive-date"
+        },
+        {
+          "named_rule_def_id": "bid-document-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-work-folder-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-batch-id"
+        },
+        {
+          "named_rule_def_id": "bid-category"
+        },
+        {
+          "named_rule_def_id": "bid-document-name"
+        },
+        {
+          "named_rule_def_id": "bid-document-metadata"
+        }
+      ],
+      "docwbCaseDefinition": {
+        "rule_name": "rule_sys_case_definition",
+        "default": {
+          "is_primary_document": null,
+          "related_case_num": null,
+          "tenant_id": null,
+          "doc_type_cde": null,
+          "add_business_attribute_annotation": true,
+          "assign_user_login_id_to_queue": [
+            "docwbagent"
+          ],
+          "assign_case_to_user_login_id": "docwbagent",
+          "update_case_to_for_your_review": false,
+          "doc_queue_name": "[System]-Default",
+          "doc_queue_name_cde": 0,
+          "attachment_file_path": ""
+        }
+      }
+    },
+    {
+      "profile": "sys_email",
+      "enabled": true,
+      "ruleDefinitions": [
+        {
+          "named_rule_def_id": "bid-document-type"
+        },
+        {
+          "business_attribute_name": "Email From",
+          "enabled": true,
+          "docwb_attribute_name_cde": 1,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 1,
+          "raw_attribute_names": [
+            "email_from"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Email From Id",
+          "enabled": true,
+          "docwb_attribute_name_cde": 20,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 1,
+          "raw_attribute_names": [
+            "email_from_id"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Email To",
+          "enabled": true,
+          "docwb_attribute_name_cde": 4,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 1,
+          "raw_attribute_names": [
+            "email_to"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Email To Id",
+          "enabled": true,
+          "docwb_attribute_name_cde": 5,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 1,
+          "raw_attribute_names": [
+            "email_to_id"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Email Subject",
+          "enabled": true,
+          "docwb_attribute_name_cde": 3,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 1,
+          "raw_attribute_names": [
+            "email_subject"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Email Receive Date",
+          "enabled": true,
+          "docwb_attribute_name_cde": 2,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 1,
+          "raw_attribute_names": [
+            "email_received_date"
+          ],
+          "rule_names": [
+            "rule_sys_email_receive_date"
+          ]
+        },
+        {
+          "business_attribute_name": "Reference Number",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "email_body_refno"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "named_rule_def_id": "bid-document-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-work-folder-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-batch-id"
+        },
+        {
+          "named_rule_def_id": "bid-category"
+        },
+        {
+          "named_rule_def_id": "bid-document-name"
+        }
+      ],
+      "docwbCaseDefinition": {
+        "rule_name": "rule_sys_case_definition",
+        "default": {
+          "is_primary_document": null,
+          "related_case_num": null,
+          "tenant_id": null,
+          "doc_type_cde": null,
+          "add_business_attribute_annotation": true,
+          "assign_user_login_id_to_queue": [
+            "docwbagent"
+          ],
+          "assign_case_to_user_login_id": "docwbagent",
+          "update_case_to_for_your_review": false,
+          "doc_queue_name": "Customer Care (Test)",
+          "doc_queue_name_cde": 0,
+          "attachment_file_path": ""
+        }
+      }
+    },
+    {
+      "profile": "sys_none",
+      "enabled": true,
+      "ruleDefinitions": [
+        {
+          "named_rule_def_id": "bid-document-type"
+        },
+        {
+          "named_rule_def_id": "bid-document-receive-date"
+        },
+        {
+          "named_rule_def_id": "bid-document-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-work-folder-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-batch-id"
+        },
+        {
+          "named_rule_def_id": "bid-category"
+        },
+        {
+          "named_rule_def_id": "bid-document-name"
+        }
+      ],
+      "docwbCaseDefinition": {
+        "rule_name": "rule_sys_case_definition",
+        "default": {
+          "is_primary_document": null,
+          "related_case_num": null,
+          "tenant_id": null,
+          "doc_type_cde": null,
+          "add_business_attribute_annotation": true,
+          "assign_user_login_id_to_queue": [
+            "docwbagent"
+          ],
+          "assign_case_to_user_login_id": "docwbagent",
+          "update_case_to_for_your_review": false,
+          "doc_queue_name": "Customer Care (Test)",
+          "doc_queue_name_cde": 0,
+          "attachment_file_path": ""
+        }
+      }
+    },
+    {
+      "profile": "cus_loan_note",
+      "enabled": false,
+      "ruleDefinitions": [
+        {
+          "named_rule_def_id": "bid-document-type"
+        },
+        {
+          "business_attribute_name": "Loan Amount",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "loan_amount"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Interest Rate",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "interest_rate"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Due Date",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "due_date"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Company Name",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "company_name"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "named_rule_def_id": "bid-document-receive-date"
+        },
+        {
+          "named_rule_def_id": "bid-document-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-work-folder-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-batch-id"
+        },
+        {
+          "named_rule_def_id": "bid-category"
+        },
+        {
+          "named_rule_def_id": "bid-document-name"
+        },
+        {
+          "named_rule_def_id": "bid-document-metadata"
+        }
+      ],
+      "docwbCaseDefinition": {
+        "rule_name": "rule_sys_case_definition",
+        "default": {
+          "is_primary_document": null,
+          "related_case_num": null,
+          "tenant_id": null,
+          "doc_type_cde": null,
+          "add_business_attribute_annotation": true,
+          "assign_user_login_id_to_queue": [
+            "docwbagent"
+          ],
+          "assign_case_to_user_login_id": "docwbagent",
+          "update_case_to_for_your_review": false,
+          "doc_queue_name": "Customer Care (Test)",
+          "doc_queue_name_cde": 0,
+          "attachment_file_path": ""
+        }
+      }
+    },
+    {
+      "profile": "sample_infosys_sow",
+      "enabled": true,
+      "ruleDefinitions": [
+        {
+          "named_rule_def_id": "bid-document-type"
+        },
+        {
+          "business_attribute_name": "Project Name",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "project_name"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Start Date",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "project_start_date"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "End Date",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "project_end_date"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Location",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "project_location"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Acceptance Date",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "project_sow_acceptance_date"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "SOW Dates",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "project_sow_dates"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "named_rule_def_id": "bid-document-receive-date"
+        },
+        {
+          "named_rule_def_id": "bid-document-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-work-folder-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-batch-id"
+        },
+        {
+          "named_rule_def_id": "bid-category"
+        },
+        {
+          "named_rule_def_id": "bid-document-name"
+        },
+        {
+          "named_rule_def_id": "bid-document-metadata"
+        }
+      ],
+      "docwbCaseDefinition": {
+        "rule_name": "rule_sys_case_definition",
+        "default": {
+          "is_primary_document": null,
+          "related_case_num": null,
+          "tenant_id": null,
+          "doc_type_cde": null,
+          "add_business_attribute_annotation": true,
+          "assign_user_login_id_to_queue": [
+            "docwbagent"
+          ],
+          "assign_case_to_user_login_id": "docwbagent",
+          "update_case_to_for_your_review": false,
+          "update_case_to_closed": false,
+          "audit_data": [
+            {
+              "activity": "AutoDocExtraction",
+              "value": "SUCCESS"
+            }
+          ],
+          "doc_queue_name": "[System]-Default",
+          "doc_queue_name_cde": 0,
+          "attachment_file_path": ""
+        }
+      }
+    },
+    {
+      "profile": "sample_annual_report",
+      "enabled": true,
+      "ruleDefinitions": [
+        {
+          "named_rule_def_id": "bid-document-type"
+        },
+        {
+          "business_attribute_name": "Women Employees",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "women_emp_pct"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Financial Year",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "financial_year"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Revenue Amount",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "revenue_amt"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Infosys Business Rank",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "business_rank"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "named_rule_def_id": "bid-document-receive-date"
+        },
+        {
+          "named_rule_def_id": "bid-document-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-work-folder-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-batch-id"
+        },
+        {
+          "named_rule_def_id": "bid-category"
+        },
+        {
+          "named_rule_def_id": "bid-document-name"
+        },
+        {
+          "named_rule_def_id": "bid-document-metadata"
+        }
+      ],
+      "docwbCaseDefinition": {
+        "rule_name": "rule_sys_case_definition",
+        "default": {
+          "is_primary_document": null,
+          "related_case_num": null,
+          "tenant_id": null,
+          "doc_type_cde": null,
+          "add_business_attribute_annotation": true,
+          "assign_user_login_id_to_queue": [
+            "docwbagent"
+          ],
+          "assign_case_to_user_login_id": "docwbagent",
+          "update_case_to_for_your_review": false,
+          "update_case_to_closed": false,
+          "audit_data": [
+            {
+              "activity": "AutoDocExtraction",
+              "value": "SUCCESS"
+            }
+          ],
+          "doc_queue_name": "[System]-Default",
+          "doc_queue_name_cde": 0,
+          "attachment_file_path": ""
+        }
+      }
+    },
+    {
+      "profile": "sample_po",
+      "enabled": true,
+      "ruleDefinitions": [
+        {
+          "named_rule_def_id": "bid-document-type"
+        },
+        {
+          "business_attribute_name": "Deliver To",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "deliver_to"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "PO Number",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "po_no"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "business_attribute_name": "Material Code",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "material_code"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+		{
+          "business_attribute_name": "Material Description",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "material_des"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+		{
+          "business_attribute_name": "Quantity",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "qty"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+		{
+          "business_attribute_name": "Unit Cost",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "unit_cost"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+		{
+          "business_attribute_name": "Total Cost",
+          "enabled": true,
+          "docwb_attribute_name_cde": 44,
+          "docwb_attribute_type_cde": 2,
+          "docwb_extract_type_cde": 2,
+          "raw_attribute_names": [
+            "total_cost"
+          ],
+          "rule_names": [
+            "rule_sys_deduplicate_values",
+            "rule_sys_consolidate_values"
+          ]
+        },
+        {
+          "named_rule_def_id": "bid-document-receive-date"
+        },
+        {
+          "named_rule_def_id": "bid-document-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-work-folder-id"
+        },
+        {
+          "named_rule_def_id": "bid-doc-batch-id"
+        },
+        {
+          "named_rule_def_id": "bid-category"
+        },
+        {
+          "named_rule_def_id": "bid-document-name"
+        },
+        {
+          "named_rule_def_id": "bid-document-metadata"
+        }
+      ],
+      "docwbCaseDefinition": {
+        "rule_name": "rule_sys_case_definition",
+        "default": {
+          "is_primary_document": null,
+          "related_case_num": null,
+          "tenant_id": null,
+          "doc_type_cde": null,
+          "add_business_attribute_annotation": true,
+          "assign_user_login_id_to_queue": [
+            "docwbagent"
+          ],
+          "assign_case_to_user_login_id": "docwbagent",
+          "update_case_to_for_your_review": false,
+          "update_case_to_closed": false,
+          "audit_data": [
+            {
+              "activity": "AutoDocExtraction",
+              "value": "SUCCESS"
+            }
+          ],
+          "doc_queue_name": "[System]-Default",
+          "doc_queue_name_cde": 0,
+          "attachment_file_path": ""
+        }
+      }
+    }
+  ],
+  "namedRuleDefinitions": [
+    {
+      "named_rule_def_id": "bid-document-type",
+      "business_attribute_name": "Document Type",
+      "enabled": true,
+      "docwb_attribute_name_cde": 31,
+      "docwb_attribute_type_cde": 2,
+      "docwb_extract_type_cde": 2,
+      "raw_attribute_names": [
+        "category"
+      ],
+      "rule_names": [
+        "rule_sys_deduplicate_values",
+        "rule_sys_consolidate_values"
+      ]
+    },
+    {
+      "named_rule_def_id": "bid-document-receive-date",
+      "business_attribute_name": "Document Receive Date",
+      "enabled": true,
+      "docwb_attribute_name_cde": 2,
+      "docwb_attribute_type_cde": 2,
+      "docwb_extract_type_cde": 1,
+      "raw_attribute_names": [],
+      "rule_names": [
+        "rule_sys_document_receive_date"
+      ]
+    },
+    {
+      "named_rule_def_id": "bid-document-id",
+      "business_attribute_name": "Document Id",
+      "enabled": true,
+      "docwb_attribute_name_cde": 11,
+      "docwb_attribute_type_cde": 2,
+      "docwb_extract_type_cde": 1,
+      "raw_attribute_names": [],
+      "rule_names": [
+        "rule_sys_document_id"
+      ]
+    },
+    {
+      "named_rule_def_id": "bid-doc-work-folder-id",
+      "business_attribute_name": "Document Work Folder Id - Attachment",
+      "enabled": true,
+      "docwb_attribute_name_cde": 12,
+      "docwb_attribute_type_cde": 2,
+      "docwb_extract_type_cde": 1,
+      "raw_attribute_names": [],
+      "rule_names": [
+        "rule_sys_document_work_folder_id"
+      ]
+    },
+    {
+      "named_rule_def_id": "bid-doc-batch-id",
+      "business_attribute_name": "Document Batch Id - Attachment",
+      "enabled": true,
+      "docwb_attribute_name_cde": 13,
+      "docwb_attribute_type_cde": 2,
+      "docwb_extract_type_cde": 1,
+      "raw_attribute_names": [],
+      "rule_names": [
+        "rule_sys_document_batch_id"
+      ]
+    },
+    {
+      "named_rule_def_id": "bid-category",
+      "business_attribute_name": "Category",
+      "enabled": true,
+      "docwb_attribute_name_cde": 19,
+      "docwb_attribute_type_cde": 1,
+      "docwb_extract_type_cde": 2,
+      "raw_attribute_names": [
+        "category"
+      ],
+      "rule_names": [
+        "rule_sys_deduplicate_values",
+        "rule_sys_consolidate_values"
+      ]
+    },
+    {
+      "named_rule_def_id": "bid-document-name",
+      "business_attribute_name": "Document Name",
+      "enabled": true,
+      "docwb_attribute_name_cde": 30,
+      "docwb_attribute_type_cde": 2,
+      "docwb_extract_type_cde": 1,
+      "raw_attribute_names": [],
+      "rule_names": [
+        "rule_sys_document_name"
+      ]
+    },
+    {
+      "named_rule_def_id": "bid-document-metadata",
+      "business_attribute_name": "Document Metadata - Attachment",
+      "enabled": true,
+      "docwb_attribute_name_cde": 33,
+      "docwb_attribute_type_cde": 2,
+      "docwb_extract_type_cde": 1,
+      "raw_attribute_names": [],
+      "rule_names": [
+        "rule_sys_document_metadata"
+      ]
+    }
+  ]
+}

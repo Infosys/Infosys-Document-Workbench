@@ -1,0 +1,1205 @@
+{
+	"accessLevelCdeRelTemp": {
+		"hidden": 0,
+		"disabled": 1,
+		"na": 2,
+		"enabled": 3
+	},
+	"roleTypeCodeRelTemp": {
+		"ADMIN": 101,
+		"AGENT": 102,
+		"MANAGER": 103,
+		"GUEST": 104,
+		"SERVICE": 105
+	},
+	"appRoleBasedAccessControlMapping": [
+		{
+			"module": "action",
+			"verb": "create",
+			"featureId": "action-create",
+			"featureDescription": "Create new action",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "action",
+			"verb": "delete",
+			"featureId": "action-delete",
+			"featureDescription": "Delete action",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "action",
+			"verb": "edit",
+			"featureId": "action-edit",
+			"featureDescription": "Edit action details",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "action",
+			"verb": "list",
+			"featureId": "action-list",
+			"featureDescription": "View action list",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "action",
+			"verb": "view",
+			"featureId": "action-view",
+			"featureDescription": "View action details",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "action_data_entry_completed",
+			"verb": "create",
+			"featureId": "action_data_entry_completed-create",
+			"featureDescription": "Create new special action - data entry completed",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 1
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "action_data_entry_approved",
+			"verb": "create",
+			"featureId": "action_data_entry_approved-create",
+			"featureDescription": "Create new special action - data entry approved",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 1
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "action_data_entry_rejected",
+			"verb": "create",
+			"featureId": "action_data_entry_rejected-create",
+			"featureDescription": "Create new special action - data entry rejected",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 1
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "attachment",
+			"verb": "create",
+			"featureId": "attachment-create",
+			"featureDescription": "Create attachment",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "attachment",
+			"verb": "view",
+			"featureId": "attachment-view",
+			"featureDescription": "View attachment",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "attribute",
+			"verb": "create",
+			"featureId": "attribute-create",
+			"featureDescription": "Create attribute",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "attribute",
+			"verb": "delete",
+			"featureId": "attribute-delete",
+			"featureDescription": "Delete attribute",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "attribute",
+			"verb": "edit",
+			"featureId": "attribute-edit",
+			"featureDescription": "Edit attribute",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "attribute",
+			"verb": "list",
+			"featureId": "attribute-list",
+			"featureDescription": "View attributes across cases",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "attribute",
+			"verb": "view",
+			"featureId": "attribute-view",
+			"featureDescription": "View attribute",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "attribute_annotation",
+			"verb": "create",
+			"featureId": "attribute_annotation-create",
+			"featureDescription": "LHS Create attribute annotation on case",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "attribute_annotation",
+			"verb": "delete",
+			"featureId": "attribute_annotation-delete",
+			"featureDescription": "LHS Delete attribute annotation on case",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "attribute_annotation",
+			"verb": "view",
+			"featureId": "attribute_annotation-view",
+			"featureDescription": "LHS View attribute annotaion on case",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "attribute_source",
+			"verb": "view",
+			"featureId": "attribute_source-view",
+			"featureDescription": "View attribute source",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "attribute_extractionpath",
+			"verb": "view",
+			"featureId": "attribute_extractionpath-view",
+			"featureDescription": "View attribute extraction path",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "audit_case",
+			"verb": "create",
+			"featureId": "audit_case-create",
+			"featureDescription": "Add case history",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "audit_case",
+			"verb": "view",
+			"featureId": "audit_case-view",
+			"featureDescription": "View case history",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "audit_user",
+			"verb": "view",
+			"featureId": "audit_user-view",
+			"featureDescription": "View user history",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "audit_rbac",
+			"verb": "view",
+			"featureId": "audit_rbac-view",
+			"featureDescription": "View app variable - RBAC history",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "case-user",
+			"verb": "create",
+			"featureId": "case-user-create",
+			"featureDescription": "Assign case to self",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "case-user",
+			"verb": "edit",
+			"featureId": "case-user-edit",
+			"featureDescription": "Assign case to someone else",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "case-user",
+			"verb": "allow",
+			"featureId": "case-user-allow",
+			"featureDescription": "Required for a user to be eligible for being a case owner",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "case-user",
+			"verb": "view",
+			"featureId": "case-user-view",
+			"featureDescription": "Get document user list",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "case_review-user",
+			"verb": "allow",
+			"featureId": "case_review-user-allow",
+			"featureDescription": "Required for a user to be eligible for being a case reviewer",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "close_case",
+			"verb": "edit",
+			"featureId": "close_case-edit",
+			"featureDescription": "Close case",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "case",
+			"verb": "create",
+			"featureId": "case-create",
+			"featureDescription": "Create case",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "case",
+			"verb": "edit",
+			"featureId": "case-edit",
+			"featureDescription": "Edit case",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "case",
+			"verb": "list",
+			"featureId": "case-list",
+			"featureDescription": "View case list",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "case",
+			"verb": "delete",
+			"featureId": "case-delete",
+			"featureDescription": "Delete case",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "case_review-user",
+			"verb": "create",
+			"featureId": "case_review-user-create",
+			"featureDescription": "Assign (unassigned) case (to anyone) for review",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "case_review-user",
+			"verb": "edit",
+			"featureId": "case_review-user-edit",
+			"featureDescription": "Assign (assigned) case to someone else for review",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "core",
+			"verb": "edit",
+			"featureId": "core-edit",
+			"featureDescription": "Mandatory features",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "core",
+			"verb": "view",
+			"featureId": "core-view",
+			"featureDescription": "Mandatory features",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "dashboard_case_all",
+			"verb": "view",
+			"featureId": "dashboard_case_all-view",
+			"featureDescription": "View logged in user's queues total case count ",
+			"permissions": [
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "dashboard_case_team",
+			"verb": "view",
+			"featureId": "dashboard_case_team-view",
+			"featureDescription": "View logged in user's team members assigned case count",
+			"permissions": [
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "outbound_email",
+			"verb": "create",
+			"featureId": "outbound_email-create",
+			"featureDescription": "Create outbound email",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "outbound_email",
+			"verb": "delete",
+			"featureId": "outbound_email-delete",
+			"featureDescription": "Delete outbound email",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "outbound_email",
+			"verb": "edit",
+			"featureId": "outbound_email-edit",
+			"featureDescription": "Edit outbound email",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "outbound_email",
+			"verb": "list",
+			"featureId": "outbound_email-list",
+			"featureDescription": "View outbound email list",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "outbound_email",
+			"verb": "view",
+			"featureId": "outbound_email-view",
+			"featureDescription": "View outbound emails",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "queue",
+			"verb": "list",
+			"featureId": "queue-list",
+			"featureDescription": "View queue list",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "queue",
+			"verb": "create",
+			"featureId": "queue-create",
+			"featureDescription": "Create new queue",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "queue_user",
+			"verb": "view",
+			"featureId": "queue_user-view",
+			"featureDescription": "View user queue list visibility",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 104,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "queue_user",
+			"verb": "edit",
+			"featureId": "queue_user-edit",
+			"featureDescription": "Edit user queue list visibility",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 102,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "queue",
+			"verb": "edit",
+			"featureId": "queue-edit",
+			"featureDescription": "Update queue ",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "rbac",
+			"verb": "view",
+			"featureId": "rbac-view",
+			"featureDescription": "View app variable - RBAC configuration",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "rbac",
+			"verb": "edit",
+			"featureId": "rbac-edit",
+			"featureDescription": "Edit app variable - RBAC configuration",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "user",
+			"verb": "delete",
+			"featureId": "user-delete",
+			"featureDescription": "Delete user details",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "user",
+			"verb": "edit",
+			"featureId": "user-edit",
+			"featureDescription": "Edit user details",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				},
+				{
+					"roleTypeCde": 105,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "user",
+			"verb": "view",
+			"featureId": "user-view",
+			"featureDescription": "View user details",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "user",
+			"verb": "list",
+			"featureId": "user-list",
+			"featureDescription": "View user list",
+			"permissions": [
+				{
+					"roleTypeCde": 101,
+					"accessLevelCde": 3
+				}
+			]
+		},
+		{
+			"module": "user_team",
+			"verb": "list",
+			"featureId": "user_team-list",
+			"featureDescription": "View team list",
+			"permissions": [
+				{
+					"roleTypeCde": 103,
+					"accessLevelCde": 3
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,23 @@
+# ===============================================================================================================#
+# Copyright 2022 Infosys Ltd.                                                                                    #
+# Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at  #
+# http://www.apache.org/licenses/                                                                                #
+# ===============================================================================================================#
+[Unit]
+Description=Infosys Docwb Search Service (Dev)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/projadmin/workarea/docwbsln/services/infy_docwb_search_service/src
+ExecStart=/usr/bin/bash -c "source /home/projadmin/workarea/docwbsln/services/infy_docwb_search_service/.venv/bin/activate; export $(grep -v '^#' ../.env | xargs -d '\n'); python main.py"
+User=projadmin
+Group=projadmin
+Restart=always
+RestartSec=9
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=InfyDocwbSearchService
+
+[Install]
+WantedBy=multi-user.target

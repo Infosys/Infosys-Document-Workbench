@@ -1,0 +1,278 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "object",
+    "properties": {
+        "attributeExtractorApiMapping": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "executeRuleTrueCondition": {
+                        "type": "object",
+                        "properties": {
+                            "attrNameCde": {
+                                "type": "integer",
+                                "minimum": 1
+                            },
+                            "attrNameValue": {
+                                "type": "string",
+                                "minLength": 1
+                            }
+                        },
+                        "required": [
+                            "attrNameCde",
+                            "attrNameValue"
+                        ]
+                    },
+                    "api": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "request": {
+                        "type": "object",
+                        "properties": {
+                            "auth": {
+                                "type": "object",
+                                "properties": {
+                                    "authRequired": {
+                                        "type": "boolean"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "parameters": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "minLength": 1
+                                                },
+                                                "value": {
+                                                    "type": "string",
+                                                    "minLength": 1
+                                                }
+                                            },
+                                            "required": [
+                                                "name",
+                                                "value"
+                                            ]
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "authRequired",
+                                    "type",
+                                    "parameters"
+                                ]
+                            },
+                            "body": {
+                                "type": "object",
+                                "properties": {
+                                    "includeFileAttachment": {
+                                        "type": "boolean"
+                                    },
+                                    "includeParamData": {
+                                        "type": "boolean"
+                                    },
+                                    "attachmentContentData": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "contentType": {
+                                                    "type": "string",
+                                                    "minLength": 1
+                                                },
+                                                "contentID": {
+                                                    "type": "string",
+                                                    "minLength": 1
+                                                }
+                                            },
+                                            "required": [
+                                                "contentType",
+                                                "contentID"
+                                            ]
+                                        }
+                                    },
+                                    "jsonData": {
+                                        "type": "object",
+                                        "properties": {
+                                            "transactionId": {
+                                                "type": "string"
+                                            },
+                                            "parameters": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "attrNameCde": {
+                                                            "type": "integer",
+                                                            "minimum": 0
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "minLength": 1
+                                                        },
+                                                        "value": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "attrNameCde",
+                                                        "name",
+                                                        "value"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "required": [
+                                            "transactionId",
+                                            "parameters"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "includeFileAttachment",
+                                    "attachmentContentData",
+                                    "includeParamData",
+                                    "jsonData"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "auth",
+                            "body"
+                        ]
+                    },
+                    "response": {
+                        "type": "object",
+                        "properties": {
+                            "mapping": {
+                                "type": "object",
+                                "properties": {
+                                    "attributes": {
+                                        "type": "array",
+                                        "items": {
+                                            "anyOf": [
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "attrNameCde": {
+                                                            "type": "integer",
+                                                            "minimum": 1
+                                                        },
+                                                        "tableName": {
+                                                            "type": "string",
+                                                            "minLength": 1
+                                                        },
+                                                        "attributes": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "resColName": {
+                                                                        "type": "string",
+                                                                        "minLength": 1
+                                                                    },
+                                                                    "attrNameTxt": {
+                                                                        "type": "string",
+                                                                        "minLength": 1
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "resColName",
+                                                                    "attrNameTxt"
+                                                                ]
+                                                            }
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "attrNameCde",
+                                                        "tableName",
+                                                        "attributes"
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "attrNameCde": {
+                                                            "type": "integer",
+                                                            "minimum": 1
+                                                        },
+                                                        "resAttrName": {
+                                                            "type": "string",
+                                                            "minLength": 1
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "attrNameCde",
+                                                        "resAttrName"
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "attrNameCde": {
+                                                            "type": "integer",
+                                                            "minimum": 1
+                                                        },
+                                                        "groupName": {
+                                                            "type": "string"
+                                                        },
+                                                        "attributes": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "resAttrName": {
+                                                                        "type": "string",
+                                                                        "minLength": 1
+                                                                    },
+                                                                    "attrNameTxt": {
+                                                                        "type": "string",
+                                                                        "minLength": 1
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "resAttrName",
+                                                                    "attrNameTxt"
+                                                                ]
+                                                            }
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "attrNameCde",
+                                                        "groupName",
+                                                        "attributes"
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "attributes"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "mapping"
+                        ]
+                    }
+                },
+                "required": [
+                    "executeRuleTrueCondition",
+                    "api",
+                    "request",
+                    "response"
+                ]
+            },
+            "minItems": 1
+        }
+    },
+    "required": [
+        "attributeExtractorApiMapping"
+    ]
+}

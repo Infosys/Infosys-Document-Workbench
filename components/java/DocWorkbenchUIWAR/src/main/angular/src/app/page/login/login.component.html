@@ -1,0 +1,65 @@
+<div class='left-box'>
+  <div class="left-header">
+    <p style="font-weight: bold;">{{title}}</p>
+  </div>
+  
+  <!--01/19/2020 - .
+    Commenting below user registration option as LDAP auth implemented to application. -->
+  <!-- <div style='padding-left: 25px; padding-top: 10px;'>
+    <h1>{{title}}</h1>
+  </div>
+  <div class='padding-box'>
+    <br />
+    <br />
+    <br />
+    <br />
+    <p>Enter your details to</p>
+    <p>create an Account</p>
+    <p>
+      <a href='{{registrationUrl}}' class='button blue'  >Sign Up</a>
+    </p>
+  </div> -->
+</div>
+<div class="right-box">
+  <div class="padding-box padding-center" id="login-page-form">
+    <p style="color: #4c7ebb; font-weight: bold;">WELCOME</p>
+    <p style="color: #4c7ebb; font-weight: normal;">To login please use your company User ID only without @*.com</p>
+    <form name='f' class="font-16" (ngSubmit)="login()" method="post">
+      <div class="section " >
+        <label> User ID </label>
+        <div style="text-align: center;">
+          <input class="input" placeholder=" User ID " autocomplete="off" type="text" required name="username"
+            [(ngModel)]="model.username">
+        </div>
+      </div>
+      <div class="section" >
+        <label> Password </label>
+        <div style="text-align: center;">
+          <input class="input" placeholder=" Password " autocomplete="off" type="password" required name="password"
+            [(ngModel)]="model.passwrd">
+        </div>
+      </div>
+      <!-- <div class="section ">
+        <label> TenantId </label>
+        <div style="text-align: center;">
+          <input class="input" placeholder="Tenant Id" autocomplete="off" type="text" required name="tenantId"
+            [(ngModel)]="model.tenantId">
+        </div>
+      </div> -->
+      <div class="section">
+        <div style="text-align: center;">
+          <input type="submit" class="button" value="LOGIN" >
+        </div>
+      </div>
+      <input type="hidden" name="myText" id="myText">
+    </form>
+    <!-- <p style="padding-top:20px;">
+                          <a href="#" class="link"> Forgot Password ? </a>
+                      </p> -->
+
+    <p *ngIf="model.errorMessage"
+      style="color: red; font-size: 20px; text-transform: unset; text-align: center; font-weight: normal;">
+      Error Message : {{model.errorMessage}}
+    </p>
+  </div>
+</div>

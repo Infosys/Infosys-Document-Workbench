@@ -1,0 +1,567 @@
+{
+	"appFeatureToApiMapping": {
+		"about": {
+			"get": [
+				{
+					"api": "/api/v1/about",
+					"featureIds": [
+						"core-view"
+					]
+				}
+			]
+		},
+		"action": {
+			"get": [
+				{
+					"api": "/api/v1/action",
+					"featureIds": [
+						"action-list",
+						"action-view"
+					]
+				},
+				{
+					"api": "/api/v1/action/mapping",
+					"featureIds": [
+						"action-view"
+					]
+				},
+				{
+					"api": "/api/v1/action/recommendation",
+					"featureIds": [
+						"action-view"
+					]
+				},
+				{
+					"api": "/api/v1/action/param/attr/recommendation",
+					"featureIds": [
+						"action-view"
+					]
+				}
+			],
+			"post": [
+				{
+					"api": "/api/v1/action",
+					"featureIds": [
+						"action-create",
+						"action_data_entry_completed-create",
+						"action_data_entry_approved-create",
+						"action_data_entry_rejected-create"
+					]
+				}
+			],
+			"put": [
+				{
+					"api": "/api/v1/action",
+					"featureIds": [
+						"action-edit"
+					]
+				}
+			],
+			"delete": [
+				{
+					"api": "/api/v1/action/.*",
+					"featureIds": [
+						"action-delete"
+					]
+				}
+			]
+		},
+		"attachment": {
+			"get": [
+				{
+					"api": "/api/v1/attachment/doc",
+					"featureIds": [
+						"attachment-view"
+					]
+				},
+				{
+					"api": "/api/v1/attachment/doc/file",
+					"featureIds": [
+						"attachment-view"
+					]
+				},
+				{
+					"api": "/api/v1/attachment/doc/filepath",
+					"featureIds": [
+						"attachment-view"
+					]
+				},
+				{
+					"api": "/api/v1/attachment/email",
+					"featureIds": [
+						"outbound_email-view"
+					]
+				},
+				{
+					"api": "/api/v1/attachment/email/file",
+					"featureIds": [
+						"outbound_email-view"
+					]
+				}
+			],
+			"post": [
+				{
+					"api": "/api/v1/attachment/doc",
+					"featureIds": [
+						"attachment-create"
+					]
+				},
+				{
+					"api": "/api/v1/attachment/doc/group",
+					"featureIds": [
+						"attachment-create"
+					]
+				},
+				{
+					"api": "/api/v1/attachment/attachment",
+					"featureIds": [
+						"attachment-create"
+					]
+				}
+			]
+		},
+		"attribute": {
+			"get": [
+				{
+					"api": "/api/v1/attribute/attachment",
+					"featureIds": [
+						"attribute-view","attribute_source-view","attribute_annotation-view", "attribute_extractionpath-view"
+					]
+				},
+				{
+					"api": "/api/v1/attribute/values",
+					"featureIds": [
+						"attribute-view"
+					]
+				},
+				{
+					"api": "/api/v1/attribute/notification",
+					"featureIds": [
+						"attribute-view"
+					]
+				},
+				{
+					"api": "/api/v1/attribute/export",
+					"featureIds": [
+						"attribute-view"
+					]
+				},
+				{
+					"api": "/api/v1/attribute/document",
+					"featureIds": [
+						"attribute-view"
+					]
+				},
+				{
+					"api": "/api/v1/attribute/sortkey",
+					"featureIds": [
+						"attribute-view"
+					]
+				},
+				{
+					"api": "/api/v1/attribute/attribute/mapping",
+					"featureIds": [
+						"attribute-view"
+					]
+				},
+				{
+					"api": "/api/v1/attribute/names",
+					"featureIds": [
+						"attribute-view"
+					]
+				}
+			],
+			"post": [
+				{
+					"api": "/api/v1/attribute/edit",
+					"featureIds": [
+						"attribute-edit"
+					]
+				},
+				{
+					"api": "/api/v1/attribute/delete",
+					"featureIds": [
+						"attribute-delete","attribute_annotation-delete"
+					]
+				},
+				{
+					"api": "/api/v1/attribute/add",
+					"featureIds": [
+						"attribute-create","attribute_annotation-create"
+					]
+				},
+				{
+					"api": "/api/v1/attribute/source",
+					"featureIds": [
+						"attribute-create"
+					]
+				},
+				{
+					"api": "/api/v1/annotation/add",
+					"featureIds": [
+						"attribute-create"
+					]
+				},
+				{
+					"api": "/api/v1/annotation/export/iob",
+					"featureIds": [
+						"attribute-list"
+					]
+				},
+				{
+					"api": "/api/v1/multiattribute/manage",
+					"featureIds": [
+						"attribute-create",
+						"attribute-edit",
+						"attribute-delete"
+					]
+				}
+			]
+		},
+		"audit": {
+			"get": [
+				{
+					"api": "/api/v1/audit/document",
+					"featureIds": [
+						"audit_case-view"
+					]
+				},
+				{
+					"api": "/api/v1/audit/user",
+					"featureIds": [
+						"audit_user-view"
+					]
+				},
+				{
+					"api": "/api/v1/audit/variable",
+					"featureIds": [
+						"audit_rbac-view"
+					]
+				},
+				{
+					"api": "/api/v1/audit/document/currentuser",
+					"featureIds": [
+						"audit_case-view"
+					]
+				}
+			],
+			"post": [
+				{
+					"api": "/api/v1/audit/document",
+					"featureIds": [
+						"audit_case-create"
+					]
+				}
+			]
+		},
+		"auth": {
+			"post": [
+				{
+					"api": "/api/v1/auth",
+					"featureIds": [
+						"core-view"
+					]
+				}
+			]
+		},
+		"document": {
+			"get": [
+				{
+					"api": "/api/v1/document",
+					"featureIds": [
+						"case-list"
+					]
+				},
+				{
+					"api": "/api/v1/document/attribute",
+					"featureIds": [
+						"case-list"
+					]
+				},
+				{
+					"api": "/api/v1/document/user",
+					"featureIds": [
+						"case-user-view"
+					]
+				}
+			],
+			"post": [
+				{
+					"api": "/api/v1/document",
+					"featureIds": [
+						"case-create"
+					]
+				},
+				{
+					"api": "/api/v1/document/user",
+					"featureIds": [
+						"case-user-create",
+						"case-user-edit"
+					]
+				},
+				{
+					"api": "/api/v1/document/case",
+					"featureIds": [
+						"close_case-edit"
+					]
+				},
+				{
+					"api": "/api/v1/document/eventType",
+					"featureIds": [
+						"case-edit"
+					]
+				},
+				{
+					"api": "/api/v1/document/taskstatus",
+					"featureIds": [
+						"case-edit"
+					]
+				}
+			],
+			"delete": [
+				{
+					"api": "/api/v1/document/.*",
+					"featureIds": [
+						"case-delete"
+					]
+				}
+			]
+		},
+		"email": {
+			"get": [
+				{
+					"api": "/api/v1/email",
+					"featureIds": [
+						"outbound_email-view"
+					]
+				},
+				{
+					"api": "/api/v1/email/draft",
+					"featureIds": [
+						"outbound_email-view"
+					]
+				},
+				{
+					"api": "/api/v1/email/taskstatus",
+					"featureIds": [
+						"outbound_email-list"
+					]
+				}
+			],
+			"put": [
+				{
+					"api": "/api/v1/email",
+					"featureIds": [
+						"outbound_email-edit"
+					]
+				}
+			],
+			"post": [
+				{
+					"api": "/api/v1/email",
+					"featureIds": [
+						"outbound_email-create"
+					]
+				},
+				{
+					"api": "/api/v1/email/draft",
+					"featureIds": [
+						"outbound_email-create"
+					]
+				}
+			],
+			"delete": [
+				{
+					"api": "/api/v1/email/.*",
+					"featureIds": [
+						"outbound_email-delete"
+					]
+				}
+			]
+		},
+		"queue": {
+			"get": [
+				{
+					"api": "/api/v1/queue/stats",
+					"featureIds": [
+						"queue-list"
+					]
+				},
+				{
+					"api": "/api/v1/queue",
+					"featureIds": [
+						"queue-list"
+					]
+				},
+				{
+					"api": "/api/v1/queue/users",
+					"featureIds": [
+						"case-user-edit",
+						"case_review-user-create",
+						"case_review-user-edit",
+						"case-user-allow",
+						"case_review-user-allow"
+					]
+				},
+				{
+					"api": "/api/v1/queue/currentuser",
+					"featureIds": [
+						"queue_user-view"
+					]
+				}
+			],
+			"post": [
+				{
+					"api": "/api/v1/queue",
+					"featureIds":["queue-create"] 
+				}
+			],
+			"put":[
+				{
+					"api": "/api/v1/queue/currentuser",
+					"featureIds": [
+						"queue_user-edit"
+					]
+				},
+				{
+					"api": "/api/v1/queue",
+					"featureIds": [
+						"queue-edit"
+					]
+				}
+			]
+		},
+		"variable": {
+			"get": [
+				{
+					"api": "/api/v1/variable/rbac",
+					"featureIds": [
+						"rbac-view"
+					]
+				}
+			],
+			"post": [
+				{
+					"api": "/api/v1/variable",
+					"featureIds": [
+						"rbac-edit"
+					]
+				}
+			]
+		},
+		"role": {
+			"post": [
+				{
+					"api": "/api/v1/role",
+					"featureIds": [
+						"user-edit"
+					]
+				}
+			],
+			"delete": [
+				{
+					"api": "/api/v1/role",
+					"featureIds": [
+						"user-delete"
+					]
+				}
+			]
+		},
+		"session": {
+			"get": [
+				{
+					"api": "/api/v1/session",
+					"featureIds": [
+						"core-view"
+					]
+				}
+			],
+			"put": [
+				{
+					"api": "/api/v1/session/password",
+					"featureIds": [
+						"core-edit"
+					]
+				}
+			]
+		},
+		"template": {
+			"get": [
+				{
+					"api": "/api/v1/template",
+					"featureIds": [
+						"outbound_email-view"
+					]
+				},
+				{
+					"api": "/api/v1/template/flattened",
+					"featureIds": [
+						"outbound_email-view"
+					]
+				}
+			]
+		},
+		"user": {
+			"get": [
+				{
+					"api": "/api/v1/user",
+					"featureIds": [
+						"user-list"
+					]
+				},
+				{
+					"api": "/api/v1/user/queue",
+					"featureIds": [
+						"user-view"
+					]
+				},
+				{
+					"api": "/api/v1/user/team/currentuser",
+					"featureIds": [
+						"user_team-list","dashboard_case_all-view","dashboard_case_team-view"
+					]
+				}
+			],
+			"put": [
+				{
+					"api": "/api/v1/user",
+					"featureIds": [
+						"user-edit"
+					]
+				}
+			],
+			"post": [
+				{
+					"api": "/api/v1/user/register",
+					"featureIds": [
+						"core-edit"
+					]
+				},
+				{
+					"api": "/api/v1/user/queue",
+					"featureIds": [
+						"user-edit"
+					]
+				}
+			],
+			"delete": [
+				{
+					"api": "/api/v1/user/queue/.*",
+					"featureIds": [
+						"user-edit"
+					]
+				}
+			]
+		},
+		"val": {
+			"get": [
+				{
+					"api": "/api/v1/val",
+					"featureIds": [
+						"core-view"
+					]
+				}
+			]
+		}
+	}
+}

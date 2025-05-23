@@ -1,0 +1,29 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+ {
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"**/Thumbs.db": true,
+			"**/target": true
+		},
+		"java.configuration.updateBuildConfiguration": "interactive"
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": []
+	}
+}

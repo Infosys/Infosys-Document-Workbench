@@ -1,0 +1,691 @@
+<div class="row">
+    <div class="col-md-8 font-16">
+        <!-- Extracted Data -->
+        <nav mat-tab-nav-bar>
+            <a  mat-tab-link (click)="selectTab('ExtractedData')" [active]="model.isExtractedDataTabSelected"> 
+              Extracted Data
+            </a>
+            <a  mat-tab-link (click)="selectTab('QnA')"  [active]="model.isQnATabSelected">
+              Q&A
+            </a>
+          </nav>
+    </div>
+    <div class="col-md-4 font-12 text-right pt-1">
+        <ng-container *ngIf="getFeature(bmodel.FID.ATTRIBUTE_VIEW).isVisible">
+            <ng-container *ngIf="getFeature(bmodel.FID.ATTRIBUTE_EXTRACTIONPATH_VIEW).isVisible && model.currentAttachmentId>0">
+                <a class="insights-icon urlhide-parent" title="Go to Extraction Path" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.EXTRACTION_PATH);routeToEP();"><mat-icon style="font-size: 20px;">insights</mat-icon></a>
+            </ng-container>
+            <span class="nia-reload-button" title='Refresh' (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.REFRESH);refreshComponent(true)"></span>&nbsp;&nbsp;
+            <span *ngIf="model.popupButton" class="nia-popout-button" (click)="open(extracteddata)"></span>
+            <span *ngIf="model.closeButton" class="nia-wrong-button" (click)="modalWindow()"></span>
+        </ng-container>
+    </div>
+</div>
+<div class="bg-white" [style.display]="model.extractedDataTabCssDisplay">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="p-1 font-12" [style.height.vh]="model.minheight">
+                <ng-container *ngIf="!getFeature(bmodel.FID.ATTRIBUTE_VIEW).isVisible">
+                    <div class="nia-content-not-allowed">{{bmodel.FID_ERR_MSG.NOT_ALLOWED}}</div>
+                </ng-container>
+                <ng-container *ngIf="getFeature(bmodel.FID.ATTRIBUTE_VIEW).isVisible">
+                    <div *ngIf="!model.isDataLoaded || !model.isAttachmentDataLoaded" class="loading-dots">
+                        <br />
+                        <br />
+                        <div class="loading-dots--dot"></div>
+                        <div class="loading-dots--dot"></div>
+                        <div class="loading-dots--dot"></div>
+                    </div>
+                        <div class="ed-content-text" [style.height.vh]="model.minheight-2">
+                        <table id="extracted-data-table-{{+!model.popupButton}}"
+                            *ngIf="model.isDataLoaded && model.isAttachmentDataLoaded"
+                            class="extracted-data-table table table-fixed table-hover table-sm" (scroll)="stickTableHead()">
+                            <thead class="thead">
+                                <tr>
+                                    <th sortable-column="0" sort-table-name="ED-{{+!model.popupButton}}" sort-id-col="0"
+                                        sort-level-2-header-class="attribute-header" sort-start-row=2 class="static">
+                                        <span class="nia-tags-button"></span>
+                                    </th>
+                                    <th sortable-column="1" sort-table-name="ED-{{+!model.popupButton}}"
+                                        sort-custom-col="1" [sortable-col-custom-key]=model.nonTabularSortKeyMap
+                                        sort-direction="custom" sort-level-2-header-class="attribute-header"
+                                        sort-start-row=2 class="static">
+                                        Attribute
+                                        <span *ngIf="model.isTableSorted === false" class="loading-dots">
+                                            <span class="loading-dots--dot"></span>
+                                            <span class="loading-dots--dot"></span>
+                                            <span class="loading-dots--dot"></span>
+                                        </span>
+                                    </th>
+                                    <th sortable-column="2" sort-table-name="ED-{{+!model.popupButton}}"
+                                        sort-level-2-header-class="attribute-header" sort-start-row=2 class="static">
+                                        Value
+                                    </th>
+                                    <th sortable-column="3" sort-table-name="ED-{{+!model.popupButton}}"
+                                        sort-level-2-header-class="attribute-header" sort-start-row=2
+                                        class="static text-center extracted-data-conf-column" title="Confidence">Conf.
+                                    </th>
+                                    <!-- Exceptional case-not working withniaAuthCheck hence using disabled -->
+                                    <th class="static" title="Modify/Re-Extract" style="width : 42px">
+                                        <mat-slide-toggle [(ngModel)]="model.isReExtractionAllowed"
+                                        [disabled]="!(getFeature(bmodel.FID.ATTRIBUTE_CREATE).isEnabled ||
+                                        getFeature(bmodel.FID.ATTRIBUTE_EDIT).isEnabled ||
+                                        getFeature(bmodel.FID.ATTRIBUTE_DELETE).isEnabled) ||
+                                        (!model.isCaseEditAllowed || !model.isReExtractionSliderEnabled || validateIsEDReadyToModify())"
+                                            (change)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.MOD_OR_REXTRACT);enableReExtract()">
+                                        </mat-slide-toggle>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                <!-- Email Level Attributes-->
+                                <ng-container *ngIf="!model.isDocTypeFile">
+                                    {{setSectionNum(0)}}
+                                    <tr class="attribute-header">
+                                        <td [attr.colspan]="model.headerColspan" class="urlhide-fileName"
+                                            title="Case Attributes">
+                                            Case
+                                        </td>
+                                        <td>
+                                            <div *ngIf="!model.isAttributesNotified" class="loading-dots">
+                                                <div class="loading-dots--dot"></div>
+                                                <div class="loading-dots--dot"></div>
+                                                <div class="loading-dots--dot"></div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="model.isReExtractionAllowed" class="extracted-data-icons"
+                                                style="padding-left:7px">
+                                                <input type="checkbox" value="0" [(ngModel)]="model.isEmailAttrSelected"
+                                                    (change)="onHeadRowChecboxClick()" />
+                                            </span>
+
+                                            <ng-container *ngIf="getFeature(bmodel.FID.ATTRIBUTE_CREATE).isVisible">
+                                                <span style="min-height: 18px; max-height: 18px;"
+                                                    class="nia-plus-button extracted-data-icons" title="Add"
+                                                    *ngIf="(!model.isReExtractionAllowed && ( model.isAddAllowed || model.isAddClicked))"
+                                                    niaAuthCheck [nacIsAuthorized]="getFeature(bmodel.FID.ATTRIBUTE_CREATE).isEnabled"
+                                                    [nacIsDisabled] ="!isCUDOperationAllowed()"
+                                                    (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.ADD);addModal()">
+                                                </span>
+                                            </ng-container>
+                                        </td>
+                                    </tr>
+                                    <ng-container *ngFor="let attributeData of model.attributeDataList; let i=index"
+                                        [class.active]="i === selectedRow">
+                                        <ng-container *ngIf="!isMultiAttribute(attributeData.attrNameCde)">
+                                            <ng-container [ngTemplateOutlet]="dbAttibuteTemplate"
+                                                [ngTemplateOutletContext]="{attributeData: attributeData, attributeDataList:model.attributeDataList}">
+                                            </ng-container>
+                                        </ng-container>
+                                        <ng-container *ngIf="isMultiAttribute(attributeData.attrNameCde)">
+                                            <ng-container *ngFor="let attrData of attributeData.attributes">
+                                                <ng-container [ngTemplateOutlet]="dbAttibuteTemplate"
+                                                    [ngTemplateOutletContext]="{attributeData: attrData}">
+                                                </ng-container>
+                                            </ng-container>
+                                        </ng-container>
+                                    </ng-container>
+                                    <!-- Start - Add Email level attributes -->
+                                    <ng-container *ngIf="model.isAddClicked">
+                                        <ng-container [ngTemplateOutlet]="addAttributeTemplate">
+                                        </ng-container>
+                                    </ng-container>
+                                    <!-- End - Add Email level attributes -->
+                                </ng-container>
+                                <!-- Document level attributes-->
+                                <ng-container *ngIf="model.attachmentAttrDataList !== undefined">
+                                    <ng-container *ngFor="let attachmentData of model.attachmentDataList; let i=index"
+                                        [class.active]="i === selectedRow">
+                                        <ng-container
+                                            *ngFor="let attachmentAttrData of model.attachmentAttrDataList; let j=index"
+                                            [class.active]="j === selectedRow">
+                                            <ng-container
+                                                *ngIf="attachmentAttrData['attachmentId'] === attachmentData.attachmentId">
+                                                <tr class="attribute-header">
+                                                    <ng-container *ngIf="!model.isDocTypeFile">
+                                                        {{setSectionNum(attachmentData.attachmentId)}}
+                                                        <td [attr.colspan]="model.headerColspan"
+                                                            class="urlhide-fileName"
+                                                            title="Document {{attachmentData.displayNumber}} - {{attachmentData.fileName}}">
+                                                            Document #{{attachmentData.displayNumber}} - {{attachmentData.fileName}}
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="model.isDocTypeFile">
+                                                        {{setSectionNum(attachmentData.attachmentId)}}
+                                                        <td [attr.colspan]="model.headerColspan"
+                                                            class="urlhide-fileName"
+                                                            title="Document - {{attachmentData.fileName}}">
+                                                            Document - {{attachmentData.fileName}}
+                                                        </td>
+                                                    </ng-container>
+                                                    <td>
+                                                        <div *ngIf="!model.isAttributesNotified" class="loading-dots">
+                                                            <div class="loading-dots--dot"></div>
+                                                            <div class="loading-dots--dot"></div>
+                                                            <div class="loading-dots--dot"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="model.isReExtractionAllowed"
+                                                            class="extracted-data-icons" style="padding-left:7px">
+                                                            <input type="checkbox"
+                                                                value="{{attachmentData.attachmentId}}"
+                                                                [(ngModel)]="attachmentAttrData['isAttachmentOptionChecked']"
+                                                                (change)="onHeadRowChecboxClick(attachmentData.attachmentId)" />
+                                                        </span>
+                                                        <ng-container
+                                                            *ngIf="getFeature(bmodel.FID.ATTRIBUTE_CREATE).isVisible">
+                                                            <span style="min-height: 18px; max-height: 18px;"
+                                                                class="nia-plus-button extracted-data-icons" title="Add"
+                                                                *ngIf="(!model.isReExtractionAllowed && (model.isAddAttachmentAllowed || (attachmentData.attachmentId === model.selectedAttachmentId && model.isAddAttachmentAttrClicked)))"
+                                                                niaAuthCheck [nacIsAuthorized]="getFeature(bmodel.FID.ATTRIBUTE_CREATE).isEnabled "
+                                                                [nacIsDisabled] ="!isCUDOperationAllowed()"
+                                                                (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.CANCEL);addModal(attachmentData.attachmentId)"></span>
+                                                        </ng-container>
+                                                    </td>
+                                                </tr>
+                                                <ng-container
+                                                    *ngFor="let attributeData of attachmentAttrData.attributes; let k=index"
+                                                    [class.active]="k === selectedRow">
+                                                    <ng-container *ngIf="!isMultiAttribute(attributeData.attrNameCde)">
+                                                        <ng-container [ngTemplateOutlet]="dbAttibuteTemplate"
+                                                            [ngTemplateOutletContext]="{attributeData: attributeData, attachmentId: attachmentData.attachmentId, attributeDataList:attachmentAttrData.attributes}">
+                                                        </ng-container>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="isMultiAttribute(attributeData.attrNameCde)">
+                                                        <ng-container *ngFor="let attrData of attributeData.attributes">
+                                                            <ng-container [ngTemplateOutlet]="dbAttibuteTemplate"
+                                                                [ngTemplateOutletContext]="{attributeData: attrData, attachmentId: attachmentData.attachmentId}">
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="attachmentData.attachmentId === model.selectedAttachmentId">
+                                            <!-- Start - To show annotated data -->
+                                            <ng-container
+                                                *ngIf="model.isDocTypeFile && isListHasValue(model.annotatedAttributeDataList)">
+                                                <ng-container
+                                                    *ngFor="let attributeData of model.annotatedAttributeDataList; let i=index"
+                                                    [class.active]="i === selectedRow">
+                                                    <ng-container *ngIf="isListHasValue(attributeData.attributes)">
+                                                        <ng-container *ngFor="let attrData of attributeData.attributes">
+                                                            <ng-container [ngTemplateOutlet]="annotateAttributeTemplate"
+                                                                [ngTemplateOutletContext]="{attributeData: attrData}">
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="!isListHasValue(attributeData.attributes)">
+                                                        <ng-container [ngTemplateOutlet]="annotateAttributeTemplate"
+                                                            [ngTemplateOutletContext]="{attributeData: attributeData}">
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                            <!--  End - To show annotated data -->
+                                            <!-- Start - Add Document level attributes -->
+                                            <ng-container *ngIf="model.isAddAttachmentAttrClicked">
+                                                <ng-container [ngTemplateOutlet]="addAttributeTemplate">
+                                                </ng-container>
+                                            </ng-container>
+                                        </ng-container>
+                                        <!-- End - Add Document level attributes -->
+                                    </ng-container>
+                                </ng-container>
+                                {{storeTableHeadWidth()}}
+                            </tbody>
+                        </table>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="p-1">
+                <ng-container *ngIf="getFeature(bmodel.FID.ATTRIBUTE_VIEW).isVisible">
+                    <ng-container *ngIf="getFeature(bmodel.FID.ACTION_CREATE).isVisible">
+                    <!-- <input type="button"
+                        class="btn btn-sm btn-outline-primary" value="RE-EXTRACT" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.REEXTRACT);open(reExtractData, true)"
+                        niaAuthCheck [nacIsAuthorized]="getFeature(bmodel.FID.ACTION_CREATE).isEnabled"
+                        [nacIsDisabled]="model.isBtnReExtractDisabled" /> -->
+                    </ng-container>
+                    <input type="button" class="btn btn-sm btn-outline-primary" *ngIf="model.isCancelAllowed"
+                        value="CANCEL" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.CANCEL);cancelModal()" />
+                    <input type="button" class="btn btn-sm btn-outline-primary float-md-right"
+                        [disabled]="!model.isSaveAllowed" value="SAVE" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.SAVE);saveModal()"
+                        [class.nia-cursor-not-allowed]="validateIsEDReadyToModify() || !model.isSaveAllowed" />
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+<div [style.display]="model.qNaCssDisplay">
+    <app-que-and-ans [minheight]="model.minheight" 
+    [attachmentAttrDataList]= "model.attachmentAttrWithDocIdDataList"
+    [attachmentDataList]="model.attachmentDataList"
+    [attributeDataList]="model.attributeDataList"
+    [isDocTypeFile]="model.isDocTypeFile"></app-que-and-ans>
+    <!--  [dbAttibuteTemplate]="dbAttibuteTemplate.attributeDataList"-->
+</div>  
+<ng-template #reExtractData let-c="close" let-d="dismiss">
+    <div>
+        <div class="col-md-12 nia-modal p-2">
+            <app-re-extract-confirm [document]=model.documentData [isRowSelected]="model.areRowsSelected"
+                [attachmentDataList]=model.attachmentDataList [attachmentAttrDataList]=model.attachmentAttrDataList
+                [isEmailAttrSelected]=model.isEmailAttrSelected [attrDataList]=model.attributeDataList
+                [attrEditList]=model.reExtractAttributeList [baseAttrList]=model.baseAttrDataList
+                [minheight]="model.reExtractMinHeight" (close)="c($event);">
+            </app-re-extract-confirm>
+        </div>
+    </div>
+</ng-template>
+<ng-template #extracteddata let-c="close" let-d="dismiss">
+    <div id="content">
+        <div class="row" style="width:65vw;position:absolute; margin-left:-15vw;">
+            <div class="col-md-12 nia-modal p-2">
+                <app-extracted-data [isDocTypeFile]="model.isDocTypeFile" [isDataReady]=model._isDataReady
+                    [document]=model.documentData [closeButton]="true" [popupButton]="false" [minheight]="55"
+                    (close)="c('Close click');" [attributeAttributeMapping]=model.attributeAttributeMapping
+                    [attachmentDataList]="model.attachmentDataList"
+                    [attachmentAttrDataList]="model.attachmentAttrDataList">
+                </app-extracted-data>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!--Start : Json Table-->
+<ng-template #tabularData let-c="close" let-d="dismiss">
+    <div id="content">
+        <div class="row" style="width:65vw;position:absolute;margin-left:-15vw;">
+            <div class="col-md-12 nia-modal p-2">
+                <app-extracted-tabular-data [document]=model.documentData
+                    [attachmentAttrDataList]=model.attachmentAttrDataListFiltered [closeButton]="true"
+                    [popupButton]="false" [isRowSelectAllowed]=model.isCaseEditAllowed [minheight]="55"
+                    [currentTableColOrderMap]="model.currentTableColOrderMap"
+                    [isReadOnlyTabularView]="model.isReadOnlyTabularView"
+                    [readOnlyTabularTxtCde]="model.readOnlyTabularTxtCde" (close)="c($event);">
+                </app-extracted-tabular-data>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!--End : Json Table-->
+
+<!-- Start : Template for DB attribute data-->
+<ng-template #dbAttibuteTemplate let-attributeData="attributeData" let-dbAttachmentId="attachmentId"
+    let-attributeDataList="attributeDataList">
+    <!-- *ngIf="!attributeData.attrNameTxt.endsWith(model.ATTR_NAME_SUFFIX_LIST)" -->
+        <ng-container *ngIf="!attributeData.attrNameTxt.endsWith(model.ATTR_NAME_SUFFIX_LIST)">
+            <tr [attr.data-relative-parent]=attributeData.attrNameTxt [class.attr-tr-highlighted]="attributeData.isHighlighted || attributeData.shouldShowMore">
+                <td class="urlhide-attribute-icon">
+                    <ng-container *ngIf="attributeData.attrNameCde != 45">
+                        <ng-container *ngIf="(attributeData.attrNameCde == 19 || attributeData.attrNameCde == 31)">
+                            <span class="nia-tag-button" title="Key Attribute"></span>
+                        </ng-container>
+                        <ng-container *ngIf="attributeData.attrNameCde != 19 && attributeData.attrNameCde != 31">
+                            <span *ngIf="isShowAttrIndex(attributeData)" id="index">{{attributeData.index}}</span>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="attributeData.attrNameCde == 45">
+                        <span class="nia-tabular-button" title="Tabular Data"></span>
+                    </ng-container>
+                </td>
+                <td class="urlhide-attribute-name" [title]="getTitle(attributeData)"
+                    [attr.data-attrNameCde]=attributeData.attrNameCde [attr.data-name]=attributeData.attrNameTxt>
+                    <ng-container *ngIf="getFeature(bmodel.FID.ATTRIBUTE_SOURCE_VIEW).isVisible">
+                        <span class="show-attr-action-hide nia-chevron-bottom-1" title="Show more" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.EXPAND_ATTR_ROW);expandSelectedAttributeRow(attributeData);">&nbsp;</span>
+                        <span class="show-attr-action-hide nia-eye" title="Annotate" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.HIGHLIGH_ATTR_BBOX);manageSelectedAttribute(attributeData, true);">&nbsp;</span>
+                    </ng-container>
+                    <span *ngIf="attributeData.attrNameCde !== 45 && attributeData.createByUserTypeCde===1"
+                        title="User added attribute." class="nia-person person-icon"></span>
+                    <span *ngIf="attributeData.deleteClicked" class="strikethrough">{{attributeData.attrNameTxt}}</span>
+                    <span *ngIf="!attributeData.deleteClicked">{{attributeData.attrNameTxt}}</span>
+
+                </td>
+                <td class="urlhide-attribute-value">
+                    <ng-container *ngIf="attributeData.attrNameCde == 45">
+                        <a style="color:#0079DF;cursor:pointer;text-decoration: underline;"
+                            (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.VIEW_TABLE);openTemplate(tabularData, attributeData, attributeDataList)">
+                            <span *ngIf="attributeData.deleteClicked" class="strikethrough">View Table</span>
+                            <span *ngIf="!attributeData.deleteClicked">View Table</span>
+                            <!--  <span class="nia-popout-button" style="color:black;padding-left: 4vw;"></span> -->
+                        </a>
+                    </ng-container>
+                    <ng-container *ngIf="attributeData.attrNameCde != 45">
+                        <ng-container *ngIf="isListHasValue(attributeData.allowedValues)">
+                            <select *ngIf="attributeData.deleteClicked" class="strikethrough attrValue-select"
+                                [(ngModel)]="attributeData.attrValue"
+                                niaAuthCheck [nacIsAuthorized]="getFeature(bmodel.FID.ATTRIBUTE_EDIT).isEnabled"
+                                [nacIsDisabled] = "isRowOperationAllowed(model.OPERATION_TYPE_EDIT, attributeData)"
+                                >
+                                <ng-container *ngFor="let c of attributeData.allowedValues">
+                                    <option style="background-color: white" [ngValue]="c.txt">
+                                        {{c.txt}}
+                                    </option>
+                                </ng-container>
+                            </select>
+                            <select *ngIf="!attributeData.deleteClicked" class="attrValue-select"
+                                [class.nia-cursor-not-allowed]="isKeyAttrDisableRequired(attributeData)"
+                                [(ngModel)]="attributeData.attrValue"
+                                niaAuthCheck [nacIsAuthorized]="getFeature(bmodel.FID.ATTRIBUTE_EDIT).isEnabled"
+                                [nacIsDisabled] = "isRowOperationAllowed(model.OPERATION_TYPE_EDIT, attributeData)"
+                                (change)="updateAttributeValidationResult(attributeData, false, true); modifiedDbData(attributeData);">
+                                <ng-container *ngFor="let c of attributeData.allowedValues">
+                                    <option style="background-color: white" [ngValue]="c.txt">
+                                        {{c.txt}}
+                                    </option>
+                                </ng-container>
+                            </select>
+
+                            <span *ngIf="attributeData.isAttrValueChanged" class="attr-value-dirty"></span>
+                        </ng-container>
+                        <ng-container *ngIf="!isListHasValue(attributeData.allowedValues)">
+                            <ng-container *ngIf="attributeData.deleteClicked">
+                                <textarea class="strikethrough  get-row-size" type="text" value={{attributeData.attrValue}}
+                                    niaAuthCheck [nacIsAuthorized]="getFeature(bmodel.FID.ATTRIBUTE_EDIT).isEnabled"
+                                    [nacIsDisabled] = "isRowOperationAllowed(model.OPERATION_TYPE_EDIT, attributeData)"
+                                    [(ngModel)]="attributeData.attrValue"
+                                    [rows]="getRowSize(attributeData.attrValue)" maxlength="300"></textarea>
+                            </ng-container>
+                            <ng-container *ngIf="!attributeData.deleteClicked">
+                                <textarea class="get-row-size" type="text" value={{attributeData.attrValue}}
+                                    niaAuthCheck [nacIsAuthorized]="getFeature(bmodel.FID.ATTRIBUTE_EDIT).isEnabled"
+                                    [nacIsDisabled] = "isRowOperationAllowed(model.OPERATION_TYPE_EDIT, attributeData)"
+                                    [(ngModel)]="attributeData.attrValue" [rows]="getRowSize(attributeData.attrValue)"
+                                    #attrValue="ngModel" required
+                                    (input)="updateAttributeValidationResult(attributeData, false, attrValue); hideReExtract()"
+                                    (change)="modifiedDbData(attributeData)" title="{{TOOLTIP}}" maxlength="300"></textarea>
+                                <span *ngIf="attributeData.isAttrValueChanged" class="attr-value-dirty"></span>
+                                <div *ngIf="attrValue.invalid" style="color:red" class="err-msg-div">
+                                    <div *ngIf="attrValue.errors.required">
+                                        {{model.ERROR_MSG_ATTR_VALUE_REQUIRED}}
+                                    </div>
+                                </div>
+                                <div *ngIf="!attrValue.errors && attributeData.attrNameValidation.attrValueValidationResult"
+                                    style="color:red" class="err-msg-div">
+                                    <div
+                                        *ngIf="attributeData.attrNameValidation.attrValueValidationResult['attrValueRequired']">
+                                        {{model.ERROR_MSG_ATTR_VALUE_REQUIRED}}
+                                    </div>
+                                    <div
+                                        *ngIf="attributeData.attrNameValidation.attrValueValidationResult['attrValueDuplicate']">
+                                        {{model.ERROR_MSG_ATTR_VALUE_DUPLICATE}}
+                                    </div>
+									<div
+										*ngIf="attributeData.attrNameValidation.attrValueValidationResult['attrValueLimit']">
+										{{model.ERROR_MSG_ATTR_VALUE_LIMIT}}
+									</div>
+                                </div>
+                            </ng-container>
+                            <ng-container>
+                                <select #selAttrVal
+                                    *ngIf="model.sectionToAttrNameToValueMap[model.sectionNum] && model.sectionToAttrNameToValueMap[model.sectionNum].hasOwnProperty(attributeData.attrNameTxt+model.ATTR_NAME_SUFFIX_LIST)"
+                                    niaAuthCheck [nacIsAuthorized]="getFeature(bmodel.FID.ATTRIBUTE_EDIT).isEnabled"
+                                    [nacIsDisabled]="isRowOperationAllowed(model.OPERATION_TYPE_EDIT, attributeData)" class="attrValue-select"
+                                    style="background-color: #fffff1;"
+                                    (change)="attributeData.attrValue = selAttrVal.value; updateAttributeValidationResult(attributeData, false, selAttrVal.value); hideReExtract(); modifiedDbData(attributeData);">
+                                    <option hidden default>--Suggestions--</option>
+                                    <option disabled style="background-color:white">--Suggestions--</option>
+                                    <option
+                                        *ngFor="let attrVal of model.sectionToAttrNameToValueMap[model.sectionNum][attributeData.attrNameTxt+model.ATTR_NAME_SUFFIX_LIST].split(model.ATTR_VAL_SPLIT_DELIMITER)"
+                                        style="background-color:white" [selected]="attributeData.attrValue == attrVal">{{attrVal}}
+                                    </option>
+                                </select>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </td>
+                <td class="urlhide-attribute-confidence text-center">
+                    <span *ngIf="attributeData.confidencePct>-1">
+                        <span *ngIf="attributeData.deleteClicked" class="strikethrough">
+                            {{attributeData.confidencePct}}
+                            %</span>
+                        <span *ngIf="!attributeData.deleteClicked"> {{attributeData.confidencePct}} %</span>
+                    </span>
+                </td>
+                <td class="urlhide-attribute-control-panel">
+                    <span *ngIf="model.isReExtractionAllowed" class="extracted-data-icons" style="padding-left:7px">
+                        <input type="checkbox" value="{{attributeData.id}}"
+                            [class.nia-cursor-not-allowed]="isRowOperationAllowed(model.OPERATION_TYPE_OPTION_CHECKED, attributeData)"
+                            [disabled]="isRowOperationAllowed(model.OPERATION_TYPE_OPTION_CHECKED, attributeData)"
+                            [(ngModel)]="attributeData.optionChecked" (change)="onRowChecboxClick(dbAttachmentId)" />
+                    </span>
+                    <span *ngIf="attributeData.deleteClicked" title="Undo Delete" class="nia-action-undo extracted-data-icons"
+                        (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.UNDO);undoDelete(attributeData)"></span>
+                    <ng-container *ngIf="getFeature(bmodel.FID.ATTRIBUTE_DELETE).isVisible">
+                        <span *ngIf="(!model.isReExtractionAllowed && isDeleteAllowed(attributeData))" title="Delete"
+                        niaAuthCheck [nacIsAuthorized]="getFeature(bmodel.FID.ATTRIBUTE_DELETE).isEnabled "
+                        [nacIsDisabled] = "!isCUDOperationAllowed()"
+
+                            class="nia-trash extracted-data-icons" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.DELETE);deleteAttribute(attributeData)"></span>
+                    </ng-container>
+                </td>
+            </tr>
+        </ng-container>
+        <tr class="relative-row" [attr.data-relative-to-parent]=attributeData.attrNameTxt
+            *ngIf="model.isAttributesNotified && attributeData.notification && attributeData.notification.length>0">
+            <td style="border-top: none;"></td>
+            <td colspan="4" style="border-top: none;">
+                <a title="{{getHtmlTextConversion(attributeData.notification)}}" style="color: white;">
+                    <div [innerHTML]="attributeData.notification"></div>
+                </a>
+            </td>
+        </tr>
+    <ng-container [ngTemplateOutlet]="dbCASrcAttributeTemplate" [ngTemplateOutletContext]="{attributeData: attributeData}">
+    </ng-container>
+</ng-template>
+<!-- End : Template for DB attribute data-->
+
+<!-- Start : Template for DB content annotation source attribute data-->
+<ng-template #dbCASrcAttributeTemplate let-attributeData="attributeData">
+    <tr class="relative-row expand-row-rel-to-parent" [attr.data-relative-to-parent]=attributeData.attrNameTxt
+        [class.attr-tr-highlighted]="attributeData.isHighlighted || attributeData.shouldShowMore" *ngIf="attributeData.shouldShowMore">
+        <td colspan="5" style="border-top: none;">
+            <div class="expand-row-attr-src-details">
+                <span style="margin-left: 1vw;"><b>Attribute Source Details</b></span>
+                <ng-container *ngFor="let annData of getContentAnnotateData(attributeData); let i=index">
+                    <mat-card class="attr-src-card">
+                        <mat-card-content class="font-12">
+                                <table class="expand-row-table">
+                                    <tr>
+                                        <td>Orig. Value</td>
+                                        <td>:</td>
+                                        <td class="attribute-val">
+                                            {{annData.quote}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Page</td>
+                                        <td>:</td>
+                                        <td class="attribute-val" style="cursor:pointer !important;" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.GOTO_PDF_PAGE);navigateToPDFPage(annData, attributeData, true)">
+                                            <a style="color:#0079DF;text-decoration: underline;" >{{annData["page"]}}</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                        </mat-card-content>
+                    </mat-card>
+                </ng-container>
+            </div>
+        </td>
+    </tr>
+</ng-template>
+<!-- End : Template for DB content annotation source attribute data-->
+
+<!-- Start : Template for Add attribute data-->
+<ng-template #addAttributeTemplate>
+    <ng-container *ngIf="isListHasValue(model.addAttributeDataList)">
+        <ng-container *ngFor="let attributeData of model.addAttributeDataList; let i=index"
+            [class.active]="i === selectedRow">
+            <tr>
+                <td><span *ngIf="isShowAttrIndex(attributeData)" id="index">{{attributeData.index}}</span>
+                </td>
+                <td>
+                    <ng-container
+                        *ngIf="!isMultiAttribute(attributeData.attrNameCde) && attributeData['isLastAddedAttribute']">
+                        <select [(ngModel)]="attributeData.attrNameCde" class="attrNameTxt-select"
+                            (change)="getAllowedValues($event.target.value,attributeData)">
+                            <option *ngFor="let attrData of model.attributeDataValList; let i=index"
+                                [value]="attrData.attrNameCde">
+                                {{attrData.attrNameTxt}}</option>
+                        </select>
+                    </ng-container>
+                    <ng-container
+                        *ngIf="!isMultiAttribute(attributeData.attrNameCde) && !attributeData['isLastAddedAttribute']">
+                        <select [(ngModel)]="attributeData.attrNameCde" class="attrNameTxt-select"
+                            (change)="getAllowedValues($event.target.value,attributeData)">
+                            <option *ngFor="let attrData of model.addAttributeValList; let i=index"
+                                [value]="attrData.attrNameCde">
+                                {{attrData.attrNameTxt}}</option>
+                        </select>
+                    </ng-container>
+                    <ng-container *ngIf="isMultiAttribute(attributeData.attrNameCde)">
+                        <input type="text" value={{attributeData.attrNameTxt}} [(ngModel)]="attributeData.attrNameTxt"
+                            (change)="notifyAttributeAddEvent(attributeData)" #attrNameTxt="ngModel" required
+                            (input)="updateAttributeValidationResult(attributeData, attrNameTxt, false)" autofocus>
+                        <div *ngIf="attrNameTxt.invalid" style="color:red">
+                            <div *ngIf="attrNameTxt.errors.required">
+                                {{model.ERROR_MSG_ATTR_NAME_TXT_REQUIRED}}
+                            </div>
+                        </div>
+                        <div *ngIf="!attrNameTxt.errors && attributeData.attrNameValidation.attrNameTxtValidationResult"
+                            style="color:red">
+                            <div
+                                *ngIf="attributeData.attrNameValidation.attrNameTxtValidationResult['attrNameTxtRequired']">
+                                {{model.ERROR_MSG_ATTR_NAME_TXT_REQUIRED}}
+                            </div>
+                            <div
+                                *ngIf="attributeData.attrNameValidation.attrNameTxtValidationResult['attrNameTxtInvalid']">
+                                {{model.ERROR_MSG_ATTR_NAME_TXT_INVALID}}
+                            </div>
+                            <div
+                                *ngIf="attributeData.attrNameValidation.attrNameTxtValidationResult['attrNameTxtExtraSpaces']">
+                                {{model.ERROR_MSG_ATTR_NAME_TXT_EXTRA_SPACES}}
+                            </div>
+                        </div>
+                    </ng-container>
+                </td>
+                <td>
+                    <ng-container>
+                        <textarea type="text" class="get-row-size" value={{attributeData.attrValue}}
+                            [(ngModel)]="attributeData.attrValue" (change)="notifyAttributeAddEvent(attributeData)"
+                            [rows]="getRowSize(attributeData.attrValue)" #attrValue="ngModel" required
+                            (input)="updateAttributeValidationResult(attributeData, false, attrValue)"
+                            title="{{TOOLTIP}}"></textarea>
+                        <span *ngIf="attributeData.isAttrValueChanged" class="attr-value-dirty"></span>
+                        <div *ngIf="attrValue.invalid" style="color:red" class="err-msg-div">
+                            <div *ngIf="attrValue.errors.required">
+                                {{model.ERROR_MSG_ATTR_VALUE_REQUIRED}}
+                            </div>
+                        </div>
+                        <div *ngIf="!attrValue.errors && attributeData.attrNameValidation.attrValueValidationResult"
+                            style="color:red" class="err-msg-div">
+                            <div
+                                *ngIf="attributeData.attrNameValidation.attrValueValidationResult['attrValueRequired']">
+                                {{model.ERROR_MSG_ATTR_VALUE_REQUIRED}}
+                            </div>
+                            <div
+                                *ngIf="attributeData.attrNameValidation.attrValueValidationResult['attrValueDuplicate']">
+                                {{model.ERROR_MSG_ATTR_VALUE_DUPLICATE}}
+                            </div>
+                        </div>
+                    </ng-container>
+                </td>
+                <td class="text-center">
+                    {{attributeData.confidencePct}}%
+                </td>
+                <td>
+                    <span class="nia-cancel-button" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.DELETE);removeManuallyAddedAttribute(attributeData)"></span>
+                    <ng-container *ngIf="model.addAttributeDataList.length === i+1">
+                        <ng-container *ngIf="getFeature(bmodel.FID.ATTRIBUTE_CREATE).isVisible">
+                            <span class="nia-plus-button float-md-right row-add" title="Add"
+                            niaAuthCheck [nacIsAuthorized]="getFeature(bmodel.FID.ATTRIBUTE_CREATE).isEnabled "(click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.ADD);addModal()"></span>
+                            <!-- <span class="nia-plus-button float-md-right row-add" title="Add"
+                                *ngIf="(!model.isReExtractionAllowed && ( model.isAddAllowed || model.isAddClicked))"
+                                niaAuthCheck [nacIsAuthorized]="getFeature(bmodel.FID.ATTRIBUTE_CREATE).isEnabled "
+                                [nacIsDisabled] ="!isCUDOperationAllowed()"
+                                (click)="addModal()"></span> -->
+                        </ng-container>
+                    </ng-container>
+                </td>
+            </tr>
+        </ng-container>
+    </ng-container>
+</ng-template>
+<!-- End : Template for Add attribute data-->
+
+<!-- Start : Template for Annotate attribute data-->
+<ng-template #annotateAttributeTemplate let-attributeData="attributeData">
+    <tr>
+        <td><span *ngIf="isShowAttrIndex(attributeData)" id="index">{{attributeData.index}}</span></td>
+        <td>
+            <ng-container *ngIf="attributeData.attrNameCde > 0 && !isMultiAttribute(attributeData.attrNameCde)">
+                <select class="attrNameTxt-select" [(ngModel)]="attributeData.attrNameCde"
+                    (change)="getAllowedValues($event.target.value,attributeData); moveAnnotateDataToAddAttributeData(attributeData)">
+                    <option *ngFor="let attrData of model.addAttributeValList; let i=index"
+                        [value]="attrData.attrNameCde">
+                        {{attrData.attrNameTxt}}</option>
+                </select>
+            </ng-container>
+            <ng-container *ngIf="attributeData.attrNameCde <= 0 || isMultiAttribute(attributeData.attrNameCde)">
+                <input type="text" value={{attributeData.attrNameTxt}} [(ngModel)]="attributeData.attrNameTxt"
+                    (change)="notifyAttributeAddEvent(attributeData)" #attrNameTxt="ngModel" required
+                    (input)="updateAttributeValidationResult(attributeData, attrNameTxt, false)" autofocus>
+                <div *ngIf="attrNameTxt.invalid" style="color:red">
+                    <div *ngIf="attrNameTxt.errors.required">
+                        {{model.ERROR_MSG_ATTR_NAME_TXT_REQUIRED}}
+                    </div>
+                </div>
+                <div *ngIf="!attrNameTxt.errors && attributeData.attrNameValidation.attrNameTxtValidationResult"
+                    style="color:red">
+                    <div *ngIf="attributeData.attrNameValidation.attrNameTxtValidationResult['attrNameTxtRequired']">
+                        {{model.ERROR_MSG_ATTR_NAME_TXT_REQUIRED}}
+                    </div>
+                    <div *ngIf="attributeData.attrNameValidation.attrNameTxtValidationResult['attrNameTxtInvalid']">
+                        {{model.ERROR_MSG_ATTR_NAME_TXT_INVALID}}
+                    </div>
+                    <div *ngIf="attributeData.attrNameValidation.attrNameTxtValidationResult['attrNameTxtExtraSpaces']">
+                        {{model.ERROR_MSG_ATTR_NAME_TXT_EXTRA_SPACES}}
+                    </div>
+                </div>
+            </ng-container>
+        </td>
+        <!---->
+        <td>
+            <ng-container>
+                <textarea type="text" class="get-row-size" value={{attributeData.attrValue}}
+                    (change)="notifyAttributeAddEvent(attributeData)" [(ngModel)]="attributeData.attrValue"
+                    niaAuthCheck [nacIsAuthorized]="getFeature(bmodel.FID.ATTRIBUTE_EDIT).isEnabled"
+                    [rows]="getRowSize(attributeData.attrValue)" #attrValue="ngModel" required
+                    (input)="updateAttributeValidationResult(attributeData, false, attrValue);"
+                    title="{{TOOLTIP}}"></textarea>
+                <span *ngIf="attributeData.isAttrValueChanged" class="attr-value-dirty"></span>
+                <div *ngIf="attrValue.invalid" style="color:red" class="err-msg-div">
+                    <div *ngIf="attrValue.errors.required">
+                        {{model.ERROR_MSG_ATTR_VALUE_REQUIRED}}
+                    </div>
+                </div>
+                <div *ngIf="!attrValue.errors && attributeData.attrNameValidation.attrValueValidationResult"
+                    style="color:red" class="err-msg-div">
+                    <div *ngIf="attributeData.attrNameValidation.attrValueValidationResult['attrValueRequired']">
+                        {{model.ERROR_MSG_ATTR_VALUE_REQUIRED}}
+                    </div>
+                    <div *ngIf="attributeData.attrNameValidation.attrValueValidationResult['attrValueDuplicate']">
+                        {{model.ERROR_MSG_ATTR_VALUE_DUPLICATE}}
+                    </div>
+                </div>
+            </ng-container>
+        </td>
+        <td class="text-center">
+            {{attributeData.confidencePct}}%
+        </td>
+        <td>
+            <span class="nia-cancel-button" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_DAT.DELETE);removeAnnotatedAttribute(attributeData)"></span>
+        </td>
+    </tr>
+</ng-template>
+<!-- End : Template for Annotate attribute data-->

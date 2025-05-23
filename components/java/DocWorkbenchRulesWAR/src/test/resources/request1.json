@@ -1,0 +1,20 @@
+{
+	"docId": 123,
+	"actionDataList": [
+		{
+			"actionNameCde": 8,
+			"actionNameTxt": "Get Order Status",
+			"actionResult": "OrderStatus=received|TrackingNumber=941160291291134|DeliveryDate=12/13/2018"
+		}
+	],
+	"attributeataList": [
+		{
+			"attrNameCde": 19,
+			"attrNameTxt": "Category",
+			"attrValue": "order-status",
+			"extractTypeCde": 2,
+			"extractTypeTxt": "Custom Logic",
+			"confidencePct": 78
+		}
+	]
+}

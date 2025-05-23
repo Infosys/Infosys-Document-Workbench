@@ -1,0 +1,10 @@
+Hi <<From>>,
+
+We are very sorry to hear that you want to cancel HSBC credit card # FindReplace((<<CreditCard Number>>||\d{4}-\d{4}-\d{4}||XXXX-XXXX-XXXX)). 
+
+We have cancelled your credit card with immediate effective. Your outstanding balance on the card is currently SGD <<Cancel Credit Card:Output:OutstandingBalance>>. Please pay the balance before <<Cancel Credit Card:Output:PaymentDueDate>>.
+
+If you change your mind in next 3 months and decide to continue using HSBC credit card, we will offer you free upgrade to HSBC Platinum credit card. Please reach out to us if you want to know details of the offer at customer care. 
+
+Regards,
+Customer Support Team

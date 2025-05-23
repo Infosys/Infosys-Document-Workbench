@@ -1,0 +1,195 @@
+{
+    "response": {
+      "userName": "docwbadmin",
+      "userFullName": "docwb admin",
+      "userEmail": "docwbadmin@office.com",
+      "userTypeCde": 1,
+      "userTypeTxt": "User",
+      "userId": 1157,
+      "roleTypeTxt": "ADMIN",
+      "roleTypeCde": 101,
+      "tenantId": "57bae7a2-e8cd-42f3-a806-44e44f08e6fd",
+      "queueDataList": [
+        {
+          "queueNameCde": 5,
+          "queueNameTxt": "KYC Document",
+          "appUserQueueRelId": 1172,
+          "docTypeCde": 2,
+          "docTypeTxt": "File"
+        },
+        {
+          "queueNameCde": 11,
+          "queueNameTxt": "Customer Care (M)",
+          "appUserQueueRelId": 1174,
+          "docTypeCde": 2,
+          "docTypeTxt": "File"
+        },
+        {
+          "queueNameCde": 12,
+          "queueNameTxt": "Customer Care (U)",
+          "appUserQueueRelId": 1173,
+          "docTypeCde": 2,
+          "docTypeTxt": "File"
+        },
+        {
+          "queueNameCde": 13,
+          "queueNameTxt": "Customer Care (R)",
+          "appUserQueueRelId": 1177,
+          "docTypeCde": 2,
+          "docTypeTxt": "File"
+        },
+        {
+          "queueNameCde": 14,
+          "queueNameTxt": "Customer Care (Rac)",
+          "appUserQueueRelId": 1176,
+          "docTypeCde": 2,
+          "docTypeTxt": "File"
+        },
+        {
+          "queueNameCde": 15,
+          "queueNameTxt": "Customer Care (Test)",
+          "appUserQueueRelId": 1175,
+          "docTypeCde": 2,
+          "docTypeTxt": "File"
+        }
+      ],
+      "featureAuthDataList": [
+        {
+          "featureId": "action-create",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "action-delete",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "action-edit",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "action-list",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "action-view",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "attachment-create",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "attachment-view",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "attribute-create",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "attribute-delete",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "attribute-edit",
+          "accessLevelCde": 1
+        },
+        {
+          "featureId": "attribute-list",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "attribute-view",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "audit_case-create",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "audit_case-view",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "audit_user-view",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "case-create",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "case-delete",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "case-edit",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "case-list",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "case-user-create",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "case-user-edit",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "close_case-edit",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "core-edit",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "core-view",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "outbound_email-create",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "outbound_email-delete",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "outbound_email-edit",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "outbound_email-list",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "outbound_email-view",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "queue-list",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "user-delete",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "user-edit",
+          "accessLevelCde": 3
+        },
+        {
+          "featureId": "user-view",
+          "accessLevelCde": 3
+        }
+      ]
+    },
+    "responseCde": 0,
+    "responseMsg": "Success",
+    "timestamp": "2021-12-20 04:09:10 PM",
+    "responseTimeInSecs": 0.295
+  }

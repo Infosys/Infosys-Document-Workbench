@@ -1,0 +1,174 @@
+{
+	"attributeRuleMapping": [
+		{
+			"queueNameCde": 99,
+			"baseRules": [
+				{
+					"attrNameCde": 31,
+					"ruleClass": "rule031ExtractAttachmentDocumentType",
+					"ruleType": "document",
+					"rules": [
+						{
+							"ruleResult": [
+								"Remittance Advice"
+							],
+							"rules": [
+								{
+									"attrNameCde": 45,
+									"groupName": "Invoices",
+									"ruleClass": "rule106ExtractRemittanceInvoice"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"Passport"
+							],
+							"rules": [
+								{
+									"attrNameCde": 44,
+									"groupName": "kycinfo",
+									"ruleClass": "rule044ExtractKycDocumentAttributes"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"Loan Agreement"
+							],
+							"rules": [
+								{
+									"attrNameCde": 44,
+									"groupName": "loaninfo",
+									"ruleClass": "rule000ExtractUsingConfigurationV3"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"Claims",
+								"W9",
+								"Statement And Designation By Foreign Corporation"
+							],
+							"rules": [
+								{
+									"attrNameCde": 0,
+									"groupName": "",
+									"ruleClass": "rule000ExtractUsingConfigurationV1"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"queueNameCde": 107,
+			"baseRules": [
+				{
+					"attrNameCde": 31,
+					"ruleClass": "rule031ExtractAttachmentDocumentType",
+					"ruleType": "document",
+					"rules": [
+						{
+							"ruleResult": [
+								"Invoice Document"
+							],
+							"rules": [
+								{
+									"attrNameCde": 0,
+									"groupName": "",
+									"ruleClass": "rule000ExtractUsingConfigurationV2"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"queueNameCde": 109,
+			"baseRules": [
+				{
+					"attrNameCde": 31,
+					"ruleClass": "rule031ExtractAttachmentDocumentType",
+					"ruleType": "document",
+					"rules": [
+						{
+							"ruleResult": [
+								"Purchase Order"
+							],
+							"rules": [
+								{
+									"attrNameCde": 0,
+									"groupName": "",
+									"ruleClass": "rule000ExtractUsingConfigurationV2"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"queueNameCde": 111,
+			"baseRules": [
+				{
+					"attrNameCde": 31,
+					"ruleClass": "rule031ExtractAttachmentDocumentType",
+					"ruleType": "document",
+					"rules": [
+						{
+							"ruleResult": [
+								"Claims"
+							],
+							"rules": [
+								{
+									"attrNameCde": 0,
+									"groupName": "",
+									"ruleClass": "rule000ExtractUsingConfigurationV1"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"Receipt"
+							],
+							"rules": [
+								{
+									"attrNameCde": 0,
+									"groupName": "",
+									"ruleClass": "rule000ExtractUsingAzureConfiguration"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"queueNameCde": 112,
+			"baseRules": [
+				{
+					"attrNameCde": 31,
+					"ruleClass": "rule031ExtractAttachmentDocumentType",
+					"ruleType": "document",
+					"rules": [
+						{
+							"ruleResult": [
+								"Loan Agreement"
+							],
+							"rules": [
+								{
+									"attrNameCde": 44,
+									"groupName": "loaninfo",
+									"ruleClass": "rule044ExtractLoanNoteDocumentAttributes"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

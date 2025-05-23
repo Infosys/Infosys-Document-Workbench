@@ -1,0 +1,93 @@
+[
+	{
+		"attrNameCde": 31,
+		"attrNameValues": [
+			{
+				"attrValue": "Passport",
+				"attributes": [
+					{
+						"attrNameCde": 200
+					},
+					{
+						"attrNameCde": 201
+					},
+					{
+						"attrNameCde": 202
+					},
+					{
+						"attrNameCde": 203
+					},
+					{
+						"attrNameCde": 204
+					},
+					{
+						"attrNameCde": 117
+					}
+				]
+			},
+			{
+				"attrValue": "Lease for Property",
+				"attributes": []
+			},
+			{
+				"attrValue": "Unknown",
+				"attributes": [
+				{
+						"attrNameCde": 130
+					},
+					{
+						"attrNameCde": 131
+					},
+					{
+						"attrNameCde": 132
+					},
+					{
+						"attrNameCde": 133
+					},
+					{
+						"attrNameCde": 134
+					},
+					{
+						"attrNameCde": 135
+					},
+					{
+						"attrNameCde": 136
+					},
+					{
+						"attrNameCde": 137
+					},
+					{
+						"attrNameCde": 138
+					},
+					{
+						"attrNameCde": 139
+					},
+					{
+						"attrNameCde": 140
+					},
+					{
+						"attrNameCde": 141
+					},
+					{
+						"attrNameCde": 142
+					},
+					{
+						"attrNameCde": 143
+					},
+					{
+						"attrNameCde": 144
+					},
+					{
+						"attrNameCde": 145
+					},
+					{
+						"attrNameCde": 146
+					},
+					{
+						"attrNameCde": 147
+					}
+				]
+			}
+		]
+	}
+]

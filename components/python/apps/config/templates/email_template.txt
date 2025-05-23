@@ -1,0 +1,8 @@
+From: {$.email.from,delimiter=;}
+To: {$.email.to,delimiter=;}
+cc : {$.email.cc}
+sent_date: {$.email.sent_date}
+subject: {$.email.subject}
+body_txt: {$.email.body_txt}
+
+

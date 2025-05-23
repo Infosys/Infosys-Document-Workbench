@@ -1,0 +1,17 @@
+<div style="text-align: center;
+    padding-top: 200px;
+    font-size: larger;">
+
+  <span *ngIf="model.isNotValidUser">
+    <p style="text-align: center;">
+      User <b>{{model.userName}}</b> is not authorized to access this page...!!!
+    </p>
+    <a [routerLink]="['/logout']">Click here </a> to logout
+  </span>
+  <span *ngIf="model.isNotValidPage">
+    <p style="text-align: center;">
+      User <b>{{model.userName}}</b> has accessed an invalid page...!!!
+    </p>
+    <a [routerLink]="['/home/dashboard']">Click here </a> to go to Home
+  </span>
+</div>

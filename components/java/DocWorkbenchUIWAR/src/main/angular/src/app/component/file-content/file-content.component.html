@@ -1,0 +1,174 @@
+<div class="row">
+  <div class="col-md-10 font-16">
+    <nav mat-tab-nav-bar>
+      <a *ngIf="!model.isDocTypeFile || isCaseEmail" mat-tab-link (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.FIL_CON.GOTO_EMAIL);getEmailContent(true)"
+        [active]="model.isEmailTabSelected" title="{{Email}}">
+        Email
+      </a>
+      <a *ngIf="model.isDocTypeFile && !model.isViewFeatureAllowed" mat-tab-link
+        [active]="true" title="Document">
+        Document
+      </a>
+      <a mat-tab-link *ngFor="let attachments of model.groupedAttachmentList;" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.FIL_CON.GOTO_ATTACHMENT);getFileFromDb(attachments, true)"
+        title="{{attachments[0].fileName}}"
+        [active]="attachments[0].attachmentId === model.attachmentId && !model.isEmailTabSelected">
+        <span style="font-weight: bold;font-size: smaller;">#{{attachments[0].displayNumber}}</span>&nbsp;{{getMaskedFileName(attachments[0].fileName,10)}}
+      </a>
+    </nav>
+  </div>
+  <div class="col-md-2 font-12 text-right pt-1" *ngIf="getFeature(bmodel.FID.ATTACHMENT_VIEW).isVisible">
+
+    <span class="nia-file-download" title='Download'
+    [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.ATTACHMENT_VIEW).isEnabled"
+    (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.FIL_CON.DOWNLOAD);downloadAttachments()"></span>
+    <span>
+      <a class="button-icon urlhide-parent" title="Open file in new tab" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.FIL_CON.OPEN_IN_NEW_TAB);openAttachment(false);">
+        <mat-icon [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.ATTACHMENT_VIEW).isEnabled" style="font-size: 17px; cursor: pointer;">open_in_new</mat-icon>
+      </a>
+    </span>
+    <span class="nia-popout-button" title='Open file in new window'
+    [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.ATTACHMENT_VIEW).isEnabled"
+    (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.FIL_CON.OPEN_IN_NEW_WINDOW);openAttachment(true)"></span>&nbsp;&nbsp;
+
+    <!--  As per the discussion with, when file component needs more space will go with left panel hide. hence commented the filecomponent popout -->
+    <!-- <span *ngIf="popupButton" [class.nia-cursor-not-allowed]="model.isAnnotateAllowed" class="nia-popout-button" (click)="open(fileContent, true)"></span> -->
+    <span *ngIf="closeButton" class="nia-wrong-button" (click)="modalWindow()"></span>
+  </div>
+</div>
+<div class="bg-white">
+  <div class="row" [style.height.vh]="height" [style.minWidth.vw]="width">
+    <div class="col-md-12">
+      <div class="p-1 font-12">
+        <ng-container *ngIf="!model.isViewFeatureAllowed">
+          <div class="nia-content-not-allowed">{{bmodel.FID_ERR_MSG.NOT_ALLOWED}}</div>
+        </ng-container>
+        <ng-container *ngIf="model.isViewFeatureAllowed">
+          <div [ngClass]="{'nia-overlay': model.isShowDataLoad}" [style.height.vh]="height" [style.minWidth.vw]="width">
+            <div id="nia-overlay-content">
+              <span class="loading-dots" *ngIf="model.isShowDataLoad">
+                <span class="loading-dots--dot"></span>
+                <span class="loading-dots--dot"></span>
+                <span class="loading-dots--dot"></span>
+              </span>
+            </div>
+            <div *ngIf="!model.isDataLoaded" class="loading-dots">
+              <br />
+              <br />
+              <div class="loading-dots--dot"></div>
+              <div class="loading-dots--dot"></div>
+              <div class="loading-dots--dot"></div>
+            </div>
+            <ng-container *ngIf="model.isDataLoaded">
+              <div *ngIf="model.isEmailTabSelected || model.isEmailAttachmentTabSelected" class="content-header">
+                <div class="row">
+                  <div class="col-md-11">
+                    From: {{model.email.fromId}}
+                    <br /> Received: {{model.email.receievedDate}}
+                    <br /> To: {{model.email.toId}}
+                    <span *ngIf="model.email.ccId">
+                      <br /> Cc: {{model.email.ccId}}
+                    </span>
+                    <br /> Subject: {{model.email.subject}}
+                    <!-- <br /> -->
+                  </div>
+                  <div class="col-md-1 text-right">
+                    <span *ngIf="model.email.sentiment=='Negative'">
+                      <span class="nia-sentiment-negative font-18"></span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <app-nia-document-annotator [inputAnnotationList]="model.annotationList" [fileName]="model.fileName"
+                [height]="model.annotatorHeight" [fileContent]="model.fileContent" [options]="model.options"
+                [isAnnotationVisible]="model.isAnnotationVisible" (annotationChange)="onAnnotationChange($event)"
+                [fileViewer]="model.fileViewer" [isAnnotatorReadOnly]="model.isAnnotatorReadOnly"
+                [fileUrl]="model.fileUrl" (zoomFactorChange)="onZoomFactorChange($event)"
+                (pageRendered)="onPageRendered($event)" (textLayerRendered)="onTextLayerRendered($event)"
+                (pageChanged)="onPageChanged($event)"
+                [renderPdfPage]="model.renderPdfPage">
+              </app-nia-document-annotator>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 file-reader-mode align-siblings-horizontally">
+      <!-- START: NEW TOGGLE BUTTONS -->
+      <div *ngIf="!isCaseEmail">
+        <ng-container *ngIf="model.isViewFeatureAllowed">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a title="Document" class="nav-link" data-toggle="tab" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.FIL_CON.GOTO_ORIG_DOC_TAB);manageTextLayer(false, false);"
+              [ngClass]="{'active': model.fileReaderModeSet===model.fileReaderMode.DOCUMENT}">
+                <mat-icon>description</mat-icon>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a title="Text Layer" class="nav-link" data-toggle="tab" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.FIL_CON.GOTO_TEXT_LAYER_TAB);manageTextLayer(true, false);"
+              [ngClass]="{'active': model.fileReaderModeSet===model.fileReaderMode.TEXTLAYER}">
+                <mat-icon>title</mat-icon>
+              </a>
+            </li>
+            <ng-container *ngIf="getFeature(bmodel.FID.ATTRIBUTE_ANNOTAION_VIEW).isVisible">
+              <li class="nav-item">
+                <a title="Annotation" class="nav-link" data-toggle="tab" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.FIL_CON.GOTO_ANNOTATION_LAYER_TAB);toggleAnnotator();"
+                [ngClass]="{'active': model.fileReaderModeSet===model.fileReaderMode.ANNOTATION, 'disabled': !getFeature(bmodel.FID.ATTRIBUTE_ANNOTAION_VIEW).isEnabled}">
+                  <mat-icon>edit_note</mat-icon>
+                </a>
+              </li>
+            </ng-container>
+          </ul>
+        </ng-container>
+      </div>
+      <!-- END: NEW TOGGLE BUTTONS -->
+      <div *ngIf="!(model.isViewFeatureAllowed && getFeature(bmodel.FID.ATTRIBUTE_VIEW).isVisible && (!isCaseEmail))">
+        <label for="changeMode" class="font-12 p-1">
+          <b> &nbsp; </b>
+        </label>
+      </div>
+    </div>
+    <div class="col-md-5" style="text-align: center;">
+      <span *ngIf="loadForAnnotateInfo();" class="font-12 p-1">
+        <div class="loading-dots--dot"></div>
+        <div class="loading-dots--dot"></div>
+        <div class="loading-dots--dot"></div>
+      </span>
+      <span *ngIf="validateToShowAnnotationInfoMsg() && !model.isEmailTabSelected" class="font-12 p-1"><span
+          class="nia-info"></span>&nbsp;{{model.annotationInfoMsg}}</span>
+    </div>
+    <div class="col-md-4 font-12 right-align-children" *ngIf="!model.isOrgPlainTxt && !model.isEmailTabSelected" >
+      <div class="align-siblings-horizontally">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab"
+              [ngClass]="{'active': model.fileViewToggle === 2, 'disabled': !model.isPlainTextVersionExists}"
+              (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.FIL_CON.GOTO_ORIG_PLAIN_TEXT_TAB);toggleView(2)">
+              Plain Text</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" [ngClass]="{'active': model.fileViewToggle === 1}"
+              (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.FIL_CON.GOTO_ORIG_TAB);toggleView(1)">
+              Original</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #fileContent let-c="close" let-d="dismiss">
+  <div id="content">
+    <div class="row enlarge-popout">
+      <div class="row">
+        <div class="col-md-12 nia-modal p-2">
+          <app-file-content [isDataReady]=model._isDataReady [documentData]=documentData [closeButton]="true"
+            [height]="85" [width]="80" [popupButton]="false" [isDocTypeFile]="model.isDocTypeFile"
+            (close)="c('Close click');">
+          </app-file-content>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

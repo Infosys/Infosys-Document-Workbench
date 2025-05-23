@@ -1,0 +1,37 @@
+package com.client.template.orderstatus.rules
+
+import com.infosys.ainauto.docwb.rules.model.domain.InputOutputWrapperData;
+import com.infosys.ainauto.docwb.rules.model.domain.DocumentData;
+import com.infosys.ainauto.docwb.rules.model.domain.ActionData;
+import com.infosys.ainauto.docwb.rules.model.domain.AttributeData;
+
+function String getTemplateName(String text) {
+		if (text == null & text.length() == 0) {
+			return "";
+		}
+		String[] tokens = text.split("\\|");
+		String result = "none";
+		String orderStatus = tokens[0].split("=")[1];
+		if (orderStatus.equalsIgnoreCase("shipped")) {
+			result = "OrderStatusShippedTemplate";
+		} else if (orderStatus.equalsIgnoreCase("received")) {
+			result = "OrderStatusReceivedTemplate";
+		}
+		return result; 
+	}
+
+rule "Default"
+salience 30
+activation-group "myGroup1"
+when
+    $InputOutputWrapperData: InputOutputWrapperData();
+    $documentData: DocumentData() from $InputOutputWrapperData.inputData;
+    $actionData: ActionData() from $documentData.actionDataList.get(0);
+    //$templateName: String();
+then
+    //$templateName = getTemplateName($actionData.getActionResult());
+    //$InputOutputWrapperData.setOutputData( $templateName );
+    $InputOutputWrapperData.setOutputData( getTemplateName($actionData.getActionResult()) );
+    System.out.println("Default" );
+end
+

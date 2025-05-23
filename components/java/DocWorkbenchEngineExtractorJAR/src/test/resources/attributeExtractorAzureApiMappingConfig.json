@@ -1,0 +1,21 @@
+{
+	"attributeExtractorApiMapping": [
+		{
+			"executeRuleTrueCondition": {
+				"attrNameCde": 31,
+				"attrNameValue": "Receipt"
+			},
+			"api": "https://eastus.api.cognitive.microsoft.com/formrecognizer/v2.0-preview/custom/models/{modelId}/analyze",
+			"modelId": "8d523b9f-32bf-4218-999b-720050918616",
+			"ocpApimSubscriptionKey": "",
+			"request": {
+				
+			},
+			"response": {
+				"mapping": {
+					"attributes": []
+				}
+			}
+		}
+	]
+}

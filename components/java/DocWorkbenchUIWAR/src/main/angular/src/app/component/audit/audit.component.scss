@@ -1,0 +1,95 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+thead {
+    background-color: #E8E6DC !important;
+}
+
+div {
+    padding: 0;
+    margin: 0;
+}
+
+// div {
+//     border:1px solid red;
+// }
+
+.content-text {
+    min-height: 71vh;
+    max-height: 71vh;
+    //height: 180px !important;
+    overflow: auto;
+}
+
+.urlhide-date {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width:5vw;
+}
+
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #4c7ebb;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff;
+    display: block;
+    cursor: pointer;
+    background-color: #4c7ebb;
+    border-color: #4c7ebb;
+}
+
+.pagination>.disabled>a,
+.pagination>.disabled>a:focus,
+.pagination>.disabled>a:hover,
+.pagination>.disabled>span,
+.pagination>.disabled>span:focus,
+.pagination>.disabled>span:hover {
+  cursor: not-allowed;
+  color: gray !important;
+  background: transparent !important;
+  text-decoration: none !important;
+  pointer-events: none;
+}
+
+.content-text {
+    overflow: auto;
+}
+.urlhide {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.urlhide-default {
+    max-width:7vw;
+}
+.urlhide-nameTxt {
+    max-width:6vw;
+}
+.urlhide-status {
+    max-width:5vw;
+}
+.urlhide-user {
+  max-width:5vw;
+}
+.urlhide-date {
+    max-width:5vw;
+}
+
+.urlhide-audit-value {
+    max-width:15vw;
+}

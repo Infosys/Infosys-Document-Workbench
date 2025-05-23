@@ -1,0 +1,39 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+
+// div {
+//     border:1px solid red;
+// }
+
+// th, td {
+//   border:1px solid orange;
+// }
+
+:host {
+  --content-height: 580px; // Default value
+}
+
+:host ::ng-deep json-editor,
+:host ::ng-deep json-editor .jsoneditor,
+:host ::ng-deep json-editor > div,
+:host ::ng-deep json-editor jsoneditor-outer {
+  height: var(--content-height) !important;
+  border: gray;
+}
+
+:host ::ng-deep .jsoneditor-menu {
+    background-color:#4c7ebb !important;
+    // background-color: #e8e6dc!important;
+    // border-bottom: 1px solid #4c7ebb !important;
+}
+
+// :host ::ng-deep .jsoneditor-anchor,
+:host ::ng-deep .jsoneditor-sort,
+:host ::ng-deep .jsoneditor-transform
+{
+  display: none;
+}

@@ -1,0 +1,35 @@
+{
+  "config": {
+    "environment": "prod",
+    "docwbServiceBaseUrl": "http://localhost:8080/docwbservice",
+    "docwbFileServerBaseUrl": "http://localhost:8080/docwbservice",
+    "docwbWebBaseUrl": "http://localhost:8080/emailwb",
+    "tenantId": "<TenantId>",
+    "title": "Email Workbench",
+    "origDocAnnWhenPlainTxtAvailable": 2,
+    "origDocAnnWhenPlainTxtUnavailable": 3,
+    "sidebar": {
+      "queueModeFlatVisible": true,
+      "queueModeFlatEnabled": true,
+      "queueModeHierarchyVisible": true,
+      "queueModeHierarchyEnabled": true,
+      "queueModeHierarchyDelimiter": ":"
+    },
+    "telemetry": {
+      "enabled": true,
+      "serviceBaseUrl": "http://localhost:3001/telemetryservice",
+      "authtoken": {
+        "tokenName": "web-core"
+      }
+    },
+    "application": {
+      "webVersionValidation": {
+        "enabled": true,
+        "checkIntervalInSecs": 300
+      }
+    },
+    "queue":{
+      "queueVisibilityAfterClosureInDays":7
+    }
+  }
+}

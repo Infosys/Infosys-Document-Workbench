@@ -1,0 +1,54 @@
+@startwbs
+* /
+** etc \n(win: c:)
+*** nginx
+****_ nginx.conf
+** opt \n(win: c:)
+*** apache-tomcat-x.x.xx
+**** webapps
+*****_ docwbservice.war
+*****_ docwb.war
+
+** nfs/docwbdx \n(win: c:/nfs/docwbdx)
+*** data
+**** config
+*****_ master_client_config.json
+*****_ dpp_docwb_index_input_config.json
+*****_ extractor_config.json
+*****_ postprocessor_config.json
+*****_ dpp_docwb_infy_annual_report_profile_inference_pipeline_input_config.json
+***** prompt_templates
+**** input
+***** t01
+***** t02
+**** work
+**** output
+**** cache
+**** temp
+*** logs
+*** docwbdxfiledb
+*** docwbvectordb
+** home/projadmin \n(win: c:)
+*** myprogramfiles
+**** InfyOcrEngine
+**** InfyFormatConverter
+**** Certificates
+**** AI
+*** workarea
+**** docwbsln
+***** setup
+***** data
+****** attachmentsdb
+***** tomcatapps
+***** apps
+****** infy_dx_downloader
+****** infy_dx_preprocessor
+****** infy_dx_indexer
+****** infy_dx_extractor
+****** infy_dx_postprocessor
+****** infy_dx_casecreator
+***** services
+****** docwbrules
+****** infy_docwb_search_service
+***** logs
+@endwbs

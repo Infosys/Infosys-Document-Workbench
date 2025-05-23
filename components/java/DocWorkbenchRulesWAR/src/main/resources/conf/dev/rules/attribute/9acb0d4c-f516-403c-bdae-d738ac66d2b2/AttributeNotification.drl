@@ -1,0 +1,372 @@
+package com.client.template.business.rules
+
+import com.infosys.ainauto.commonutils.ListUtility;
+import com.infosys.ainauto.docwb.rules.model.domain.AttachmentData;
+import com.infosys.ainauto.docwb.rules.model.domain.AttributeData;
+import com.infosys.ainauto.docwb.rules.model.domain.DocumentData;
+import com.infosys.ainauto.docwb.rules.model.domain.InputOutputWrapperData;
+import java.util.List;
+import java.text.SimpleDateFormat; 
+import java.lang.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+function DocumentData getNotification(DocumentData documentData) {
+	if (documentData==null 
+		|| (!ListUtility.hasValue(documentData.getAttributes()) 
+		&& !ListUtility.hasValue(documentData.getAttachments()))) {
+		return documentData;
+	}
+	if (documentData.getDocTypeCde()==2 && ListUtility.hasValue(documentData.getAttachments()) ) {
+		for(AttachmentData attachmentData : documentData.getAttachments()){
+			if(attachmentData!=null && ListUtility.hasValue(attachmentData.getAttributes())){	
+				String documentTypeValue = "";
+				for(AttributeData attributeData: attachmentData.getAttributes()){
+					if(attributeData != null && attributeData.getAttrNameCde() == 31){
+						documentTypeValue = attributeData.getAttrValue();
+						break;
+					}
+				}
+				if(documentTypeValue.equalsIgnoreCase("Passport")){
+					attachmentData.setAttributes(setNotificationForFax(attachmentData));
+				} if(documentTypeValue.equalsIgnoreCase("Bank Check")){
+					attachmentData.setAttributes(setNotificationForBankCheck(attachmentData));
+				} if(documentTypeValue.endsWith("Ticket") || documentTypeValue.endsWith("Invoice")){
+					attachmentData.setAttributes(setNotificationForTicket(attachmentData));
+				} else {
+					attachmentData.setAttributes(setNotification(attachmentData));
+				}
+			}
+		}
+	}
+	return documentData;
+}
+
+function List<AttributeData> setNotificationForTicket(AttachmentData attachmentData){
+	List<AttributeData> attributeDataList = attachmentData.getAttributes();
+	for (AttributeData attributeData : attributeDataList) {
+		String notification = null;
+		int attrNameCde = attributeData.getAttrNameCde();
+		if (attributeData == null
+				|| (attributeData.getAttrValue() == null && attrNameCde != 44)
+				|| (attrNameCde == 44 && (!ListUtility.hasValue(attributeData.getAttributes())))) {
+			attributeData.setNotification(notification);
+			break;
+		} else if(attributeData.getAttrNameCde() == 44){
+			List<AttributeData> attributeDataList1 = attributeData.getAttributes();
+			for (AttributeData attrData : attributeDataList1) {
+				notification = null;
+				if (attrData.getAttrNameTxt() == null || attrData.getAttrNameTxt().length() == 0
+						|| attrData.getAttrValue() == null || attrData.getAttrValue().length() == 0 
+						|| attrData.getAttrNameTxt().endsWith("::list")) {
+					attrData.setNotification(notification);
+					continue;
+				} else if (attrData.getAttrValue().equals("[not found]")||attrData.getAttrValue().equals("not found")) {
+					try {
+						notification = "<strong><div class=\"text-danger\">Value not found because of an issue in OCR or an empty source.</div></strong>";
+					} catch (Exception e) {
+					}
+					attrData.setNotification(notification);
+				} else if (attrData.getConfidencePct()>0 && attrData.getConfidencePct()<95) {
+					try {
+						notification = "<strong><div class=\"text-danger\">Extracted conf.% is less than the threshold.</div></strong>";
+					} catch (Exception e) {
+					}
+					attrData.setNotification(notification);
+				}
+			}
+			notification = null;
+		}
+		attributeData.setNotification(notification);
+	}
+	return attributeDataList;
+}
+
+
+function List<AttributeData> setNotification(AttachmentData attachmentData){
+	List<AttributeData> attributeDataList = attachmentData.getAttributes();
+	for (AttributeData attributeData : attributeDataList) {
+		String notification = null;
+		int attrNameCde = attributeData.getAttrNameCde();
+		if (attributeData == null
+				|| (attributeData.getAttrValue() == null && attrNameCde != 44)
+				|| (attrNameCde == 44 && (!ListUtility.hasValue(attributeData.getAttributes())))) {
+			attributeData.setNotification(notification);
+			break;
+		} else if(attributeData.getAttrNameCde() == 44){
+			List<AttributeData> attributeDataList1 = attributeData.getAttributes();
+			for (AttributeData attrData : attributeDataList1) {
+				notification = null;
+				if (attrData.getAttrNameTxt() == null || attrData.getAttrNameTxt().length() == 0
+						|| attrData.getAttrValue() == null || attrData.getAttrValue().length() == 0) {
+					attrData.setNotification(notification);
+					continue;
+				} else if (attrData.getAttrNameTxt().equals("Expiry Date")) {
+					try {
+						Date currentDate = new Date();
+						Date inputDate = new SimpleDateFormat("MM/dd/yyyy").parse(attrData.getAttrValue());
+						if (inputDate.before(currentDate)) {
+							notification = "<strong><div class='text-danger urlhide'>Expired</div></strong>";
+						} else {
+							notification = "<strong><div class='text-success urlhide'>Valid</div></strong>";
+						}
+					} catch (Exception e) {
+					}
+					attrData.setNotification(notification);
+				} else if (attrData.getAttrNameTxt().equals("TotalPrice")) {
+					try {
+						String attrValue = attrData.getAttrValue();
+						float price = Float.valueOf(attrValue.replace("$","").replace(",", ""));
+						if (price > 500) {
+							notification = "<strong><div class='text-danger urlhide'>Approval required as amount exceeds $500</div></strong>";
+						} else {
+							notification = "<strong><div class='text-success urlhide'>Auto-approved</div></strong>";
+						}
+						// if ("Riverstone Info Tech".equalsIgnoreCase(attrValue)) {
+						// 	notification = "<strong><div class='text-success urlhide'>Supplier verified</div></strong>";
+						// } else {
+						// 	notification = "<strong><div class='text-danger urlhide'>Supplier not verified</div></strong>";
+						// }
+					} catch (Exception e) {
+					}
+					attrData.setNotification(notification);
+				}
+			}
+			notification = null;
+		}
+		attributeData.setNotification(notification);
+	}
+	return attributeDataList;
+}
+
+function List<AttributeData> setNotificationForFax(AttachmentData attachmentData){
+	List<AttributeData> attributeDataList = attachmentData.getAttributes();
+	for (AttributeData attributeData : attributeDataList) {
+		String notification = null;
+		int attrNameCde = attributeData.getAttrNameCde();
+		if (attributeData == null
+				|| (attributeData.getAttrValue() == null && attrNameCde != 44)
+				|| (attrNameCde == 44 && (!ListUtility.hasValue(attributeData.getAttributes())))) {
+			attributeData.setNotification(notification);
+			break;
+		} else if(attributeData.getAttrNameCde() == 44){
+			List<AttributeData> attributeDataList1 = attributeData.getAttributes();
+			for (AttributeData attrData : attributeDataList1) {
+				notification = null;
+				if (attrData.getAttrNameTxt() == null || attrData.getAttrNameTxt().length() == 0 ) {
+					attrData.setNotification(notification);
+					continue;
+				} else if (attrData.getAttrNameTxt().equalsIgnoreCase("Expiry Date")) {
+					try {
+						Date currentDate = new Date();
+						Date inputDate = new SimpleDateFormat("MM/dd/yyyy").parse(attrData.getAttrValue());
+						if (inputDate.before(currentDate)) {
+							notification = "<strong><div class='text-danger urlhide'>Expired</div></strong>";
+						} else {
+							notification = "";
+						}
+					} catch (Exception e) {
+					}
+					attrData.setNotification(notification);
+				}//kishore
+				else if(attrData.getAttrNameTxt().equalsIgnoreCase("Date")){
+					try {
+						String strDate = attrData.getAttrValue().trim();
+						if (strDate == null || strDate == "") {
+							notification = "<strong><div class='text-danger urlhide'>Date should not be blank.</div></strong>";
+						} else if(!(strDate.matches("[a-zA-Z]{3}-[0-9]{2}"))){
+							notification = "<strong><div class='text-danger urlhide'>Date should be in MMM-YY format</div></strong>";
+							
+						}else{
+							notification = "";
+						}
+					} catch (Exception e) {
+					}
+					attrData.setNotification(notification);
+					
+				}
+				
+				else if(attrData.getAttrNameTxt().equalsIgnoreCase("RE")){
+					try {
+						String re = attrData.getAttrValue().trim();
+						if (re == null || re == "") {
+							notification = "<strong><div class='text-danger urlhide'>RE should not be blank.</div></strong>";
+						} else if(!(re.matches("[a-zA-Z]{3}[0-9]{4}"))){
+							notification = "<strong><div class='text-danger urlhide'>Incorrect format</div></strong>";
+						}else{
+							notification = "";
+						}
+					} catch (Exception e) {
+					}
+					attrData.setNotification(notification);
+					
+				}
+				else if(attrData.getAttrNameTxt().equalsIgnoreCase("From")){
+					try {
+						String from = attrData.getAttrValue().trim();
+						if (from == null || from == "") {
+							notification = "<strong><div class='text-danger urlhide'>From should not be blank.</div></strong>";
+						} else {
+							notification = "";
+						}
+					} catch (Exception e) {
+					}
+					attrData.setNotification(notification);
+					
+				}
+				
+				else if(attrData.getAttrNameTxt().equalsIgnoreCase("To")){
+					try {
+						String to = attrData.getAttrValue().trim();
+						if (to == null || to == "") {
+							notification = "<strong><div class='text-danger urlhide'>To should not be blank.</div></strong>";
+						} else {
+							notification = "";
+						}
+					} catch (Exception e) {
+					}
+					attrData.setNotification(notification);
+					
+				}
+				
+				else if(attrData.getAttrNameTxt().equalsIgnoreCase("Message")){
+					try {
+						String message = attrData.getAttrValue().trim();
+						if (message == null || message == "") {
+							notification = "<strong><div class='text-danger urlhide'>Message should not be blank.</div></strong>";
+						} else {
+							notification = "";
+						}
+					} catch (Exception e) {
+					}
+					attrData.setNotification(notification);
+					
+				}
+				
+				else if(attrData.getAttrNameTxt().equalsIgnoreCase("Type")){
+					try {
+						String type = attrData.getAttrValue().trim();
+						if (type == null || type == "") {
+							notification = "<strong><div class='text-danger urlhide'>Type should not be blank.</div></strong>";
+						} else {
+							notification = "";
+						}
+					} catch (Exception e) {
+					}
+					attrData.setNotification(notification);
+					
+				}
+				
+				else if(attrData.getAttrNameTxt().equalsIgnoreCase("Receiver")){
+					try {
+						String receiver = attrData.getAttrValue().trim();
+												
+						if (receiver == null || receiver == "") {
+							notification = "<strong><div class='text-danger urlhide'>Receiver should not be blank.</div></strong>";
+							
+						} else if(!(receiver.matches("\\d{6}"))){
+							notification = "<strong><div class='text-danger urlhide'>Receiver should contain 6 digits</div></strong>";
+						}else{
+							notification = "";
+						}
+						
+					} catch (Exception e) {
+					}
+					attrData.setNotification(notification);
+					
+				}
+				
+				else if(attrData.getAttrNameTxt().equalsIgnoreCase("File")){
+					try {
+						String file = attrData.getAttrValue().trim();
+										
+						if (file == null || file == "") {
+							notification = "<strong><div class='text-danger urlhide'>File should not be blank.</div></strong>";
+						} else {
+							notification = "";
+						}
+						
+					} catch (Exception e) {
+					}
+					attrData.setNotification(notification);
+					
+				}
+				
+				
+				//Kishore
+			}
+			notification = null;
+		}
+		attributeData.setNotification(notification);
+	}
+	return attributeDataList;
+}
+
+function List<AttributeData> setNotificationForBankCheck(AttachmentData attachmentData){
+	List<AttributeData> attributeDataList = attachmentData.getAttributes();
+	for (AttributeData attributeData : attributeDataList) {
+		String notification = null;
+		int attrNameCde = attributeData.getAttrNameCde();
+		if (attributeData == null
+				|| (attributeData.getAttrValue() == null && attrNameCde != 44)
+				|| (attrNameCde == 44 && (!ListUtility.hasValue(attributeData.getAttributes())))) {
+			attributeData.setNotification(notification);
+			break;
+		} else if(attributeData.getAttrNameCde() == 44){
+			List<AttributeData> attributeDataList1 = attributeData.getAttributes();
+			for (AttributeData attrData : attributeDataList1) {
+				notification = null;
+				if (attrData.getAttrNameTxt() == null || attrData.getAttrNameTxt().length() == 0
+						|| attrData.getAttrValue() == null || attrData.getAttrValue().length() == 0) {
+					attrData.setNotification(notification);
+					continue;
+				} else if (attrData.getAttrNameTxt().equalsIgnoreCase("rtn")) {
+					if (attrData.getAttrValue().equals("000000518")) {
+						notification = "<strong><div class='text-success urlhide'>Valid</div></strong>";
+					} else {
+						notification = "<strong><div class='text-danger urlhide'>Invalid</div></strong>";
+					}
+					attrData.setNotification(notification);
+				} else if (attrData.getAttrNameTxt().equalsIgnoreCase("Amount")) {
+					if (attrData.getAttrValue().matches("[0-9*$]+")) {
+						notification = "<strong><div class='text-success urlhide'>Valid</div></strong>";
+					} else {
+						notification = "<strong><div class='text-danger urlhide'>Invalid</div></strong>";
+					}
+					attrData.setNotification(notification);
+				} else if (attrData.getAttrNameTxt().equalsIgnoreCase("qrCode")) {
+					String chequeNum = "";
+					for (AttributeData attrData1 : attributeDataList1) {
+						if (attrData1.getAttrNameTxt() == null || attrData1.getAttrNameTxt().length() == 0
+								|| attrData1.getAttrValue() == null || attrData1.getAttrValue().length() == 0) {
+							continue;
+						} else if (attrData1.getAttrNameTxt().toLowerCase().startsWith("chequenum")) {
+							chequeNum = attrData1.getAttrValue();
+							break;
+						}
+					}
+					if (attrData.getAttrValue().contains(chequeNum)) {
+						notification = "<strong><div class='text-success urlhide'>Verified Qr Code</div></strong>";
+					} else {
+						notification = "<strong><div class='text-danger urlhide'>Invalid</div></strong>";
+					}
+					attrData.setNotification(notification);
+				}
+			}
+			notification = null;
+		}
+		attributeData.setNotification(notification);
+	}
+	return attributeDataList;
+}
+
+rule "Default"
+salience 30
+activation-group "myGroup1"
+when
+    $InputOutputWrapperData: InputOutputWrapperData();
+    $documentData: DocumentData() from $InputOutputWrapperData.inputData;
+then
+    $InputOutputWrapperData.setOutputData( getNotification($documentData) );
+end

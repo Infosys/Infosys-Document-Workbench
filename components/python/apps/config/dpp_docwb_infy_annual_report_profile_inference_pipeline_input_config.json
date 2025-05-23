@@ -1,0 +1,291 @@
+{
+    "name": "annual_report_profile_inference_pipeline",
+    "enabled": true,
+    "variables": {
+        "DPP_SYS_PIPELINE_REQ_FILE_PATH": "<value will be auto updated>",
+        "DPP_SYS_PIPELINE_INPUT_CONFIG_PATH": "<value will be auto updated>",
+        "CHUNKED_FILES_ROOT_PATH": "/docwbvectordb/chunked",
+        "ENCODED_FILES_ROOT_PATH": "/docwbvectordb/encoded",
+        "WORK_ROOT_PATH": "/data/work/",
+        "DPP_STORAGE_URI": "file://C:/nfs/docwbdx",
+        "TIKTOKEN_CACHE_DIR": "C:/MyProgramFiles/AI/models/tiktoken_encoding",
+        "OPENAI_KEY": "<openai_key>",
+        "OPENAI_SERVER_URL": "<openai_server_url>",
+        "MODEL_HOME": "C:/MyProgramFiles/AI/models",
+        "CUSTOM_LLM_BLOOM_INFERENCE_URL": "<custom_llm_bloom_inference_url>",
+        "CUSTOM_LLM_LLAMA_INFERENCE_URL": "<custom_llm_llama_inference_url>",
+        "CUSTOM_LLM_MIXTRAL_INFERENCE_URL": "<custom_llm_mixtral_inference_url>"
+    },
+    "processor_list": [
+        {
+            "enabled": true,
+            "processor_name": "request_creator",
+            "processor_namespace": "infy_docwb_dpp.request_creator",
+            "processor_class_name": "RequestCreator",
+            "processor_input_config_name_list": [
+                "RequestCreator"
+            ]
+        },
+        {
+            "enabled": true,
+            "processor_name": "query_retriever",
+            "processor_namespace": "infy_dpp_ai.retriever.process.query_retriever_processor",
+            "processor_class_name": "QueryRetriever",
+            "processor_input_config_name_list": [
+                "QueryRetriever"
+            ]
+        },
+        {
+            "enabled": true,
+            "processor_name": "reader",
+            "processor_namespace": "infy_dpp_ai.reader.process.reader_processor",
+            "processor_class_name": "Reader",
+            "processor_input_config_name_list": [
+                "Reader"
+            ]
+        },
+        {
+            "enabled": true,
+            "processor_name": "document_data_updater",
+            "processor_namespace": "infy_dpp_core.document_data_updater",
+            "processor_class_name": "DocumentDataUpdateProcessor",
+            "processor_input_config_name_list": [
+                "DocumentDataUpdater"
+            ]
+        },
+        {
+            "enabled": true,
+            "processor_name": "document_data_saver",
+            "processor_namespace": "infy_dpp_core.document_data_saver",
+            "processor_class_name": "DocumentDataSaver",
+            "processor_input_config_name_list": [
+                "DocumentDataSaver"
+            ]
+        }
+    ],
+    "processor_input_config": {
+        "RequestCreator": {
+            "read_path": "/input/",
+            "batch_size": 20,
+            "filter": {
+                "include": [
+                    "pdf",
+                    "json"
+                ],
+                "exclude": [
+                    "_"
+                ]
+            },
+            "work_root_path": "/work/",
+            "queue": {
+                "enabled": true,
+                "queue_root_path": "/work/queue/"
+            }
+        },
+        "QueryRetriever": {
+            "embedding": {
+                "openai": {
+                    "enabled": true,
+                    "configuration": {
+                        "api_type": "azure",
+                        "api_version": "2022-12-01",
+                        "api_url": "${OPENAI_SERVER_URL}",
+                        "api_key": "${OPENAI_KEY}",
+                        "model_name": "text-embedding-ada-002",
+                        "deployment_name": "text-embedding-ada-002",
+                        "chunk_size": 1000,
+                        "tiktoken_cache_dir": "${MODEL_HOME}/tiktoken_encoding"
+                    }
+                },
+                "sentence_transformer": {
+                    "enabled": false,
+                    "configuration": {
+                        "model_name": "all-MiniLM-L6-v2",
+                        "model_home_path": "${MODEL_HOME}"
+                    }
+                }
+            },
+            "storage": {
+                "faiss": {
+                    "enabled": true,
+                    "configuration": {
+                        "chunked_files_root_path": "/docwbvectordb/chunked",
+                        "encoded_files_root_path": "/docwbvectordb/encoded",
+                        "db_name": ""
+                    }
+                },
+                "elasticsearch": {
+                    "enabled": false,
+                    "configuration": {
+                        "es_url": "https://localhost:443/elasticsearch",
+                        "user": "elastic",
+                        "password": "<password>",
+                        "index": "test_index"
+                    }
+                }
+            },
+            "queries": [
+                {
+                    "attribute_key": "is_annual_report_document",
+                    "question": "is Infosys is leveraging AI in this document?",
+                    "top_k": 1,
+                    "pre_filter_fetch_k": 10,
+                    "filter_metadata": {}
+                }
+            ]
+        },
+        "DocumentDataUpdater": {
+            "config_data": [
+                {
+                    "enabled": true,
+                    "json_path": "$.context_data",
+                    "json_key": "query_retriever",
+                    "replace_key_enabled": true,
+                    "replace_value_enabled": false,
+                    "replace_with_key": "query_retriever_annual_report_profile_inference_pipeline",
+                    "replace_with_value": "<any type>"
+                },
+                {
+                    "enabled": true,
+                    "json_path": "$.context_data",
+                    "json_key": "reader",
+                    "replace_key_enabled": true,
+                    "replace_value_enabled": false,
+                    "replace_with_key": "reader_annual_report_profile_inference_pipeline",
+                    "replace_with_value": "<any type>"
+                }
+            ]
+        },
+        "Reader": {
+            "storage": {
+                "faiss": {
+                    "enabled": true,
+                    "configuration": {
+                        "chunked_files_root_path": "/docwbvectordb/chunked",
+                        "encoded_files_root_path": "/docwbvectordb/encoded",
+                        "db_name": ""
+                    }
+                },
+                "elasticsearch": {
+                    "enabled": false,
+                    "configuration": {
+                        "es_url": "https://localhost:443/elasticsearch",
+                        "user": "elastic",
+                        "password": "<password>",
+                        "index": "test_index"
+                    }
+                }
+            },
+            "llm": {
+                "openai": {
+                    "enabled": true,
+                    "configuration": {
+                        "api_type": "azure",
+                        "api_version": "2024-02-15-preview",
+                        "api_url": "${OPENAI_SERVER_URL}",
+                        "api_key": "${OPENAI_KEY}",
+                        "max_tokens": 1000,
+                        "model_name": "gpt-4",
+                        "deployment_name": "gpt4",
+                        "temperature": 0.5,
+                        "is_chat_model": true,
+                        "tiktoken_cache_dir": "${MODEL_HOME}/tiktoken_encoding"
+                    },
+                    "cache": {
+                        "enabled": false,
+                        "cache_root_path": "/data/cache/infy_model_service"
+                    }
+                },
+                "custom": {
+                    "bloom-7b1": {
+                        "enabled": false,
+                        "configuration": {
+                            "inference_url": "${CUSTOM_LLM_BLOOM_INFERENCE_URL}",
+                            "tiktoken_cache_dir": "${MODEL_HOME}/tiktoken_encoding",
+                            "remove_query_from_response": true
+                        },
+                        "json_payload": {
+                            "inputs": "{query}",
+                            "parameters": {
+                                "max_new_tokens": 4096,
+                                "temperature": 1,
+                                "num_return_sequences": 1,
+                                "do_sample": true
+                            }
+                        }
+                    },
+                    "llama2-7b": {
+                        "enabled": false,
+                        "configuration": {
+                            "inference_url": "${CUSTOM_LLM_LLAMA_INFERENCE_URL}",
+                            "tiktoken_cache_dir": "${MODEL_HOME}/tiktoken_encoding",
+                            "remove_query_from_response": true
+                        },
+                        "json_payload": {
+                            "inputs": "{query}",
+                            "parameters": {
+                                "max_new_tokens": 4096,
+                                "temperature": 1,
+                                "num_return_sequences": 1,
+                                "do_sample": true
+                            }
+                        }
+                    },
+                    "mixtral8x7b-instruct": {
+                        "enabled": false,
+                        "configuration": {
+                            "inference_url": "${CUSTOM_LLM_MIXTRAL_INFERENCE_URL}",
+                            "tiktoken_cache_dir": "${MODEL_HOME}/tiktoken_encoding",
+                            "remove_query_from_response": false,
+                            "verify_ssl": false
+                        },
+                        "json_payload": {
+                            "inputs": "{query}",
+                            "parameters": {
+                                "max_new_tokens": 1024
+                            }
+                        }
+                    }
+                }
+            },
+            "named_context_templates": {
+                "context_default": "{chunk_text}",
+                "context_1": "[chunk_id={chunk_id},page_no={page_no},sequence_no={sequence_no},bbox={bbox},doc_name={doc_name}]\n{chunk_text}\n",
+                "context_2": "[chunk_id={chunk_id},page_no={page_no},sequence_no={sequence_no}]\n{chunk_text}\n"
+            },
+            "named_prompt_templates": {
+                "prompt_template_1": {
+                    "content": [
+                        "Use the following pieces of context to answer the question at the end.",
+                        "If you don't know the answer or even doubtful a bit, just say that you don't know,",
+                        " don't try to make up an answer.Just give the shortest and most appropriate relavant answer to the question.",
+                        "{context}",
+                        "Question: {question}",
+                        "Helpful Answer:"
+                    ],
+                    "context_template": "context_default"
+                },
+                "extractor_attribute_prompt": {
+                    "content": [],
+                    "file_path": "/data/config/prompt_templates/extractor_attribute_prompt.txt",
+                    "context_template": "context_1"
+                },
+                "extractor_attribute_prompt_2": {
+                    "content": [],
+                    "file_path": "/data/config/prompt_templates/extractor_attribute_prompt_2.txt",
+                    "context_template": "context_2"
+                }
+            },
+            "inputs": [
+                {
+                    "attribute_key": "is_annual_report_document",
+                    "prompt_template": "extractor_attribute_prompt_2",
+                    "model_type": "QnA"
+                }
+            ]
+        },
+        "DocumentDataSaver": {
+            "work_root_path": "/data/work/"
+        }
+    }
+}

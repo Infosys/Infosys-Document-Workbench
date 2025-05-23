@@ -1,0 +1,120 @@
+<div class="row">
+  <div class="col-md-11 font-16">
+    Re-Extract - Confirm
+  </div>
+  <div class="col-md-1 font-12 text-right pt-1">
+    <span class="nia-wrong-button" (click)="cancelWindow()"></span>
+  </div>
+</div>
+<div class="bg-white">
+  <div class="row mt-2 mb-2">
+    <div class="col-md-12">
+      <div class="p-1 font-14">
+        <br />
+        <div class="row col-md-12">
+          <div *ngIf="!isDataLoaded" class="loading-dots">
+            <div class="loading-dots--dot"></div>
+            <div class="loading-dots--dot"></div>
+            <div class="loading-dots--dot"></div>
+          </div>
+        </div>
+        <div
+          *ngIf="isDataLoaded && baseAttrDataList !== undefined && baseAttrDataList !== null && baseAttrDataList.length > 0"
+          [style.height.vh]="minheight">
+          <p>
+            The following
+            <strong>key attribute(s)<sup>*</sup></strong> will be re-extracted:
+          </p>
+          <br />
+          <div class="content-text" [style.height.vh]="minheight-42">
+            <table class="table table-fixed table-hover table-sm font-12">
+              <thead>
+                <tr>
+                  <th class="static"><span class="nia-tags-button"></span></th>
+                  <th class="static re-extract">Re-Extract</th>
+                  <th class="static">Type</th>
+                  <th class="static name">Key Attribute</th>
+                  <th class="static">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let attrData of baseAttrDataList">
+                  <tr>
+                    <td><span class="nia-tag-button" title="Key Attribute"></span></td>
+                    <td class="re-extract">
+                      <input type="checkbox" value="{{attrData.id}}" [(ngModel)]="attrData.optionChecked" />
+                    </td>
+                    <td class="type">
+                      <ng-container *ngIf="attrData.attachmentId === undefined">
+                        Email
+                      </ng-container>
+                      <ng-container *ngIf="attrData.attachmentId > 0 && attachDataList !== null">
+                        <ng-container *ngFor="let attachData of attachDataList; let i=index"
+                          [class.active]="i === selectedRow">
+                          <span *ngIf="attrData.attachmentId === attachData.attachmentId"
+                            title="Document {{i+1}} - {{attachData.fileName}}">
+                            Document #{{i+1}} - {{attachData.fileName}}
+                          </span>
+                        </ng-container>
+                      </ng-container>
+                    </td>
+                    <td class="name" title="{{attrData.attrNameTxt}}">
+                      {{attrData.attrNameTxt}}
+                    </td>
+                    <td class="value" title="{{attrData.attrValue}}">
+                      {{attrData.attrValue}}
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <br />
+            <span class="font-12">
+              <i>
+                <strong><sup>*</sup>Key attribute</strong> is an attribute which determines what
+                other related attributes will be extracted automatically by the system.</i>
+            </span>
+            <br />
+            <span>
+              Note:
+            </span>
+            <p>1. If
+              <strong>key attribute</strong> is <i>Unknown</i> and multiple re-extraction attempts did not fetch a
+              different value, then please consider modifying manually.</p>
+            <p>
+              2. If
+              <strong>key attribute</strong> was modified manually, please uncheck to avoid resetting during
+              re-extraction.
+            </p>
+          </div>
+          <hr>
+          <div class="text-center">
+            <br /> Do you want to proceed? If not, please press Cancel.
+          </div>
+        </div>
+        <div *ngIf="isDataLoaded && baseAttrDataList.length <= 0 " class="text-center">
+          Do you want to proceed? If not, please press Cancel.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="p-2">
+        <input type="button" value="CANCEL" (click)="cancelWindow()" class="btn btn-sm btn-outline-primary" />
+        <input type="button" value="OK" [disabled]="!isSaveAllowed" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.RE_EXT_CON.OK);executeAction()"
+          class="btn btn-sm btn-primary float-md-right" />
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="executeStatusMessage">
+    <div class="col-md-12 p-0 text-center">
+      <div class="">
+        <span class="font-12 text-danger">{{executeStatusMessage}}</span>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,236 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema",
+	"type": "object",
+	"additionalProperties": false,
+	"required": [
+		"response",
+		"transactionId",
+		"responseCde",
+		"responseMsg",
+		"responseTimeInSecs",
+		"timestamp"
+	],
+	"properties": {
+		"response": {
+			"type": "object",
+			"oneOf": [
+				{
+					"$ref": "#/definitions/colTypeDef"
+				}
+			]
+		},
+		"transactionId": {
+			"type": "string"
+		},
+		"responseCde": {
+			"type": "integer"
+		},
+		"responseMsg": {
+			"type": "string"
+		},
+		"responseTimeInSecs": {
+			"type": "number"
+		},
+		"timestamp": {
+			"type": "string"
+		}
+	},
+	"definitions": {
+		"colTypeDef": {
+			"type": "object",
+			"patternProperties": {
+				"^table[1-9]+\\d*$": {
+					"oneOf": [
+						{
+							"$ref": "#/definitions/tableDef"
+						}
+					]
+				},
+				"^attributes$": {
+					"type": "array",
+					"items": {
+						"oneOf": [
+							{
+								"$ref": "#/definitions/columnDef"
+							},
+							{
+								"$ref": "#/definitions/columnDefDynamic"
+							}
+						]
+					},
+					"uniqueItems": true
+				}
+			},
+			"additionalProperties": false,
+			"minProperties": 1
+		},
+		"tableDef": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"default": ""
+				},
+				"columnOrder": {
+					"type": "array",
+					"default": [],
+					"items": {
+						"type": "string",
+						"default": ""
+					},
+					"minItems": 1
+				},
+				"columnLabels": {
+					"type": "array",
+					"default": [],
+					"items": {
+						"type": "string",
+						"default": ""
+					}
+				}
+			},
+			"patternProperties": {
+				"^row[1-9]+\\d*$": {
+					"oneOf": [
+						{
+							"$ref": "#/definitions/rowDef"
+						}
+					]
+				}
+			},
+			"additionalProperties": false,
+			"minProperties": 3,
+			"required": [
+				"name",
+				"columnOrder"
+			]
+		},
+		"rowDef": {
+			"type": "object",
+			"patternProperties": {
+				".*": {
+					"anyOf": [
+						{
+							"$ref": "#/definitions/columnDefObject"
+						},
+						{
+							"$ref": "#/definitions/columnDefOther"
+						}
+					]
+				}
+			},
+			"additionalProperties": false,
+			"minProperties": 1
+		},
+		"columnDef": {
+			"type": "object",
+			"patternProperties": {
+				".*": {
+					"oneOf": [
+						{
+							"$ref": "#/definitions/columnDefArray"
+						},
+						{
+							"anyOf": [
+								{
+									"$ref": "#/definitions/columnDefObject"
+								},
+								{
+									"$ref": "#/definitions/columnDefOther"
+								}
+							]
+						}
+					]
+				}
+			},
+			"properties": {
+				"label": {
+					"type": "string",
+					"default": ""
+				}
+			},
+			"required": [
+				"label"
+			],
+			"additionalProperties": false,
+			"minProperties": 2,
+			"maxProperties": 2
+		},
+		"columnDefDynamic": {
+			"type": "object",
+			"patternProperties": {
+				".*": {
+					"oneOf": [
+						{
+							"$ref": "#/definitions/columnDefArray"
+						},
+						{
+							"anyOf": [
+								{
+									"$ref": "#/definitions/columnDefObject"
+								},
+								{
+									"$ref": "#/definitions/columnDefOther"
+								}
+							]
+						}
+					]
+				}
+			},
+			"additionalProperties": false,
+			"minProperties": 1,
+			"maxProperties": 1
+		},
+		"columnDefArray": {
+			"type": "array",
+			"items": {
+				"anyOf": [
+					{
+						"$ref": "#/definitions/columnDefObject"
+					},
+					{
+						"$ref": "#/definitions/columnDefOther"
+					}
+				]
+			},
+			"minItems": 1,
+			"uniqueItems": true
+		},
+		"columnDefObject": {
+			"type": "object",
+			"properties": {
+				"value": {
+					"type": "string"
+				},
+				"confidencePct": {
+					"type": "number"
+				}
+			},
+			"patternProperties": {
+				".*": {
+					"type": [
+						"number",
+						"string",
+						"boolean",
+						"integer"
+					]
+				}
+			},
+			"additionalProperties": false,
+			"minProperties": 1,
+			"required": [
+				"value"
+			]
+		},
+		"columnDefOther": {
+			"type": [
+				"number",
+				"string",
+				"boolean",
+				"integer"
+			],
+			"additionalProperties": false,
+			"minProperties": 1
+		}
+	}
+}

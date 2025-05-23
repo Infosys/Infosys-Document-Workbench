@@ -1,0 +1,155 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+// div {
+//     border:1px solid yellow;
+// }
+
+.left-header{
+	display: block;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+}
+
+.left-header p{
+	vertical-align: middle;
+	width: 100%;
+	display: inline-block;
+	height: 50%;
+	position: absolute;
+	//   top: 0;
+	bottom: 0%;
+	margin: auto;
+}
+.padding-box {
+	padding-top: 95px !important;
+	padding-bottom: 75px !important;
+}
+
+.padding-32 {
+	padding-top: 32px !important;
+	padding-bottom: 32px !important;
+}
+
+.padding-center {
+	padding-inline-start: 25px;
+	padding-inline-end: 25px;
+	display: inline-block;
+	padding-top: 28vh !important;
+}
+
+.left-box {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0px;
+	width: 50%;
+	height: 100%;
+	size: portrait;
+	box-sizing: border-box;
+	background-color: #4c7ebb;
+	font-weight: 300;
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+.section {
+	padding-top: 15px !important;
+}
+
+.link {
+	text-transform: capitalize;
+	color: #4c7ebb;
+	font-weight: bold;
+}
+
+.button {
+	color: #fff !important;
+	background-color: #4c7ebb !important;
+	border: none;
+	display: inline-block;
+	vertical-align: middle;
+	overflow: hidden;
+	text-decoration: none;
+	text-align: center;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.blue {
+	color: #4c7ebb !important;
+	background-color: #fff !important;
+	padding: 5px 12px;
+	font-weight: 700;
+}
+
+.right-box {
+	width: 50%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	box-sizing: border-box;
+	height: 100%;
+	size: portrait;
+	background-size: cover;
+	background-position: center;
+	text-align: center;
+	font-weight: 300;
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+p {
+	color: white;
+	font-size: 16px;
+	text-transform: uppercase;
+	text-align: center;
+    margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+#login-page-form{
+	
+	input {
+		width: 18vw;
+		height: 5vh;
+		background-color: #443e3e;
+		color: #fff;
+		padding-inline-start: 5px;
+		padding-bottom: 2px;
+		border-color: #ece7e7d1;
+		border-bottom-width: 1px;
+		border-right-width: 1px;
+		border-left-width: 1px;
+		border-top-width: 1px;
+	}
+	
+	form {
+		width: 22vw;
+		height: 35vh;
+		background-color: #443e3e;
+		text-align: start;
+		margin: 0 auto; 
+	}
+	
+	label {
+		padding-top: 0px;
+		padding-left: 26px;
+		padding-bottom: 1px;
+		text-align: left;
+		color: #fff;
+		font-weight: 300;
+	}	
+}
+
+h1 {
+	margin: 0 0 20px 0;
+	text-align: left;
+	font-size: 18px !important;
+	font-weight: 400;
+	color: white;
+}

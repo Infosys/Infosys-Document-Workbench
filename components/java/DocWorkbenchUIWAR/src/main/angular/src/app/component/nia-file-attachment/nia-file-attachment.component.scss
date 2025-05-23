@@ -1,0 +1,22 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+input[type="file"] {
+    display: none;
+}
+
+.file-style{
+    position: relative;
+    float:left;  
+    padding: 2px;
+    border: 1px solid #8080808f;
+}
+
+.form-group{
+    margin-bottom: 0rem;
+    padding-left: 7px;
+
+}

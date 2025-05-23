@@ -1,0 +1,22 @@
+<div class="form-group" style="padding-bottom: 10px;">
+  <tr>
+    <label class="nia-file-button">
+      <input type="file" class="form-control" multiple accept=".pdf,.doc,.docx" (change)="onSelectFile($event)">
+      &nbsp;&nbsp;
+    </label>
+    <!-- <td *ngFor="let file of fileAttachments let i=index">
+      <tr class="file-style" *ngIf="getFeature(bmodel.FID.ATTACHMENT_VIEW).isVisible" [disabled]="!getFeature(bmodel.FID.ATTACHMENT_VIEW).isEnabled" [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.ATTACHMENT_VIEW).isEnabled" title={{file.fileName}}>{{i+1}}.{{getMaskedFileName(file.fileName,8)}}&nbsp;&nbsp;
+     
+    <span _ngcontent-c12="" class="nia-wrong-button" (click)="removeAttachment(file,index)"></span>
+  </tr>&nbsp;&nbsp;
+  </td> -->
+  <!--TODO: Need to implement [[disabled]="!getFeature(bmodel.FID.ATTACHMENT_VIEW).isEnabled" [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.ATTACHMENT_VIEW).isEnabled" to below tag -->
+  <td *ngFor="let file of fileAttachments let i=index">
+    <tr class="file-style" *ngIf="getFeature(bmodel.FID.ATTACHMENT_VIEW).isVisible"  title={{file.fileName}}>{{i+1}}.{{getMaskedFileName(file.fileName,8)}}&nbsp;&nbsp;
+   
+  <span _ngcontent-c12="" class="nia-wrong-button" (click)="removeAttachment(file,index)"></span>
+</tr>&nbsp;&nbsp;
+</td>
+</div>
+<div style="color: red;" *ngIf="isFilesLengthExceeded">&nbsp;&nbsp;&nbsp;&nbsp;You are allowed to select only 5 attachments!!!</div>
+<div style="color: red;" *ngIf="isFileSizeExceeded">&nbsp;&nbsp;&nbsp;&nbsp;No files are added as File {{fileNameOfSizeExceeded}} is exceeding the maximum file size of 2MB!!!</div>

@@ -1,0 +1,37 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+autopep8 = "==1.5.1"
+pytest = "==6.2.5"
+pytest-cov = "==2.12.1"
+scipy= "==1.10.1"
+
+[packages]
+numpy="<2.0.0"
+schedule="==1.0.0"
+
+# SDK
+# The below libraries are required for the libraries to work
+infy_common_utils = {path = "./lib/infy_common_utils-0.0.10-py3-none-any.whl"}
+#create-request and metadata extraction
+infy_docwb_dpp = {path = "./lib/infy_docwb_dpp-0.0.2-py3-none-any.whl"}
+infy_dpp_core = {path = "./lib/infy_dpp_core-0.0.3-py3-none-any.whl"}
+infy_dpp_ai = {path = "./lib/infy_dpp_ai-0.0.3-py3-none-any.whl"}
+infy_dpp_content_extractor = {file = "./lib/infy_dpp_content_extractor-0.0.1-py3-none-any.whl"}
+infy_dpp_sdk = {path = "./lib/infy_dpp_sdk-0.0.10-py3-none-any.whl"}
+infy_dpp_segmentation = {path = "./lib/infy_dpp_segmentation-0.0.6-py3-none-any.whl", extras=["segment-generator"]}
+infy-fs-utils = {file = "./lib/infy_fs_utils-0.0.3-py3-none-any.whl"}
+infy_gen_ai_sdk = {file = "./lib/infy_gen_ai_sdk-0.0.4-py3-none-any.whl",extras=["st"]}
+infy_ocr_generator = {path = "./lib/infy_ocr_generator-0.0.13-py3-none-any.whl", extras=["tesseract"]}
+infy_ocr_parser = {path = "./lib/infy_ocr_parser-0.0.16-py3-none-any.whl"}
+
+# huggingface-hub is temporarly added to resolve the issue of "NameError: name 'SentenceTransformer' is not defined"
+huggingface-hub = "==0.25.2"
+# temporarily added as gen_ai_sdk installs older version of openai throwing `unexpected keyword argument 'proxies'` error
+openai = "==1.55.3"
+
+[requires]
+python_version = "3"

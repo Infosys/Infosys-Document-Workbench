@@ -1,0 +1,80 @@
+<div class="bg-white">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="content-text font-13" style="background-color: #f1f1f1;">
+        <div *ngIf="!isDataLoaded" class="loading-dots">
+          <br />
+          <br />
+          <div class="loading-dots--dot"></div>
+          <div class="loading-dots--dot"></div>
+          <div class="loading-dots--dot"></div>
+        </div>
+        <div *ngIf="isDataLoaded">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="p-1">
+                <input type="button" *ngIf="getFeature(bmodel.FID.CASE_USER_CREATE).isVisible && (!isReassignAllowed)"
+                  [disabled]="!getFeature(bmodel.FID.CASE_USER_CREATE).isEnabled || (!isDataLoaded || isCaseclosed)"
+                  class="btn btn-outline-primary btn-sm bt "
+                  [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.CASE_USER_CREATE).isEnabled"
+                  value="ASSIGN TO ME"
+                  (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.CAS_PAN.ASSIGN_TO_ME);open(docCase, true)" />
+                <input type="button" *ngIf="getFeature(bmodel.FID.CASE_USER_EDIT).isVisible && (isReassignAllowed)"
+                  [disabled]="!getFeature(bmodel.FID.CASE_USER_EDIT).isEnabled || (!isDataLoaded || isCaseclosed)"
+                  [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.CASE_USER_EDIT).isEnabled || isCaseclosed"
+                  class="btn btn-sm btn-outline-primary" value="REASSIGN" (click)="open(docCase, true)" />
+
+                &nbsp; <label style="white-space: nowrap; ">Case Owner: </label>&nbsp;
+                <input type="text" style="width: 14vh;" readonly value="{{model.caseOwnerLoginId}}" />
+                &nbsp; <label style="white-space: nowrap; ">Case Reviewer: </label> &nbsp;
+                <input type="text" style="width: 14vh;" readonly value="{{model.caseReviewerLoginId}}" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-1 float-md-right">
+                <label style="white-space: nowrap; ">Case Status: </label> &nbsp;
+                <input type="text" readonly value="{{documentData.taskStatusTxt}} "
+                  *ngIf="getFeature(bmodel.FID.CASE_LIST).isVisible"
+                  [disabled]="!getFeature(bmodel.FID.CASE_LIST).isEnabled"
+                  [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.CASE_LIST).isEnabled" />
+                <input type="button" *ngIf="getFeature(bmodel.FID.CLOSE_CASE_EDIT).isVisible"
+                  [disabled]="!getFeature(bmodel.FID.CLOSE_CASE_EDIT).isEnabled && (!isCaseEditable)"
+                  class="btn btn-outline-primary btn-sm bt"
+                  [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.CLOSE_CASE_EDIT).isEnabled &&(!isCaseEditable)"
+                  value="CLOSE CASE" (click)="closeCase()" /> &nbsp;
+                <input type="button" class="btn btn-outline-primary btn-sm bt "
+                  *ngIf="getFeature(bmodel.FID.AUDIT_CASE_VIEW).isVisible"
+                  [disabled]="!getFeature(bmodel.FID.AUDIT_CASE_VIEW).isEnabled"
+                  [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.AUDIT_CASE_VIEW).isEnabled"
+                  value="CASE HISTORY"
+                  (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.CAS_PAN.CASE_HIS);open(audit, false)" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #audit let-c="close" let-d="dismiss">
+  <div id="content">
+    <div class="row" style="width:65vw;height:84vh;margin-left:-5vw;">
+      <div class="col-md-12 nia-modal p-2">
+        <app-audit [title]="'Case History'" [auditData]=auditData (close)="c('Close click')"></app-audit>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #docCase let-c="close" let-d="dismiss">
+  <div id="content" class="container-fluid" style="width:100%;height:100%;">
+    <div class="row">
+      <div class="col-md-12 nia-modal p-2">
+        <app-case-assign [document]=documentData [docUserDataList]="model.docUserDataList" [queueNameCde]=queueNameCdeSelected
+          (close)="c($event)">
+        </app-case-assign>
+      </div>
+    </div>
+  </div>
+</ng-template>

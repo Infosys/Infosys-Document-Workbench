@@ -1,0 +1,170 @@
+<div class="row">
+  <div class="col-md-2 font-16 pt-2">
+    Queue List
+  </div>
+  <ng-container *ngIf="(model.isAdminQueueList && getFeature(bmodel.FID.QUEUE_EDIT).isEnabled) 
+    || (model.isPersonalQueueList && getFeature(bmodel.FID.QUEUE_USER_EDIT).isEnabled)">
+    <div class="col-md-8 font-13 text-left pt-2">
+      <div class="p-1" style="width: 50%; margin: 0 auto; text-align: center;">
+        <ng-container *ngIf="model.isPersonalQueueList">
+          <mat-radio-group aria-label="Select an option">
+            <mat-radio-button [checked]="model.isOpenQueueChecked" value="open" 
+              (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, 
+              bmodel.TELEID.QUE_MAN.PER_QUE_MANAGE_OPEN_QUEUE);onQueueClick('open')">Open Queues
+            </mat-radio-button>&nbsp;&nbsp;
+            <mat-radio-button [checked]="model.isClosedQueueChecked" value="closed" 
+              (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, 
+              bmodel.TELEID.QUE_MAN.PER_QUE_MANAGE_CLOSED_QUEUE);onQueueClick('closed')">Closed Queues
+            </mat-radio-button>
+          </mat-radio-group>
+        </ng-container>
+        <ng-container *ngIf="model.isAdminQueueList">
+          <mat-radio-group aria-label="Select an option">
+            <mat-radio-button [checked]="model.isOpenQueueChecked" value="open" 
+              (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, 
+              bmodel.TELEID.QUE_MAN.ADM_OPEN_QUEUE);onQueueClick('open')">Open Queues
+            </mat-radio-button>&nbsp;&nbsp;
+            <mat-radio-button [checked]="model.isClosedQueueChecked" value="closed" 
+              (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, 
+              bmodel.TELEID.QUE_MAN.ADM_CLOSED_QUEUE);onQueueClick('closed')">Closed Queues
+            </mat-radio-button>
+          </mat-radio-group>
+        </ng-container>
+      </div>
+    </div>
+    <div class="col-md-2 font-12 mt-3 text-right">
+      <ng-container *ngIf="model.isPersonalQueueList">
+        <span class="nia-reload-button"
+          (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.QUE_MAN.PER_REFRESH);
+          refreshComponent()"></span>
+      </ng-container>
+      <ng-container *ngIf="model.isAdminQueueList">
+        <span class="nia-reload-button"
+          (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.QUE_MAN.ADM_REFRESH)
+          ;refreshComponent()"></span>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>
+
+<ng-container *ngIf="(model.isAdminQueueList && !getFeature(bmodel.FID.QUEUE_EDIT).isEnabled) ||
+  (model.isPersonalQueueList && !getFeature(bmodel.FID.QUEUE_USER_EDIT).isEnabled)">
+  <div class="nia-content-not-allowed">{{bmodel.FID_ERR_MSG.NOT_ALLOWED}}</div>
+</ng-container>
+
+<ng-container *ngIf="(model.isAdminQueueList && getFeature(bmodel.FID.QUEUE_EDIT).isEnabled) 
+  || (model.isPersonalQueueList && getFeature(bmodel.FID.QUEUE_USER_EDIT).isEnabled)">
+  <div *ngIf="!model.isDataLoaded" class="loading-dots">
+    <br />
+    <br />
+    <div class="loading-dots--dot"></div>
+    <div class="loading-dots--dot"></div>
+    <div class="loading-dots--dot"></div>
+  </div>
+  <ng-container *ngIf="model.isDataLoaded">
+    <table class="table table-hover table-sm font-12 bg-white queue-tbl-columns">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Queue Code</th>
+          <th>Queue Name</th>
+          <th title="The date of closure of queue set by queue owner.">Closed Date</th>
+          <th>Status</th>
+          <th title="The date after which queue will not be visible in side bar navigation and dashboard.">Queue Hide
+            After Date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <ng-container *ngFor="let queueData of model.queueDataList; let i=index">
+          <tr *ngIf="queueData.isVisible">
+            <td>{{i+1}}.</td>
+            <td>{{queueData.queueNameCde}}</td>
+            <td>{{queueData.queueNameTxt}}</td>
+            <td>
+              <ng-container *ngIf="model.isPersonalQueueList">
+                {{ convertDateFormat(queueData.queueClosedDtm)}}
+              </ng-container>
+              <ng-container *ngIf="model.isAdminQueueList">
+                <mat-form-field>
+                  <input matInput #closureDatePickerModel="ngModel" [matDatepicker]="closuredatepicker"
+                    [ngModel]="queueData.queueClosedDtm" (ngModelChange)="setQueueClosureDtm(queueData,$event)"
+                    autocomplete="off">
+                  <mat-datepicker-toggle matSuffix [for]="closuredatepicker"></mat-datepicker-toggle>
+                  <mat-datepicker #closuredatepicker></mat-datepicker>
+                  <mat-error *ngIf="closureDatePickerModel.hasError('matDatepickerParse')">
+                    "{{closureDatePickerModel.getError('matDatepickerParse').text}}"
+                    is not a valid date!
+                  </mat-error>
+                </mat-form-field>
+                <span *ngIf="queueData.isClosureDateValueChanged" class="attr-value-dirty"></span>
+              </ng-container>
+            </td>
+            <td>
+              {{queueData.queueStatus}}
+            </td>
+            <td>
+              <ng-container *ngIf="model.isPersonalQueueList">
+                <mat-form-field>
+                  <input matInput #visibilityDatePickerModel="ngModel" [matDatepicker]="datepicker"
+                    [ngModel]="queueData.userQueueHideAfterDtm" (ngModelChange)="setHideAfterDtm(queueData,$event)"
+                    autocomplete="off">
+                  <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                  <mat-datepicker #datepicker></mat-datepicker>
+                  <mat-error *ngIf="visibilityDatePickerModel.hasError('matDatepickerParse')">
+                    "{{visibilityDatePickerModel.getError('matDatepickerParse').text}}"
+                    is not a valid date!
+                  </mat-error>
+                </mat-form-field>
+              </ng-container>
+
+              <ng-container *ngIf="model.isAdminQueueList">
+                <mat-form-field>
+                  <input matInput #visibilityDatePickerModel="ngModel" [matDatepicker]="datepicker"
+                    [ngModel]="queueData.queueHideAfterDtm"
+                    (ngModelChange)="setqueueClosureVisibility(queueData,$event)" autocomplete="off">
+                  <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                  <mat-datepicker #datepicker></mat-datepicker>
+                  <mat-error *ngIf="visibilityDatePickerModel.hasError('matDatepickerParse')">
+                    "{{visibilityDatePickerModel.getError('matDatepickerParse').text}}"
+                    is not a valid date!
+                  </mat-error>
+                </mat-form-field>
+              </ng-container>
+              <span *ngIf="queueData.isDateValueChanged" class="attr-value-dirty"></span>
+            </td>
+
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </ng-container>
+
+<div class="row">
+  <div class="col-md-4">
+    <ng-container *ngIf="model.isPersonalQueueList">
+      <span class="footnote">Note: Changes made to the queue will be applicable only for current user.</span>
+    </ng-container>
+    <!-- <ng-container *ngIf="model.isAdminQueueList"></ng-container> -->
+  </div>
+  <div class="col-md-4">
+    <ng-container *ngIf="model.isDataLoaded">
+      <mat-paginator [length]="model.tableTotalContentSize" [pageSize]="model.pageSize" [hidePageSize]="true"
+        aria-label="Select page" showFirstLastButtons (page)="onChangePage($event)">
+      </mat-paginator>
+    </ng-container>
+  </div>
+  <div class="col-md-4">
+    <ng-container *ngIf="model.isPersonalQueueList">
+      <input [disabled]="(!model.isSaveAllowed)" [class.nia-cursor-not-allowed]="(!model.isSaveAllowed)"
+        class="btn btn-sm btn-outline-primary float-md-right" type="button" value="SAVE" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, 
+        bmodel.TELEID.QUE_MAN.PER_SAVE);saveVisibilityDate()" />
+    </ng-container>
+    <ng-container *ngIf="model.isAdminQueueList">
+      <input [disabled]="(!model.isSaveAllowed)" [class.nia-cursor-not-allowed]="(!model.isSaveAllowed)"
+        class="btn btn-sm btn-outline-primary float-md-right" type="button" value="SAVE" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, 
+        bmodel.TELEID.QUE_MAN.ADM_SAVE);saveQueueClosureDetails()" />
+    </ng-container>
+  </div>
+</div>
+</ng-container>

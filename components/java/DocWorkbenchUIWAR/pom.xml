@@ -1,0 +1,297 @@
+<!--
+Copyright 2022 Infosys Ltd.
+Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at
+http://www.apache.org/licenses/ 
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.infosys.ainauto</groupId>
+	<artifactId>docwb-ui</artifactId>
+	<version>1.2.0.0</version>
+	<packaging>war</packaging>
+	<name>DocWorkbenchUI</name>
+	<description>Document Workbench UI</description>
+	<properties>
+		<!-- Generic properties -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<tfs.changeset.num>0000</tfs.changeset.num>
+		<!-- Angular 5 properties -->
+		<angular.project.location>src/main/angular</angular.project.location>
+		<angular.project.nodeinstallation>D:\ProgramFiles\nodejs</angular.project.nodeinstallation>
+		<!-- Spring version -->
+		<org.springframework.version>5.3.31</org.springframework.version>
+		<!-- Testing -->
+		<war.file.name>docwb</war.file.name>
+		<!-- Code coverage report -->
+		<jacoco-version>0.8.8</jacoco-version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-jsonSchema</artifactId>
+			<version>2.9.9</version>
+		</dependency>
+		<!-- ##### FOR HTTP CLIENT ##### -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+		<!-- ##### FOR HTTP CLIENT ##### -->
+		<!-- ##### INTERNAL JARS BEGIN ##### -->
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>common-utils</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<!-- ##### INTERNAL JARS END ##### -->
+		<!-- ##### FOR LOGGING BEGIN ##### -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.7</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<!-- ##### FOR LOGGING END ##### -->
+		<!-- ##### FOR TESTING BEGIN ##### -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- ##### FOR TESTING END ##### -->
+	</dependencies>
+	<build>
+		<finalName>${war.file.name}</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.7.1</version>
+			</plugin>
+			<!-- ##### CODE COVERAGE REPORT BEGIN ##### -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-version}</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- ##### CODE COVERAGE REPORT END ##### -->
+			<!-- Node JS for Angular 5 -->
+			<!-- <plugin> <groupId>com.github.eirslett</groupId> <artifactId>frontend-maven-plugin</artifactId> 
+				<version>1.0</version> <configuration> <workingDirectory>${angular.project.location}</workingDirectory> 
+				<installDirectory>${angular.project.nodeinstallation}</installDirectory> 
+				</configuration> <executions> It will execute command "npm build" inside 
+				"/e2e-angular2" directory to clean and create "/dist" directory <execution> 
+				<id>npm build</id> <goals> <goal>npm</goal> </goals> <configuration> <arguments>run 
+				build</arguments> </configuration> </execution> </executions> </plugin> -->
+
+			<!-- Plugin to copy the content of /angular/dist/ directory to output 
+				directory (/target/docwb/static/) -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>copy-angular-files</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<echo message="Copy angular files from dist to static"/>
+								<mkdir dir="${project.build.directory}/${war.file.name}/static"/>
+								<copy todir="${project.build.directory}/${war.file.name}/static" overwrite="true"> 
+									<fileset dir="${project.basedir}/${angular.project.location}/dist" includes="**/*"/> 												
+								</copy>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Node JS for Angular 5 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.4.0</version>
+				<configuration>
+					<archive>
+						<manifestSections>
+							<manifestSection>
+								<name>Nia Build</name>
+								<manifestEntries>
+									<BuildTime>${maven.build.timestamp}</BuildTime>
+									<ProjectVersion>${project.version}</ProjectVersion>
+									<ChangesetNum>${tfs.changeset.num}</ChangesetNum>
+									<Environment>${deploy.env.name}</Environment>
+									<Profile>${project.activeProfiles[0].id}</Profile>
+								</manifestEntries>
+							</manifestSection>
+						</manifestSections>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<!-- The development profile is active by default -->
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-eclipse-plugin</artifactId>
+						<version>2.9</version>
+						<configuration>
+							<additionalProjectnatures>
+								<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+							</additionalProjectnatures>
+							<additionalBuildcommands>
+								<buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+							</additionalBuildcommands>
+							<downloadSources>true</downloadSources>
+							<downloadJavadocs>true</downloadJavadocs>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>client</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.8</version>
+						<executions>
+							<execution>
+								<id>copy-env-files</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target if="deploy.env.name">
+										<echo message="Copy environment specific properties file"/>
+										<copy todir="${project.build.directory}/classes" overwrite="true"> 
+											<fileset dir="src/main/resources/conf/${deploy.env.name}" includes="**"/> 												
+										</copy>
+										
+										<echo message="Delete folder classes/conf"/>
+										<delete dir="${project.build.directory}/classes/conf"/>
+										
+										<echo message="Copy environment specific angular files"/>
+										<copy todir="${project.build.directory}/${war.file.name}/static/assets" overwrite="true"> 
+											<fileset dir="${project.build.directory}/${war.file.name}/static/assets/conf/${deploy.env.name}" includes="**"/> 												
+										</copy>
+										
+										<echo message="Delete folder static/assets/conf"/>
+										<delete dir="${project.build.directory}/${war.file.name}/static/assets/conf"/>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>3.4.0</version>
+						<configuration>
+							<useCache>true</useCache>
+						</configuration>
+						<executions>
+							<execution>
+								<id>prepare-war</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>exploded</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	<licenses>
+		<license>
+			<name>Apache License Version 2.0</name>
+		</license>
+	</licenses>
+	<reporting>
+		<outputDirectory>${project.build.directory}/../../report/${project.artifactId}</outputDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>3.1.0</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+						<report>dependencies</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
+</project>

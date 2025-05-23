@@ -1,0 +1,140 @@
+package com.client.template.business.rules
+
+import com.infosys.ainauto.docwb.rules.model.domain.InputOutputWrapperData;
+import com.infosys.ainauto.docwb.rules.model.domain.DocumentData;
+import com.infosys.ainauto.docwb.rules.model.domain.ActionData;
+import com.infosys.ainauto.docwb.rules.model.domain.AttributeData;
+
+function ActionData getLatestAction(DocumentData documentData) {
+	ActionData actionData = null;
+	if (documentData==null 
+		|| documentData.getActionDataList() ==null 
+		|| documentData.getActionDataList().size() ==0
+		) {
+		return actionData;
+	}
+	return documentData.getActionDataList().get(documentData.getActionDataList().size()-1);
+}
+
+function String getAttributeValueForCde(DocumentData documentData, int attrNameCde) {
+	String attrValue = "";
+	for (int i=0;i<documentData.getAttributes().size();i++) {
+		if (documentData.getAttributes().get(i).getAttrNameCde() == attrNameCde) {
+			attrValue = documentData.getAttributes().get(i).getAttrValue();
+			break;
+		}
+	}
+	return attrValue;
+}
+
+function String fetchTokenFromArray(String[] arrText, int tokenNumber) {
+	if (arrText!= null && tokenNumber < arrText.length) {
+		return arrText[tokenNumber];
+	}
+	return "";
+}
+
+function String fetchTokenFromString(String strText, String delimiter, int tokenNumber) {
+	if (strText != null) {
+		String[] arrText = strText.split(delimiter);
+		return fetchTokenFromArray(arrText, tokenNumber);
+	} 
+	return "";
+}
+
+function String getTemplateName(DocumentData documentData) {
+	String templateName = "none";
+	String actionResult = "";
+	String[] arTokens = {};
+	String category = getAttributeValueForCde(documentData, 19);
+
+	ActionData actionData = getLatestAction(documentData);
+	if (actionData != null) {
+		actionResult = actionData.getActionResult();
+		arTokens = actionResult.split("\\|");
+	}
+	
+	if (category.equalsIgnoreCase("Account/Card Activation")) {
+		String arCreditCardStatusPair = fetchTokenFromArray(arTokens, 0);
+		String arCreditCardStatus = fetchTokenFromString(arCreditCardStatusPair,"=",1);
+		if (arCreditCardStatus.equalsIgnoreCase("Successful")) {
+			templateName = "Reactivate Credit Card";
+		} 
+	} else if (category.equalsIgnoreCase("Bestellstatus")) {
+		String arOrderStatusPair = fetchTokenFromArray(arTokens, 1);
+		String arOrderStatus =  fetchTokenFromString(arOrderStatusPair,"=",1);
+		if (arOrderStatus.equalsIgnoreCase("shipped")) {
+			templateName = "BestellStatus-Shipped";
+		}
+	}
+	else if (category.equalsIgnoreCase("Billing Address Info")) {
+		// TODO  Remove if obsolete
+	} 
+	else if (category.equalsIgnoreCase("Billing Enquiry/Dispute")) {
+		templateName = "Generate Acknowledgement Number";
+	} 
+	else if (category.equalsIgnoreCase("Card Cancellation")) {
+		templateName = "Cancel Credit Card";
+	} 
+	else if (category.equalsIgnoreCase("Debit Card Application Query")) {
+		templateName = "Debit Card Application Info";
+	} 
+	else if (category.equalsIgnoreCase("Forgot Username")) {
+		templateName = "Forgot username";
+	} 
+	else if (category.equalsIgnoreCase("invoice.status")) {
+		String arInvoiceStatusPair = fetchTokenFromArray(arTokens, 0);
+		String arInvoiceStatus =  fetchTokenFromString(arInvoiceStatusPair,"=",1);
+		if (arInvoiceStatus.equalsIgnoreCase("Approved")) {
+			templateName = "Get Invoice Status Approved";
+		}
+	} 
+	else if (category.equalsIgnoreCase("INVOICE/BILL COPY")) {
+		templateName = "Get Invoice Bill Copy";
+	} 
+	else if (category.equalsIgnoreCase("New Line/Recon/Upgrade")) {
+		templateName = "Get Product Pricing Details";
+	}
+	else if (category.equalsIgnoreCase("ORDER STATUS (WISMO)")) {
+		String attrOrderNumber = getAttributeValueForCde(documentData, 24);
+
+		// Special handling for specific case
+		if (actionData!=null && attrOrderNumber.equalsIgnoreCase("REQ123568")) {
+			templateName = "Get Order Status - Shipped";
+			return templateName;
+		}
+
+		String arOrderStatusPair = fetchTokenFromArray(arTokens, 1);
+		String arOrderStatus =  fetchTokenFromString(arOrderStatusPair,"=",1);
+
+		if (arOrderStatus.equalsIgnoreCase("shipped")) {
+			templateName = "Get Order Status - Shipped";
+		} else if (arOrderStatus.equalsIgnoreCase("received")) {
+			templateName = "Get Order Status Delivered";
+		} else {
+			templateName = "Get Order Status - Shipped";
+		}
+	}
+	else if (category.equalsIgnoreCase("Remittance Advice")) {
+		String arInvoiceStatusPair = fetchTokenFromArray(arTokens, 0);
+		String arInvoiceStatus =  fetchTokenFromString(arInvoiceStatusPair,"=",1);
+		templateName = "Remittance Advice For Invoice";
+		if (arInvoiceStatus.equalsIgnoreCase("Approved")) {
+			templateName = "Get Invoice Status Approved";
+		}
+	} else if (category.equalsIgnoreCase("Swift")) {
+		templateName = "Swift Response - Get Account Details";
+	}
+	return templateName; 
+}
+
+rule "Default"
+salience 30
+activation-group "myGroup1"
+when
+	$InputOutputWrapperData: InputOutputWrapperData();
+    $documentData: DocumentData() from $InputOutputWrapperData.inputData;
+then
+    $InputOutputWrapperData.setOutputData( getTemplateName($documentData) );
+end
+

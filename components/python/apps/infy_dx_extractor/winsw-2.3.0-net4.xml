@@ -1,0 +1,14 @@
+<!--
+Copyright 2018 Infosys Ltd.
+Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at
+http://www.apache.org/licenses/ 
+-->
+ <service>
+      <id>Infosys infy_dx_extractor application</id>
+      <name>Infosys infy_dx_extractor application</name>
+      <description>This service runs infy_dx_extractor python application.</description>
+      <env name="MYAPP_HOME" value="%BASE%"/>
+      <executable>pythonservicemanager.bat</executable>
+      <arguments>execute</arguments>
+      <logmode>rotate</logmode>
+    </service>

@@ -1,0 +1,25 @@
+# ===============================================================================================================#
+# Copyright 2022 Infosys Ltd.                                                                                    #
+# Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at  #
+# http://www.apache.org/licenses/                                                                                #
+# ===============================================================================================================#
+[Unit]
+Description=Infosys Docwb Rules service (Dev)
+After=network.target
+
+[Service]
+SuccessExitStatus=143
+Type=simple
+WorkingDirectory=/home/projadmin/workarea/docwbsln/services/docwbrules
+ExecStart=/usr/bin/bash -c 'java -jar docwb-rules.war'
+ExecStop=/bin/kill -15 $MAINPID
+User=projadmin
+Group=projadmin
+Restart=always
+RestartSec=9
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=docwbrules
+
+[Install]
+WantedBy=multi-user.target

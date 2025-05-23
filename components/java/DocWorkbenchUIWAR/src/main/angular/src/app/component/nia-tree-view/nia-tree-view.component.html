@@ -1,0 +1,55 @@
+<!--Templates Begin-->
+<ng-template #iconTemplate let-itemX="item">
+  <div class="col-md-1  col-sm-1 mt-2 text-right" [ngStyle]="{'display':itemX.isVisible ? 'block' : 'none' }">
+    <div *ngIf="itemX.items!= null && itemX.items.length>0 then hasChildrenX else noChildrenX">
+    </div>
+    <ng-template #hasChildrenX>
+      <div *ngIf="!itemX.isSelected">
+        <i class="nia-chevron-right"></i>
+      </div>
+      <div *ngIf="itemX.isSelected">
+        <i class="nia-chevron-bottom"></i>
+      </div>
+    </ng-template>
+    <ng-template #noChildrenX>
+      <div *ngIf="!itemX.isSelected">
+        <i class="nia-menu-item-not-selected"></i>
+      </div>
+      <div *ngIf="itemX.isSelected">
+        <i class="nia-menu-item-selected"></i>
+      </div>
+    </ng-template>
+  </div>
+</ng-template>
+
+<ng-template #itemTemplate let-itemX="item" let-widthResizeFactorX="widthResizeFactor">
+  <ng-container *ngIf="itemX.isVisible">
+    <!--Icon-->
+    <ng-container [ngTemplateOutlet]="iconTemplate" [ngTemplateOutletContext]="{item:itemX}">
+    </ng-container>
+    <!--Label And Children-->
+    <div class="col-md-11 col-sm-11 mt-2">
+      <!--Label-->
+      <!--widthResizeFactorX ensures div width to show text is reduced recursively as nesting increases-->
+      <div class="itemLink" (click)="onTreeItemClick(itemX.id)" title="{{itemX.label}}"
+        [ngStyle]="{'width': (model.componentWidthInPx*widthResizeFactorX) + 'px'}">
+        {{itemX.label}}
+      </div>
+      <!--Children-->
+      <div *ngFor="let itemY of itemX.items; let j=index" class="row mt-0">
+        <ng-container [ngTemplateOutlet]="itemTemplate"
+          [ngTemplateOutletContext]="{item:itemY, widthResizeFactor:widthResizeFactorX*0.97}">
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+<!--Templates End-->
+
+<div id="tv-container" class="container">
+  <div *ngFor="let itemI of model.treeItems; let i=index" class="nia-treeview row mt-0 font-12">
+    <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{item:itemI, widthResizeFactor:0.89}">
+    </ng-container>
+  </div>
+</div>

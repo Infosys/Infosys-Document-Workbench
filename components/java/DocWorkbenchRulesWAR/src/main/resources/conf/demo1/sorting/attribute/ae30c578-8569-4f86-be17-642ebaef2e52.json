@@ -1,0 +1,271 @@
+[
+	{
+		"attrNameCde": 19,
+		"attrNameValues": [
+			{
+				"attrValue": "Remittance Advice",
+				"attributes": []
+			},
+			{
+				"attrValue": "Bestellstatus",
+				"attributes": []
+			},
+			{
+				"attrValue": "Debit Card Application Query",
+				"attributes": [
+					{
+						"nonTabular": [
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "DebitCard Number"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "CardType"
+							}
+						]
+					}
+				]
+			},
+			{
+				"attrValue": "invoice.status",
+				"attributes": []
+			},
+			{
+				"attrValue": "Account/Card Activation",
+				"attributes": [
+					{
+						"nonTabular": [
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "CreditCard Number"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Email"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Expiry Date"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "CardType"
+							}
+						]
+					}
+				]
+			},
+			{
+				"attrValue": "Billing Enquiry/Dispute",
+				"attributes": []
+			},
+			{
+				"attrValue": "INVOICE/BILL COPY",
+				"attributes": []
+			},
+			{
+				"attrValue": "Card Cancellation",
+				"attributes": []
+			},
+			{
+				"attrValue": "New Line/Recon/Upgrade",
+				"attributes": []
+			},
+			{
+				"attrValue": "ORDER STATUS (WISMO)",
+				"attributes": []
+			},
+			{
+				"attrValue": "Forgot Username",
+				"attributes": []
+			},
+			{
+				"attrValue": "Billing Address Info",
+				"attributes": [
+					{
+						"nonTabular": [
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Name"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Phone"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Address"
+							}
+						]
+					}
+				]
+			},
+			{
+				"attrValue": "Auction",
+				"attributes": [
+					{
+						"nonTabular": [
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Ctp Unit"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Ins Type"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Location"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Service Type"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Capacity"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Price"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Start Date"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "End Date"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Trader Id"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"attrNameCde": 31,
+		"attrNameValues": [
+			{
+				"attrValue": "Remittance Advice",
+				"attributes": []
+			},
+			{
+				"attrValue": "INVOICE/BILL COPY",
+				"attributes": []
+			},
+			{
+				"attrValue": "Passport",
+				"attributes": []
+			},
+			{
+				"attrValue": "New Line/Recon/Upgrade",
+				"attributes": []
+			},
+			{
+				"attrValue": "ORDER STATUS (WISMO)",
+				"attributes": []
+			},
+			{
+				"attrValue": "Forgot Username",
+				"attributes": []
+			},
+			{
+				"attrValue": "Debit Card Application Query",
+				"attributes": [
+					{
+						"nonTabular": [
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "DebitCard Number"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "CardType"
+							}
+						]
+					}
+				]
+			},
+			{
+				"attrValue": "Billing Address Info",
+				"attributes": [
+					{
+						"nonTabular": [
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Name"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Phone"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Address"
+							}
+						]
+					}
+				]
+			},
+			{
+				"attrValue": "Card Cancellation",
+				"attributes": []
+			},
+			{
+				"attrValue": "Bestellstatus",
+				"attributes": []
+			},
+			{
+				"attrValue": "Account/Card Activation",
+				"attributes": [
+					{
+						"nonTabular": [
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Email"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Expiry Date"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "CreditCard Number"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "CardType"
+							}
+						]
+					}
+				]
+			},
+			{
+				"attrValue": "Billing Enquiry/Dispute",
+				"attributes": []
+			},
+			{
+				"attrValue": "Article of Incorporation",
+				"attributes": []
+			},
+			{
+				"attrValue": "Pan Card",
+				"attributes": []
+			},
+			{
+				"attrValue": "invoice.status",
+				"attributes": []
+			},
+			{
+				"attrValue": "Driving License",
+				"attributes": []
+			}
+		]
+	}
+]

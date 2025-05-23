@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-md-5 font-16 pt-2">
+    RBAC
+  </div>
+  <div class="col-md-2 text-right ">
+  </div>
+  <div class="col-md-1 text-right">
+  </div>
+  <div class="col-md-3 text-right">
+    <div class="row">
+    </div>
+  </div>
+  <div class="col-md-1 font-12 mt-3 text-right">
+    <ng-container *ngIf="getFeature(bmodel.FID.RBAC_VIEW).isVisible">
+      <span class="nia-reload-button" (click)="refreshComponent()"></span>
+    </ng-container>
+  </div>
+</div>
+<div [ngStyle]="{'height':model.wrapperHeightInPx + 'px'}" class=" mt-2 table-responsive">
+  <ng-container *ngIf="!getFeature(bmodel.FID.RBAC_VIEW).isVisible">
+    <div  class="nia-content-not-allowed">{{bmodel.FID_ERR_MSG.NOT_ALLOWED}}</div>
+  </ng-container>
+  
+  <ng-container >
+    <div *ngIf="!model.isDataLoaded" class="loading-dots">
+      <br />
+      <br />
+      <div class="loading-dots--dot"></div>
+      <div class="loading-dots--dot"></div>
+      <div class="loading-dots--dot"></div>
+    </div>
+    <ng-container *ngIf="model.isDataLoaded">
+      <json-editor [debug]="false" [options]="model.editorOptions" [data]="model.appVarValue"></json-editor>
+    </ng-container>
+  </ng-container>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="p-1">
+      <input type="button" class="btn btn-sm btn-outline-primary float-md-left"
+        *ngIf="getFeature(bmodel.FID.RBAC_EDIT).isVisible" [disabled]="!getFeature(bmodel.FID.RBAC_EDIT).isEnabled"
+        [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.RBAC_EDIT).isEnabled" value="CANCEL"
+        (click)="cancelModal()" />
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="p-1" style="width: 50%; margin: 0 auto;">
+      <input type="button" class="btn btn-sm btn-outline-primary"
+        *ngIf="getFeature(bmodel.FID.AUDIT_RBAC_VIEW).isVisible"
+        [disabled]="!getFeature(bmodel.FID.AUDIT_RBAC_VIEW).isEnabled "
+        [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.AUDIT_RBAC_VIEW).isEnabled " value="RBAC HISTORY"
+        (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.RBA_LIS.RBAC_HIS);open(audit)" />
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="p-1">
+      <input type="button" class="btn btn-sm btn-outline-primary float-md-right"
+        *ngIf="getFeature(bmodel.FID.RBAC_EDIT).isVisible" [disabled]="!getFeature(bmodel.FID.RBAC_EDIT).isEnabled "
+        [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.RBAC_EDIT).isEnabled" value="SAVE"
+        (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.RBA_LIS.SAVE);saveModal()" />
+    </div>
+  </div>
+</div>
+<div class="row" style="text-align: center;">
+</div>
+<ng-template #audit let-c="close" let-d="dismiss">
+  <div id="content">
+    <div class="row" style="width:65vw;height:84vh;margin-left:-5vw;">
+      <div class="col-md-12 nia-modal p-2">
+        <app-audit [title]="'RBAC History'" [auditData]=model.auditData (close)="c('Close click')"></app-audit>
+      </div>
+    </div>
+  </div>
+</ng-template>

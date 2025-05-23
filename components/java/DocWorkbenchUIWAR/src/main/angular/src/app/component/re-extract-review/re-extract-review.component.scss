@@ -1,0 +1,13 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+.urlhide-attribute-name, .urlhide-attribute-value {
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 7vw;
+    text-overflow: ellipsis;
+    line-height: 1.8em;
+  }

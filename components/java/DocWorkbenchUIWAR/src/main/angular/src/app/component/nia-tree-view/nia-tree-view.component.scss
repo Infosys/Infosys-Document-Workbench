@@ -1,0 +1,58 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+// div {
+//     border:1px solid red;
+// }
+
+.nia-treeview {
+    a {
+        color:white;
+    }
+    .itemLink {
+        text-decoration: none;
+        padding-left:3px;
+        word-break: break-all;
+    }
+    .itemLink:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    .nia-cursor-not-allowed{
+        .itemLink:hover {
+            text-decoration: none;
+            cursor: not-allowed;
+        }
+    }
+    div {
+        padding: 0;
+        padding-left: 0;
+        margin: 2;
+    }
+}
+
+#tv-container {
+  padding-right: 0.25rem;
+  padding-left: 0.25rem;
+}
+
+/* On screens that are 1500px or less, set the padding value */
+@media screen and (max-width:1500px) {
+  #tv-container {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+}
+
+// /* On screens that are 1250px or less, set the padding value */
+@media screen and (max-width:1250px) {
+  #tv-container {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+}
+
+

@@ -1,0 +1,39 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+{
+	"folders": [
+		{
+			"path": "src\\main\\angular"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"**/out" : true,
+			"**/node_modules": true,
+			"**/dist": true
+		}
+	},
+	"launch": {
+		"configurations": [
+			{
+				"type": "chrome",
+				"request": "launch",
+				"name": "Launch Chrome against localhost",
+				"url": "http://localhost:4200",
+				"webRoot": "${workspaceFolder}",
+				"userDataDir": "${workspaceRoot}/out/chrome",
+				"runtimeExecutable": "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+			}
+		],
+		"compounds": []
+	}
+}

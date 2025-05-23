@@ -1,0 +1,106 @@
+{
+	"downloaderQueueMapping": [
+		{
+			"documentDownloader": {
+				"defaultRules": [
+					"rule019ExtractFileCategory",
+					"rule002ExtractFileReceivedDate",
+					"rule030ExtractFileName"
+				],
+				"categoryAssignments": [
+					{
+						"entity": "dropFolderName",
+						"attrNameCde": 19,
+						"attrValueToEntitiesMap": {
+							"Invoice Document": [
+								"InvoiceDocument1"
+							],
+							"Invoice": [
+								"ScannedInvoicesDocument"
+							],
+							"Purchase Order": [
+								"PurchaseOrder"
+							],
+							"Claims": [
+								"ClaimDocument"
+							],
+							"Receipt": [
+								"ReceiptDocument"
+							],
+							"Loan Agreement": [
+								"LoanDocument"
+							],
+							"W9": [
+								"W9"
+							],
+							"Statement And Designation By Foreign Corporation": [
+								"StmtAndDesgnByForgnCorp"
+							],
+							"Remittance Advice": [
+								"InvoiceDocument"
+							],
+							"Passport": [
+								"KYCDocument"
+							],
+							"Certificate of Incorporation": [
+								"COI"
+							]
+						}
+					}
+				],
+				"queueAssignments": [
+					{
+						"entity": "queueNameCde",
+						"attrNameCde": 19,
+						"attrValueToEntityMap": {
+							"Invoice Document": 107,
+							"Invoice": 99,
+							"Purchase Order": 109,
+							"Claims": 111,
+							"Receipt": 111,
+							"Loan Agreement": 112,
+							"W9": 5,
+							"Statement And Designation By Foreign Corporation": 5,
+							"Remittance Advice": 5,
+							"Passport": 5,
+							"Certificate of Incorporation": 5,
+							"Unknown": 5
+						},
+						"noMatchEntity": 15
+					}
+				]
+			},
+			"attributeExtractor": {
+				"defaultRules": [
+					"rule031ExtractAttachmentDocumentType",
+					"rule033ExtractFileMetadata"
+				],
+				"conditionalRules": [
+					{
+						"attrNameCde": 19,
+						"attrValueToRuleMap": {
+							"Passport": [
+								"rule044ExtractKycDocumentAttributes"
+							],
+							"Remittance Advice": [
+								"rule106ExtractRemittanceInvoice"
+							],
+							"Receipt": [
+								"rule000ExtractUsingAzureConfiguration"
+							]
+						},
+						"noMatchRules": [
+							"rule000ExtractUsingConfigurationV1",
+							"rule000ExtractUsingConfigurationV2",
+							"rule000ExtractUsingConfigurationV3"
+						]
+					}
+				]
+			},
+			"caseOpener": {
+				"userAssignments": [],
+				"isAutoTriggerAction": false
+			}
+		}
+	]
+}

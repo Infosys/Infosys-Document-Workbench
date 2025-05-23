@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- parent pom -->
+	<groupId>com.infosys.ainauto</groupId>
+	<artifactId>docwb-master</artifactId>
+	<version>1.0</version>
+	<packaging>pom</packaging>
+
+	<!-- sub modules -->
+	<modules>
+		<!-- ###### Generic Libraries Begin ##### -->
+		<module>common\CommonUtilsJAR</module>
+		<!-- Data Source Begin -->
+		<module>common\adapters\DataSourceApiJAR</module>
+		<module>common\adapters\DataSourceEmailServerBasicJAR</module>
+		<module>common\adapters\DataSourceFileSystemBasicJAR</module>
+		<module>common\adapters\DataSourceEmailServerExchangeJAR</module>
+		<!-- Data Source End -->
+		<!-- Data Input Begin -->
+		<module>common\adapters\DataInOutApiJAR</module>
+		<module>common\adapters\DataInOutBasicJAR</module>
+		<!-- Data Input End -->
+		<!-- ###### Generic Libraries End ##### -->
+		
+		<!--Client Libraries Begin -->
+		<module>common\ScriptExecutorApiJAR</module>
+		<module>DocWorkbenchWebApiJAR</module>
+		<!--Client Libraries End -->
+		
+		<!-- Application 01 -->
+		<module>DocWorkbenchUIWAR</module>
+		
+		<!-- Application 02 -->
+		<module>DocWorkbenchServiceWAR</module>
+		
+		<!-- Application 03 -->
+		<module>DocWorkbenchRulesWAR</module>
+		
+		<!-- Application 04 -->
+		<module>DocWorkbenchEngineCoreJAR</module>
+		<module>DocWorkbenchEngineExtractorJAR</module>
+		<module>DocWorkbenchEngine1WAR</module>
+		<module>DocWorkbenchEngine2WAR</module>
+
+		<!--Test Libraries Begin -->
+		<module>common\TestUtilsJAR</module>
+		<!--Test Libraries End -->
+		
+		<!--Code coverage report -->
+		<module>DocWorkbenchDevReport</module>
+	</modules>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+					<version>3.7.1</version>
+			</plugin>
+		</plugins>
+	</build>
+	<licenses>
+		<license>
+			<name>Apache License Version 2.0</name>
+		</license>
+	</licenses>
+</project>

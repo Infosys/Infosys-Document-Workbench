@@ -1,0 +1,320 @@
+<div class="row mt-2">
+  <!-- <div class="col-md-2 text-right">
+    <select class="form-control form-control-sm font-14" [(ngModel)]="taskStatusCde" (change)="refreshComponent()" *ngIf="!isRequired">
+      <option value="0">All</option>
+      <ng-container *ngFor="let taskStatusData of taskStatusValList">
+        <option [value]="taskStatusData.cde">
+          {{taskStatusData.txt}}
+        </option>
+      </ng-container>
+    </select>
+  </div> -->
+  <div class="col-md-5 text-left font-14 pt-0">
+    <ul class="nav nav-tabs">
+      <li class="nav-item" title="Cases not owned by anyone">
+        <a class="nav-link" [ngClass]="{'active': model.selTabNum === 0}" data-toggle="tab"
+          (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.DOC_LIS.UNASSING_TAB);selectListType(0)">Unassigned</a>
+      </li>
+      <li class="nav-item" title="Cases owned by others">
+        <a class="nav-link" [ngClass]="{'active': model.selTabNum === 1}" data-toggle="tab"
+          (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.DOC_LIS.ASSIGNED_TAB);selectListType(1)">Assigned</a>
+      </li>
+      <li class="nav-item" title="Cases owned by me">
+        <a class="nav-link" [ngClass]="{'active': model.selTabNum === 2}" data-toggle="tab"
+          (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.DOC_LIS.MYCASE_TAB);selectListType(2)">My Cases</a>
+      </li>
+      <li class="nav-item" title="Cases submitted for my review">
+        <a class="nav-link" [ngClass]="{'active': model.selTabNum === 3}" data-toggle="tab"
+          (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.DOC_LIS.MYREVIEW_TAB);selectListType(3)">My Review</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-3 text-right pt-2">
+    <div class="row">
+      <div class="col-md-10 no-padding">
+        <input type="text" class="form-control form-control-sm font-14" [(ngModel)]="model.searchText"
+        [ngClass]="{'filter-active': model.searchTextUsed }"
+          (keyup.enter)="applyFilter()" title="{{model.tooltip}}" placeholder="Search...e.g.filename:1.pdf" />
+      </div>
+      <div class="col-md-1 text-left pl-1">
+        <a class="mat-icon urlhide-parent" title="Search" (click)="applyFilter();"><mat-icon>search</mat-icon></a>
+      </div>
+      <div class="col-md-1 text-left">
+        <a class="mat-icon urlhide-parent" title="Clear" (click)="clearFilter()"><mat-icon>clear</mat-icon></a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 font-12" >
+    <div class="row">
+      <div class="col-md-11">
+        <ng-container >
+          <mat-form-field style="width: 50%; padding-right: 15px;padding-left: 15px;">
+            <input matInput #fromDatePickerModel="ngModel"  [matDatepicker]="fromdatepicker"
+            placeholder="Select From Date"  [(ngModel)]="model.fromDate" autocomplete="off"
+            [ngClass]="{'filter-active': model.fromDateUsed }">
+            <mat-datepicker-toggle matSuffix [for]="fromdatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromdatepicker></mat-datepicker>
+            <mat-error *ngIf="fromDatePickerModel.hasError('matDatepickerParse')">
+              "{{fromDatePickerModel.getError('matDatepickerParse').text}}"
+               is not a valid date!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field style="width: 40%;">
+            <input matInput #toDatePickerModel="ngModel" [matDatepicker]="todatepicker"
+            placeholder="Select To Date" [(ngModel)]="model.toDate" autocomplete="off"
+            [ngClass]="{'filter-active': model.toDateUsed }">
+            <mat-datepicker-toggle matSuffix [for]="todatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #todatepicker></mat-datepicker>
+            <mat-error *ngIf="toDatePickerModel.hasError('matDatepickerParse')">
+              "{{toDatePickerModel.getError('matDatepickerParse').text}}"
+               is not a valid date!
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+      </div>
+      <div class="col-md-1 text-right" >
+        <ng-container *ngIf="getFeature(bmodel.FID.CASE_LIST).isVisible">
+          <span class="nia-reload-button mt-3" (click)="refreshComponent()"></span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-container *ngIf="!getFeature(bmodel.FID.CASE_LIST).isVisible">
+  <div class="nia-content-not-allowed">{{bmodel.FID_ERR_MSG.NOT_ALLOWED}}</div>
+</ng-container>
+<ng-container *ngIf="getFeature(bmodel.FID.CASE_LIST).isVisible">
+  <div *ngIf="!model.isDataLoaded" class="loading-dots">
+    <br />
+    <br />
+    <div class="loading-dots--dot"></div>
+    <div class="loading-dots--dot"></div>
+    <div class="loading-dots--dot"></div>
+  </div>
+
+  <ng-container *ngIf="model.isDataLoaded">
+    <div *ngIf="!isDocTypeFile" class="mt-2 table-responsive">
+      <table id="doc-list" class="table table-hover table-sm font-12 bg-white email-tbl-columns" style="margin-bottom: 5px;">
+        <thead>
+          <tr>
+            <th>
+              <span title="Email Sentiment" class="nia-sentiment"></span>
+            </th>
+            <th>
+              <span class="nia-file-attachment"></span>
+            </th>
+            <th sortable-column={{model.CONSTANT.EMAILWB.COL_CASE}} sort-table-name="DL"
+                sort-direction="{{model.columnSortOrderList[model.CONSTANT.EMAILWB.COL_CASE]}}"
+                sort-table-disabled={{model.isSortAcrossPage}}
+                (columnClicked)="onColumnClick($event)">Case #
+              <!-- <span *ngFor="let number of [1,2,3]">&nbsp;</span> -->
+            </th>
+
+            <th sortable-column={{model.CONSTANT.EMAILWB.COL_FROM}} sort-table-name="DL"
+                sort-direction={{model.columnSortOrderList[model.CONSTANT.EMAILWB.COL_FROM]}}
+                sort-table-disabled={{model.isSortAcrossPage}}
+                (columnClicked)="onColumnClick($event)">From
+              <!-- <span *ngFor="let number of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]">&nbsp;</span> -->
+            </th>
+            <th sortable-column={{model.CONSTANT.EMAILWB.COL_SUBJECT}} sort-table-name="DL"
+                sort-direction={{model.columnSortOrderList[model.CONSTANT.EMAILWB.COL_SUBJECT]}}
+                sort-table-disabled={{model.isSortAcrossPage}}
+                (columnClicked)="onColumnClick($event)">Subject</th>
+            <th sortable-column={{model.CONSTANT.EMAILWB.COL_CATEGORY}} sort-table-name="DL"
+                sort-direction={{model.columnSortOrderList[model.CONSTANT.EMAILWB.COL_CATEGORY]}}
+                sort-table-disabled={{model.isSortAcrossPage}}
+                (columnClicked)="onColumnClick($event)">Category</th>
+            <th sortable-column={{model.CONSTANT.EMAILWB.COL_RECEVIED_DATE}}  sort-table-name="DL"
+                sort-direction={{model.columnSortOrderList[model.CONSTANT.EMAILWB.COL_RECEVIED_DATE]}}
+                sort-table-disabled={{model.isSortAcrossPage}}
+                (columnClicked)="onColumnClick($event)">Received Date</th>
+            <th>Owner</th>
+            <th>Reviewer</th>
+            <th>Status</th>
+            <!-- <th class="proxy-sidebar"></th> -->
+          </tr>
+        </thead>
+
+        <tbody *ngIf="model.isDataLoaded" [ngStyle]="{'height':tableBodyHeightInPx+'px'}">
+          <tr *ngFor="let documentData of model.documentDataList; let i=index" (click)="onRowClick(i)"
+            [class.active]="i == model.selectedRow">
+            <td>
+              <span *ngIf="getValueForAttrCde(documentData.attributes,27)=='Negative'"
+                class="nia-sentiment-negative"></span>
+            </td>
+            <td>
+              <span *ngIf="documentData.attachmentCount>0" class="nia-file-attachment"></span>
+            </td>
+            <td>
+              <a [routerLink]="['/home/workdata',model.queueNameCdeSelected,documentData.docId]" [queryParams]="{view:model.selTabNum}">{{documentData.docId}}</a>
+            </td>
+            <td><a title="{{getValueForAttrCde(documentData.attributes,1)}}
+          <{{getValueForAttrCde(documentData.attributes,20)}}>"
+                class="urlhide urlhide-from">{{getValueForAttrCde(documentData.attributes,1)}}
+                <{{getValueForAttrCde(documentData.attributes,20)}}>
+              </a>
+            </td>
+            <td>
+              <a [routerLink]="['/home/workdata',model.queueNameCdeSelected,documentData.docId]" [queryParams]="{view:model.selTabNum}"
+                title={{getValueForAttrCde(documentData.attributes,3)}}
+                class="urlhide urlhide-subject">{{getValueForAttrCde(documentData.attributes,3)}}</a>
+            </td>
+            <td title={{getValueForAttrCde(documentData.attributes,19)}}>
+              <span class="urlhide urlhide-category">{{getValueForAttrCde(documentData.attributes,19)}}</span>
+            </td>
+            <td>{{getValueForAttrCde(documentData.attributes,2)}}</td>
+            <td class="font-12">
+              <a [routerLink]=""
+                *ngIf="getFeature(bmodel.FID.CASE_USER_CREATE).isVisible && (documentData.appUserId==0 && model.isReassignAllowed)"
+                (click)="assignCase(documentData)" class="urlhide urlhide-assignedTo"
+                [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.CASE_USER_CREATE).isEnabled">
+                {{documentData.assignedTo}}</a>
+              <a *ngIf="documentData.appUserId>0 || !model.isReassignAllowed" title={{documentData.assignedTo}}
+                class="urlhide urlhide-assignedTo">{{documentData.assignedTo}}</a>
+            </td>
+            <td title={{documentData.caseReviewer}}><span class="urlhide urlhide-user">{{documentData.caseReviewer}}</span></td>
+            <td>{{documentData.taskStatusTxt}}</td>
+
+          </tr>
+          {{setTableHeaderWidth()}}
+        </tbody>
+      </table>
+    </div>
+
+
+    <div *ngIf="isDocTypeFile" class="mt-2 table-responsive">
+      <table id="doc-list" class="table table-hover table-sm font-12 bg-white doc-tbl-columns" style="margin-bottom: 5px;">
+        <thead>
+          <tr>
+            <th sortable-column={{model.CONSTANT.DOCWB.COL_CASE}} sort-table-name="DL"
+                sort-direction={{model.columnSortOrderList[model.CONSTANT.DOCWB.COL_CASE]}}
+                sort-table-disabled={{model.isSortAcrossPage}}
+                (columnClicked)="onColumnClick($event)">Case #</th>
+            <th sortable-column={{model.CONSTANT.DOCWB.COL_DOC_NAME}} sort-table-name="DL"
+                sort-direction={{model.columnSortOrderList[model.CONSTANT.DOCWB.COL_DOC_NAME]}}
+                sort-table-disabled={{model.isSortAcrossPage}}
+                (columnClicked)="onColumnClick($event)">Document Name</th>
+            <th sortable-column={{model.CONSTANT.DOCWB.COL_DOC_TYPE}} sort-table-name="DL"
+                sort-direction={{model.columnSortOrderList[model.CONSTANT.DOCWB.COL_DOC_TYPE]}}
+                sort-table-disabled={{model.isSortAcrossPage}}
+                (columnClicked)="onColumnClick($event)">Document Type</th>
+            <th sortable-column={{model.CONSTANT.DOCWB.COL_RECEVIED_DATE}} sort-table-name="DL"
+                sort-direction={{model.columnSortOrderList[model.CONSTANT.DOCWB.COL_RECEVIED_DATE]}}
+                sort-table-disabled={{model.isSortAcrossPage}}
+                (columnClicked)="onColumnClick($event)">Received Date</th>
+            <th>Owner</th>
+            <th>Reviewer</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody *ngIf="model.isDataLoaded" [ngStyle]="{'height':tableBodyHeightInPx+'px'}">
+
+          <tr *ngFor="let documentData of model.documentDataList; let i=index" (click)="onRowClick(i)"
+            [class.active]="i == model.selectedRow">
+            <td>
+              <a [routerLink]="['/home/workdata',model.queueNameCdeSelected,documentData.docId]" [queryParams]="{view:model.selTabNum}">{{documentData.docId}}</a>
+            </td>
+
+            <td>
+              <a [routerLink]="['/home/workdata',model.queueNameCdeSelected,documentData.docId]" [queryParams]="{view:model.selTabNum}"
+                title={{getValueForAttrCde(documentData.attributes,30)}}
+                class="urlhide urlhide-document-name">{{getValueForAttrCde(documentData.attributes,30)}}</a>
+            </td>
+            <td title={{getValueForAttrCde(documentData.attributes,31)}}>
+              <span class="urlhide urlhide-document-type">{{getValueForAttrCde(documentData.attributes,31)}}</span>
+            </td>
+            <td>{{getValueForAttrCde(documentData.attributes,2)}}</td>
+            <td class="font-12">
+              <!-- <a [routerLink]="" *ngIf="getFeature(bmodel.FID.CASE_USER_CREATE).isVisible || (documentData.appUserId==0 && model.isReassignAllowed)" (click)="assignCase(documentData)"
+              class="urlhide urlhide-assignedTo" [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.CASE_USER_CREATE).isEnabled"
+              [disabled]="!getFeature(bmodel.FID.CASE_USER_CREATE).isEnabled" >
+              {{documentData.assignedTo}}</a> -->
+              <!-- TODO: Need to implement [disabled]="!getFeature(bmodel.FID.CASE_USER_CREATE).isEnabled" to below tag -->
+              <a [routerLink]=""
+                *ngIf="getFeature(bmodel.FID.CASE_USER_CREATE).isVisible && (documentData.appUserId==0 && model.isReassignAllowed)"
+                (click)="assignCase(documentData)" class="urlhide urlhide-assignedTo"
+                [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.CASE_USER_CREATE).isEnabled">
+                {{documentData.assignedTo}}</a>
+              <a *ngIf="documentData.appUserId>0 || !model.isReassignAllowed" title={{documentData.assignedTo}}
+                class="urlhide urlhide-assignedTo">{{documentData.assignedTo}}</a>
+            </td>
+            <td title={{documentData.caseReviewer}}><span class="urlhide urlhide-user">{{documentData.caseReviewer}}</span></td>
+            <td>{{documentData.taskStatusTxt}}</td>
+          </tr>
+          {{setTableHeaderWidth()}}
+        </tbody>
+      </table>
+
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6 p-0" style="text-align: left;">
+        <input type="checkbox" id="acrossPages" [(ngModel)]="model.isSortAcrossPage" />
+        <label class="search-summary" for="acrossPages" title="When checked, clicking on column header will sort records across pages.&#013;When unchecked, records will be sorted within current page only.">
+          &nbsp;Sort records across the pages
+        </label>
+      </div>
+      <div class="col-md-6 p-0" style="text-align: right;">
+        <ng-container *ngIf="model.apiMessage">
+          <span class="search-summary">{{model.apiMessage}}&nbsp;|</span>
+        </ng-container>
+        <ng-container *ngIf="model.apiResponseTimeInSecs>-1">
+          <span class="search-summary" title="Backend API response time (excluding network latency)">
+            Data fetched in {{model.apiResponseTimeInSecs}} secs
+          </span>
+        </ng-container>
+      </div>
+    </div>
+    <div class="row" *ngIf="isRequired" style="text-align: center">
+      <div class="col-md-2" style="text-align: left;" *ngIf="getFeature(bmodel.FID.CASE_USER_EDIT).isVisible">
+        <input type="button"
+          [disabled]="!getFeature(bmodel.FID.CASE_USER_EDIT).isEnabled || (!model.priDocumentDataList.length>0 || !model.isDataLoaded || !model.isReassignAllowed)"
+          [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.CASE_USER_EDIT).isEnabled || (!model.priDocumentDataList.length>0 || !model.isDataLoaded || !model.isReassignAllowed)"
+          class="btn btn-sm btn-outline-primary" value="REASSIGN" (click)="open(docCase)" />
+      </div>
+      <div class="col-md-8">
+        <div style="text-align: center; height:35px">
+          <ul *ngIf="model.pager.pages && model.pager.pages.length" class="pagination font-14" style="text-align: center;
+      display: inline-flex;">
+            <li [ngClass]="{disabled:model.pager.currentPage === 1}">
+              <a (click)="setPage(1)">First</a>
+            </li>
+            <li [ngClass]="{disabled:model.pager.currentPage === 1}">
+              <a (click)="setPage(model.pager.currentPage - 1)">Previous</a>
+            </li>
+            <li *ngFor="let page of model.pager.pages" [ngClass]="{active:model.pager.currentPage === page}">
+              <a (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:model.pager.currentPage === model.pager.totalPages}">
+              <a (click)="setPage(model.pager.currentPage + 1)">Next</a>
+            </li>
+            <li [ngClass]="{disabled:model.pager.currentPage === model.pager.totalPages}">
+              <a (click)="setPage(model.pager.totalPages)">Last</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-2" style="text-align: right;" *ngIf="getFeature(bmodel.FID.CLOSE_CASE_EDIT).isVisible">
+        <input type="button"
+          [disabled]="!getFeature(bmodel.FID.CLOSE_CASE_EDIT).isEnabled || (!model.priDocumentDataList.length>0 || !model.isDataLoaded || !model.isReassignAllowed)"
+          [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.CLOSE_CASE_EDIT).isEnabled || (!model.priDocumentDataList.length>0 || !model.isDataLoaded || !model.isReassignAllowed)"
+          class="btn btn-sm btn-outline-primary" value="CLOSE" (click)="closeCase()" />
+      </div>
+    </div>
+
+  </ng-container>
+</ng-container>
+<ng-template #docCase let-c="close" let-d="dismiss">
+  <div id="content" class="container-fluid" style="width:100%;height:100%;">
+    <div class="row">
+      <div class="col-md-12 nia-modal p-2">
+        <app-case-assign [document]=model.documentData [docUserDataList]="model.docUserDataList" [queueNameCde]=model.queueNameCdeSelected (close)="c($event)">
+        </app-case-assign>
+      </div>
+    </div>
+  </div>
+</ng-template>

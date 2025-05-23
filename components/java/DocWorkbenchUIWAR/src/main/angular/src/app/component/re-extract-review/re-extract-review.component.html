@@ -1,0 +1,356 @@
+<div class="row">
+  <div class="col-md-11 font-16">
+    Re-Extract Review
+  </div>
+  <div class="col-md-1 font-12 text-right pt-1">
+    <span *ngIf="closeButton" class="nia-wrong-button" (click)="closeWindow()"></span>
+  </div>
+</div>
+<div class="bg-white">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="p-1 content-text font-12" [style.height.vh]="minheight">
+
+        <div *ngIf="!model.isDataLoaded" class="loading-dots">
+          <br />
+          <br />
+          <div class="loading-dots--dot"></div>
+          <div class="loading-dots--dot"></div>
+          <div class="loading-dots--dot"></div>
+        </div>
+
+        <table id="re-extract-result-0" *ngIf="model.isDataLoaded" class="table table-fixed table-hover table-sm">
+          <thead>
+            <tr>
+              <th class="static"><span class="nia-tags-button"></span></th>
+              <th class="static" sortable-column="1" sort-table-name="RER-0"
+                sort-level-2-header-class="attribute-header" sort-start-row=1 sort-direction="asc">Attribute</th>
+              <th class="static" sortable-column="2" sort-table-name="RER-0"
+                sort-level-2-header-class="attribute-header" sort-start-row=1>Current Value</th>
+              <th class="static" sortable-column="3" sort-table-name="RER-0"
+                sort-level-2-header-class="attribute-header" sort-start-row=1>Current Confidence</th>
+              <th class="static" sortable-column="4" sort-table-name="RER-0"
+                sort-level-2-header-class="attribute-header" sort-start-row=1>New Value</th>
+              <th class="static" sortable-column="5" sort-table-name="RER-0"
+                sort-level-2-header-class="attribute-header" sort-start-row=1>New Confidence</th>
+              <th class="static">Action</th>
+              <th class="static" sortable-column="7" sort-table-name="RER-0"
+                sort-level-2-header-class="attribute-header" sort-start-row=1 *ngIf="model.isCompletedStatus">Remark
+              </th>
+            </tr>
+          </thead>
+          <tbody id="tbody_rext">
+            <tr *ngIf="model.requestAttributes.attributes?.length>0 && !model.isDocTypeFile" class="attribute-header">
+              <th *ngIf="!model.isCompletedStatus" colspan="7" style="text-align: left;border-bottom-style: outset;">
+                Email
+              </th>
+              <th *ngIf="model.isCompletedStatus" colspan="8" style="text-align: left;border-bottom-style: outset;">
+                Email</th>
+            </tr>
+            <ng-container *ngFor="let attributeData of model.requestAttributes.attributes; let i=index">
+              <ng-container *ngIf="attributeData.attrNameCde!=44">
+                <tr>
+                  <td *ngIf="attributeData.attrNameCde==19 || attributeData.attrNameCde==31"><span
+                      class="nia-tag-button" title="Key Attribute"></span></td>
+                  <td *ngIf="attributeData.attrNameCde!=19 && attributeData.attrNameCde!=31">&nbsp;</td>
+                  <td class="urlhide-attribute-name" [title]="getTitle(attributeData)">
+                    <span *ngIf="attributeData.createByUserTypeCde===1"
+                      title="User added attribute."
+                      class="nia-person person-icon"></span>
+                      <span>{{attributeData.attrNameTxt}}</span>
+                    </td>
+                  <td class="urlhide-attribute-value" title="{{attributeData.attrValue}}">{{attributeData.attrValue}}</td>
+                  <td style="text-align: left">
+                    <span *ngIf="+attributeData.confidencePct>0">
+                      {{attributeData.confidencePct}} %
+                    </span>
+                  </td>
+                  <td class="urlhide-attribute-value" title="{{attributeData.newAttrValue}}">{{attributeData.newAttrValue}}</td>
+                  <td style="text-align: left">
+                    <span *ngIf="+attributeData.newConfidencePct>0">
+                      {{attributeData.newConfidencePct}} %
+                    </span>
+                  </td>
+                  <td class="urlhide-attribute-name">
+                    <ng-container *ngIf="attributeData.isAdded || attributeData.isUpdated || attributeData.isDeleted">
+                      <input *ngIf="!model.isCompletedStatus" type="checkbox"
+                        id="email_{{attributeData.attrNameCde}}_{{attributeData.attrNameTxt}}"
+                        (click)="updateUncheckedAttibutes($event)" [checked]="true" />&nbsp;
+                      <span *ngIf="attributeData.isAdded" class="badge badge-warning">ADD</span>
+                      <span *ngIf="attributeData.isUpdated" class="badge badge-success">UPDATE</span>
+                      <span *ngIf="attributeData.isDeleted" class="badge badge-danger">DELETE</span>
+                    </ng-container>
+                    <ng-container
+                      *ngIf="!(attributeData.isAdded || attributeData.isUpdated || attributeData.isDeleted)">
+                      <span class="badge badge-secondary">NO CHANGES</span>
+                    </ng-container>
+                  </td>
+                  <td *ngIf="model.isCompletedStatus">{{attributeData.remark}}</td>
+                </tr>
+              </ng-container>
+              <ng-container *ngIf="+attributeData.attrNameCde===44">
+                <ng-container *ngFor="let attributes of attributeData.attributes;">
+                  <tr>
+                    <td></td>
+                    <td class="urlhide-attribute-name" [title]="getTitle(attributes)">
+                      <span *ngIf="+attributes.createByUserTypeCde===1"
+                        title="User added attribute."
+                        class="nia-person person-icon"></span>
+                        <span>{{attributes.attrNameTxt}}</span>
+                    </td>
+                    <td class="urlhide-attribute-value" title="{{attributes.attrValue}}">{{attributes.attrValue}}</td>
+                    <td style="text-align: left">
+                      <span *ngIf="+attributes.confidencePct>0">
+                        {{attributes.confidencePct}} %
+                      </span>
+                    </td>
+                    <td class="urlhide-attribute-value" title="{{attributes.newAttrValue}}">{{attributes.newAttrValue}}</td>
+                    <td style="text-align: left">
+                      <span *ngIf="+attributes.newConfidencePct>0">
+                        {{attributes.newConfidencePct}} %
+                      </span>
+                    </td>
+                    <td class="urlhide-attribute-name">
+                      <ng-container *ngIf="attributes.isAdded || attributes.isUpdated || attributes.isDeleted">
+                        <input *ngIf="!model.isCompletedStatus" type="checkbox"
+                          id="email_44_{{attributes.attrNameCde}}_{{attributes.attrNameTxt}}"
+                          (click)="updateUncheckedAttibutes($event)" [checked]="true" />&nbsp;
+                        <span *ngIf="attributes.isAdded" class="badge badge-warning">ADD</span>
+                        <span *ngIf="attributes.isUpdated" class="badge badge-success">UPDATE</span>
+                        <span *ngIf="attributes.isDeleted" class="badge badge-danger">DELETE</span>
+                      </ng-container>
+                      <ng-container *ngIf="!(attributes.isAdded || attributes.isUpdated || attributes.isDeleted)">
+                        <span class="badge badge-secondary">NO CHANGES</span>
+                      </ng-container>
+                    </td>
+                    <td *ngIf="model.isCompletedStatus">{{attributes.remark}}</td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+            <!--Attachements-->
+            <ng-container *ngFor="let attachments of model.requestAttributes.attachments;let i=index">
+              <tr class="attribute-header">
+                <th *ngIf="!model.isCompletedStatus" colspan="7" style="text-align: left;border-bottom-style: outset;">
+                  Document
+                  <ng-container *ngIf="!model.isDocTypeFile">#{{attachments.attachmentSequence}}</ng-container> -
+                  {{attachments.attachmentName}}</th>
+                <th *ngIf="model.isCompletedStatus" colspan="8" style="text-align: left;border-bottom-style: outset;">
+                  Document
+                  <ng-container *ngIf="!model.isDocTypeFile">#{{attachments.attachmentSequence}}</ng-container> -
+                  {{attachments.attachmentName}}</th>
+              </tr>
+              <ng-container *ngFor="let attributeData of attachments.attributes;">
+                <ng-container *ngIf="attributeData.attrNameCde!=44 && !attributeData.isHiddenInUI">
+                  <tr>
+                    <td *ngIf="attributeData.attrNameCde==19 || attributeData.attrNameCde==31"><span
+                        class="nia-tag-button" title="Key Attribute"></span></td>
+                    <td *ngIf="attributeData.attrNameCde==45"><span class="nia-tabular-button"
+                        title="Tabular Data"></span></td>
+                    <td
+                      *ngIf="attributeData.attrNameCde!=19 && attributeData.attrNameCde!=31 && attributeData.attrNameCde!=45">
+                      &nbsp;</td>
+                    <td class="urlhide-attribute-name" [title]="getTitle(attributeData)">
+                      <span *ngIf="attributeData.createByUserTypeCde===1"
+                        title="User added attribute."
+                        class="nia-person person-icon"></span>
+                        <span>{{attributeData.attrNameTxt}}</span>
+                      </td>
+                    <!-- <td>{{attributeData.attrValue}}</td> -->
+                    <!-- Start : Json Data  -->
+                    <td class="urlhide-attribute-value" title={{attributeData.attrValue}}>
+                      <ng-container *ngIf="testJSON(attributeData.attrValue)">
+                        <span class="nia-popout-button"
+                          (click)="open(jsonTabularData, attributeData.newAttrValue, attributeData.attrValue)"></span>
+                        View Details
+                      </ng-container>
+                      <ng-container *ngIf="!testJSON(attributeData.attrValue)">{{attributeData.attrValue}}
+                      </ng-container>
+                    </td>
+                    <!-- End : Json Data  -->
+
+                    <td style="text-align: left">
+                      <span *ngIf="+attributeData.confidencePct>0">
+                        {{attributeData.confidencePct}} %
+                      </span>
+                    </td>
+                    <!-- <td>{{attributeData.newAttrValue}}</td> -->
+                    <!-- Start : Json Data  -->
+                    <ng-container *ngIf="attributeData.groupingNameTxtInUI">
+                      <ng-container
+                        *ngIf="getRHSAttribute(attributeData.attrNameCde,attributeData, attachments.attributes) as rhsAttributeData">
+                        <td class="urlhide-attribute-value" title={{rhsAttributeData.newAttrValue}}>
+                          <ng-container *ngIf="testJSON(rhsAttributeData.newAttrValue)">
+                            <span class="nia-popout-button"
+                              (click)="open(jsonTabularData, rhsAttributeData.newAttrValue, attributeData.attrValue)"></span>
+                            View Details
+                          </ng-container>
+                          <ng-container *ngIf="!testJSON(rhsAttributeData.newAttrValue)">
+                            {{rhsAttributeData.newAttrValue}}
+                          </ng-container>
+                        </td>
+                        <td style="text-align: left">
+                          <span *ngIf="+rhsAttributeData.newConfidencePct>0">
+                            {{rhsAttributeData.newConfidencePct}} %
+                          </span>
+                        </td>
+                      </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="!attributeData.groupingNameTxtInUI">
+                      <td class="urlhide-attribute-value" title={{attributeData.newAttrValue}}>
+                        <ng-container *ngIf="testJSON(attributeData.newAttrValue)">
+                          <span class="nia-popout-button"
+                            (click)="open(jsonTabularData, attributeData.newAttrValue, attributeData.attrValue)"></span>
+                          View Details
+                        </ng-container>
+                        <ng-container *ngIf="!testJSON(attributeData.newAttrValue)">{{attributeData.newAttrValue}}
+                        </ng-container>
+                      </td>
+                      <!-- End : Json Data  -->
+                      <td style="text-align: left">
+                        <span *ngIf="+attributeData.newConfidencePct>0">
+                          {{attributeData.newConfidencePct}} %
+                        </span>
+                      </td>
+                    </ng-container>
+                    <td class="urlhide-attribute-name">
+                      <ng-container *ngIf="attributeData.isAdded || attributeData.isUpdated || attributeData.isDeleted">
+                        <input *ngIf="!model.isCompletedStatus" type="checkbox"
+                          id="attachment_{{i+1}}_{{attributeData.attrNameCde}}_{{attributeData.attrNameTxt}}"
+                          (click)="updateUncheckedAttibutes($event)" [checked]="true" />&nbsp;
+                        <ng-container *ngIf="attributeData.groupingNameTxtInUI">
+                          <span class="badge badge-success">UPDATE</span>
+                        </ng-container>
+                        <ng-container *ngIf="!attributeData.groupingNameTxtInUI">
+                          <span *ngIf="attributeData.isAdded" class="badge badge-warning">ADD</span>
+                          <span *ngIf="attributeData.isUpdated" class="badge badge-success">UPDATE</span>
+                          <span *ngIf="attributeData.isDeleted" class="badge badge-danger">DELETE</span>
+                        </ng-container>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="!(attributeData.isAdded || attributeData.isUpdated || attributeData.isDeleted)">
+                        <span class="badge badge-secondary">NO CHANGES</span>
+                      </ng-container>
+                    </td>
+                    <td *ngIf="model.isCompletedStatus">{{attributeData.remark}}</td>
+                  </tr>
+                </ng-container>
+                <ng-container *ngIf="+attributeData.attrNameCde===44">
+                  <ng-container *ngFor="let attributes of attributeData.attributes;">
+                    <ng-container *ngIf="!attributes.isHiddenInUI">
+                      <tr>
+                        <td></td>
+                        <td class="urlhide-attribute-name" [title]="getTitle(attributes)">
+                          <span *ngIf="+attributes.createByUserTypeCde===1"
+                            title="User added attribute."
+                            class="nia-person person-icon"></span>
+                            <span>{{attributes.attrNameTxt}}</span>
+                        </td>
+                        <td class="urlhide-attribute-value" title="{{attributes.attrValue}}">{{attributes.attrValue}}</td>
+                        <td style="text-align: left">
+                          <span *ngIf="+attributes.confidencePct>0">
+                            {{attributes.confidencePct}} %
+                          </span>
+                        </td>
+                        <!-- ACTION show as UPDATE whe delete and Add action for duplicate attribute name  -->
+                        <ng-container *ngIf="attributes.groupingNameTxtInUI">
+                          <ng-container
+                            *ngIf="getRHSAttribute(attributeData.attrNameCde,attributes, attachments.attributes) as rhsAttributeData">
+                            <td class="urlhide-attribute-value" title={{rhsAttributeData.newAttrValue}}>
+                              <ng-container *ngIf="testJSON(rhsAttributeData.newAttrValue)">
+                                <span class="nia-popout-button"
+                                  (click)="open(jsonTabularData, rhsAttributeData.newAttrValue, attributes.attrValue)"></span>
+                                View Details
+                              </ng-container>
+                              <ng-container *ngIf="!testJSON(rhsAttributeData.newAttrValue)">
+                                {{rhsAttributeData.newAttrValue}}
+                              </ng-container>
+                            </td>
+                            <td style="text-align: left">
+                              <span *ngIf="+rhsAttributeData.newConfidencePct>0">
+                                {{rhsAttributeData.newConfidencePct}} %
+                              </span>
+                            </td>
+                          </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="!attributes.groupingNameTxtInUI">
+                          <td class="urlhide-attribute-value" title="{{attributes.newAttrValue}}">{{attributes.newAttrValue}}</td>
+                          <td style="text-align: left">
+                            <span *ngIf="+attributes.newConfidencePct>0">
+                              {{attributes.newConfidencePct}} %
+                            </span>
+                          </td>
+                        </ng-container>
+                        <td class="urlhide-attribute-name">
+                          <ng-container *ngIf="attributes.isAdded || attributes.isUpdated || attributes.isDeleted">
+                            <input *ngIf="!model.isCompletedStatus" type="checkbox"
+                              id="attachment_{{i+1}}_44_{{attributes.attrNameCde}}_{{attributes.attrNameTxt}}"
+                              (click)="updateUncheckedAttibutes($event)" [checked]="true" />&nbsp;
+                            <ng-container *ngIf="attributes.groupingNameTxtInUI">
+                              <span class="badge badge-success">UPDATE</span>
+                            </ng-container>
+                            <ng-container *ngIf="!attributes.groupingNameTxtInUI">
+                              <span *ngIf="attributes.isAdded" class="badge badge-warning">ADD</span>
+                              <span *ngIf="attributes.isUpdated" class="badge badge-success">UPDATE</span>
+                              <span *ngIf="attributes.isDeleted" class="badge badge-danger">DELETE</span>
+                            </ng-container>
+                          </ng-container>
+                          <ng-container *ngIf="!(attributes.isAdded || attributes.isUpdated || attributes.isDeleted)">
+                            <span class="badge badge-secondary">NO CHANGES</span>
+                          </ng-container>
+                        </td>
+                        <td *ngIf="model.isCompletedStatus">{{attributes.remark}}</td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </tbody>
+        </table>
+        <div *ngIf="model.isNodata" style="text-align: center">
+          <div *ngIf="!model.isCompletedStatus">No Re-Extracted Data to display !
+            <br> Please click on
+            <b>SAVE</b> button to
+            <b>Complete</b>. </div>
+          <div *ngIf="model.isCompletedStatus">No Re-Extracted Data to display !
+            <br>Status was updated from
+            <b>For Your Review</b> to
+            <b>Complete</b>. </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div [hidden]="model.isPartialSave" class="p-1">
+        <div *ngIf="!model.isDataSaved" class="loading-dots">
+          <div class="loading-dots--dot"></div>
+          <div class="loading-dots--dot"></div>
+          <div class="loading-dots--dot"></div>
+        </div>
+        <input *ngIf="!model.isCompletedStatus" type="button" value="CANCEL" [disabled]="model.isSaveClicked"
+          (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.RE_EXT_REV.CANCEL);closeWindow()" class="btn btn-sm btn-outline-primary" />
+        <input *ngIf="!model.isCompletedStatus" type="button" value="SAVE" [disabled]="model.isSaveClicked"
+          (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.RE_EXT_REV.SAVE);saveAttributes()" class="btn btn-sm btn-primary float-md-right" />
+      </div>
+      <div [hidden]="!model.isPartialSave" class="p-1" style="text-align: center;">
+        <span style="font-size: 13px;"><b>Re-Extract - Result saved partially.</b> Please click on <b>OK</b> and correct
+          it manually. </span>
+        <input type="button" value="OK" (click)="closeWindow(true)" class="btn btn-sm btn-primary float-md-right" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #jsonTabularData let-c="close" let-d="dismiss">
+  <div id="content">
+    <div class="row" style="width:65vw;height:67vh;margin-left:-5vw;">
+      <div class="col-md-12 nia-modal p-2">
+        <app-json-tabular-data [closeButton]="true" [currentJsonValue]=model.currentJsonValue
+          [previousJsonValue]=model.previousJsonValue [isTableView]=true [minheight]="55" (close)="c('Close click');">
+        </app-json-tabular-data>
+      </div>
+    </div>
+  </div>
+</ng-template>

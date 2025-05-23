@@ -1,0 +1,66 @@
+{
+    "folders": [
+        {
+            "path": ".",
+            "name": "main"
+        },
+        {
+            "path": "../config/",
+            "name": "[1. External Config Folder]",
+        },
+        {
+            "path": "../../../middleware/airflow/dags",
+            "name": "[2. DAGS]"
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            ".venv": true,
+            "logs": true,
+            "**/__pycache__": true,
+            "archive": true,
+            "dist": true,
+            "build": true,
+            "*.egg-info": true,
+            ".pytest_cache": true,
+            "target": true
+        },
+        "editor.formatOnSave": true,
+        "python.linting.pep8Enabled": true,
+        "python.linting.pylintPath": "pylint",
+        "python.linting.pylintArgs": [
+            "--rcfile",
+            "../apps.pylintrc"
+        ],
+        "python.linting.pylintEnabled": true
+    },
+    "launch": {
+        "configurations": [
+            {
+                "name": "Python: app_executor_container",
+                "type": "python",
+                "request": "launch",
+                "program": "app_executor_container.py",
+                "console": "integratedTerminal",
+                "cwd": "${workspaceFolder:main}/src",
+                "justMyCode": false,
+                "args": [
+                    "--request_id",
+                    "R-12d1cd23-8697-425b-8f4a-c6c8642f4626",
+                    "--master_config",
+                    "C:DocWorkbench/components/python/apps/config/master_client_config.json",
+                ]
+            },
+            {
+                "name": "Python: app_scheduler",
+                "type": "python",
+                "request": "launch",
+                "program": "app_scheduler.py",
+                "console": "integratedTerminal",
+                "cwd": "${workspaceFolder:main}/src",
+                "justMyCode": false
+            }
+        ],
+        "compounds": []
+    }
+}

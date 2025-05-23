@@ -1,0 +1,119 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+	font-weight: 300;
+}
+
+.padding-64 {
+	padding-top: 64px !important;
+	padding-bottom: 64px !important;
+}
+
+.padding-32 {
+	padding-top: 32px !important;
+	padding-bottom: 32px !important;
+}
+
+.padding-large {
+	padding-top: 12px !important;
+	padding-right: 90px !important;
+	padding-bottom: 12px !important;
+	padding-left: 200px !important;
+}
+
+.left-box {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0px;
+	width: 50%;
+	height: 100%;
+	size: portrait;
+	box-sizing: border-box;
+	background-color: #4c7ebb;
+}
+
+.link {
+	text-transform: capitalize;
+	color: #4c7ebb;
+	font-weight: bold;
+}
+
+.button {
+	color: #fff !important;
+	background-color: #4c7ebb !important;
+	border: none;
+	display: inline-block;
+	vertical-align: middle;
+	overflow: hidden;
+	text-decoration: none;
+	text-align: center;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.blue {
+	color: white;
+	padding: 5px 12px;
+	font-weight: 700;
+}
+
+.right-box {
+	width: 50%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	box-sizing: border-box;
+	padding: 100px;
+	height: 100%;
+	size: portrait;
+	background-size: cover;
+	background-position: center;
+}
+
+p {
+	color: #4c7ebb;
+	font-size: 16px;
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: bold;
+}
+
+input {
+	width: 250px;
+	height: 30px;
+	background-color: #443e3e;
+	color: #fff;
+	padding-inline-start: 5px;
+	padding-bottom: 2px;
+	border-color: #ece7e7d1;
+	border-bottom-width: 1px;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-top-width: 1px;
+}
+
+form {
+	width: 300px;
+	background-color: #443e3e;
+	padding-top: 10px;
+}
+
+h1 {
+	margin: 0 0 20px 0;
+	text-align: left;
+	font-size: 18px !important;
+	font-weight: 400;
+	color: white;
+}
+
+.section {
+	padding-top: 15px !important;
+}

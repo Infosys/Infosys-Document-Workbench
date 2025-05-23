@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+autopep8 = "==1.5.1"
+
+[packages]
+schedule = "==1.0.0"
+urllib3 = "==1.26.8"
+
+# Internal libraries in alphabetical order 
+infy_docwb_sdk = {path = "./lib/infy_docwb_sdk-0.0.7-py3-none-any.whl"}
+infy_telemetry_sdk = {path = "./lib/infy_telemetry_sdk-0.0.5-py3-none-any.whl"}
+
+[requires]
+python_version = "3"

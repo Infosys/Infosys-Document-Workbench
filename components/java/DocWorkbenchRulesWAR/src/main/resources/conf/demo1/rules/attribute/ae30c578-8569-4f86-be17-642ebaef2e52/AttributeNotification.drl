@@ -1,0 +1,75 @@
+package com.client.template.business.rules
+
+import com.infosys.ainauto.commonutils.ListUtility;
+import com.infosys.ainauto.docwb.rules.model.domain.AttachmentData;
+import com.infosys.ainauto.docwb.rules.model.domain.AttributeData;
+import com.infosys.ainauto.docwb.rules.model.domain.DocumentData;
+import com.infosys.ainauto.docwb.rules.model.domain.InputOutputWrapperData;
+import java.util.List;
+import java.util.Date;
+import java.text.SimpleDateFormat; 
+
+function DocumentData getNotification(DocumentData documentData) {
+	if (documentData==null 
+		|| (!ListUtility.hasValue(documentData.getAttributes()) 
+		&& !ListUtility.hasValue(documentData.getAttachments()))) {
+		return documentData;
+	}
+	if (documentData.getDocTypeCde()==1 && ListUtility.hasValue(documentData.getAttachments()) ) {
+		for(AttachmentData attachmentData : documentData.getAttachments()){
+			if(attachmentData!=null && ListUtility.hasValue(attachmentData.getAttributes())){	
+				attachmentData.setAttributes(setNotification(attachmentData));
+			}
+		}
+	}
+	return documentData;
+}
+
+function List<AttributeData> setNotification(AttachmentData attachmentData){
+	List<AttributeData> attributeDataList = attachmentData.getAttributes();
+	for (AttributeData attributeData : attributeDataList) {
+		String notification = null;
+		int attrNameCde = attributeData.getAttrNameCde();
+		if (attributeData == null
+				|| (attributeData.getAttrValue() == null && attrNameCde != 44)
+				|| (attrNameCde == 44 && (!ListUtility.hasValue(attributeData.getAttributes())))) {
+			attributeData.setNotification(notification);
+			break;
+		} else if(attributeData.getAttrNameCde() == 44){
+			List<AttributeData> attributeDataList1 = attributeData.getAttributes();
+			for (AttributeData attrData : attributeDataList1) {
+				notification = null;
+				if (attrData.getAttrNameTxt() == null || attrData.getAttrNameTxt().length() == 0
+						|| attrData.getAttrValue() == null || attrData.getAttrValue().length() == 0) {
+					attrData.setNotification(notification);
+					continue;
+				} else if (attrData.getAttrNameTxt().equals("Expiry Date")) {
+					try {
+						Date currentDate = new Date();
+						Date inputDate = new SimpleDateFormat("MM/dd/yyyy").parse(attrData.getAttrValue());
+						if (inputDate.before(currentDate)) {
+							notification = "<strong><div class='text-danger urlhide'>Expired</div></strong>";
+						} else {
+							notification = "<strong><div class='text-success urlhide'>Valid</div></strong>";
+						}
+					} catch (Exception e) {
+					}
+					attrData.setNotification(notification);
+				}
+			}
+			notification = null;
+		}
+		attributeData.setNotification(notification);
+	}
+	return attributeDataList;
+}
+
+rule "Default"
+salience 30
+activation-group "myGroup1"
+when
+    $InputOutputWrapperData: InputOutputWrapperData();
+    $documentData: DocumentData() from $InputOutputWrapperData.inputData;
+then
+    $InputOutputWrapperData.setOutputData( getNotification($documentData) );
+end

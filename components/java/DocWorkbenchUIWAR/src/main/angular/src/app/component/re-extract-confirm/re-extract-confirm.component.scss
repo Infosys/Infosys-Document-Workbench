@@ -1,0 +1,64 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+// div {
+//     border:1px solid red;
+// }
+
+// th, td {
+//   border:1px solid orange;
+// }
+
+.type{
+    text-align: start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width:15vw;
+}
+
+.name{
+    width: 10vw;
+}
+
+.value{
+    text-align: start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width:9vw;
+}
+
+.static {
+    background: #E8E6DC;
+    position: sticky;
+    top: 0;
+  }
+
+thead {
+      background-color: #E8E6DC !important;
+  }
+
+.re-extract {
+    width: 7vw;
+}
+
+
+.content-text {
+      overflow: auto;
+  }
+
+hr {
+    background-color: lightgrey;
+    color: black;
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}

@@ -1,0 +1,75 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "main"
+		},
+		{
+			"path": "../config/",
+			"name": "[1. External Config Folder]",
+		},
+	],
+	"settings": {
+		"files.exclude": {
+			".venv": true,
+			"logs": true,
+			"**/__pycache__": true,
+			"archive": true,
+			"dist": true,
+			"build": true,
+			"*.egg-info": true,
+			".pytest_cache": true,
+			"target": true,
+		},
+		"editor.formatOnSave": true,
+		"python.linting.enabled": true,
+		"python.linting.lintOnSave": true,
+		"python.linting.pylintPath": "pylint",
+		"python.linting.pylintArgs": [],
+		"python.linting.pylintEnabled": true,
+		"python.testing.pytestArgs": [
+			"-s",
+			"-v",
+			// "--cov-report=term-missing",
+			// "--cov-report=html:./data/temp/report",
+			// "--cov=src",
+			"tests",
+		],
+		"python.testing.unittestEnabled": false,
+		"python.testing.nosetestsEnabled": false,
+		"python.testing.pytestEnabled": true,
+		"python.testing.autoTestDiscoverOnSaveEnabled": true,
+		"python.testing.cwd": "${workspaceFolder:main}"
+	},
+	"launch": {
+		"configurations": [
+			{
+				"name": "Python: App Container",
+				"type": "python",
+				"request": "launch",
+				"program": "app_executor_container.py",
+				"console": "integratedTerminal",
+				"cwd": "${workspaceFolder:main}/src",
+				"justMyCode": false,
+				"args": [
+					"--request_id",
+					"R-12d1cd23-8697-425b-8f4a-c6c8642f4626",
+					"--master_config",
+					"C:/DocWorkbench/components/python/apps/config/master_client_config.json",
+					"--preprocessor_outfile_path",
+					"C:/workarea/documentworkbench/data/output/R-12d1cd23-8697-425b-8f4a-c6c8642f4626_pre_processor_response.json"
+				],
+			},
+			{
+				"name": "Python: app_scheduler",
+				"type": "python",
+				"request": "launch",
+				"program": "app_scheduler.py",
+				"console": "integratedTerminal",
+				"cwd": "${workspaceFolder:main}/src",
+				"justMyCode": false
+			}
+		],
+		"compounds": []
+	}
+}

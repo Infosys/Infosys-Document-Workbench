@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-11 font-16">
+    {{model.popupHeader}}
+  </div>
+  <div class="col-md-1 font-12 text-right pt-1">
+    <span *ngIf="model.closeButton" class="nia-wrong-button" (click)="closeWindow()"></span>
+  </div>
+</div>
+<div class="bg-white">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="containerScroll" class="p-1 content-text font-12" [style.height.vh]="model.minheight">
+        <!-- <section class=""> -->
+          <!-- <br> -->
+          <!-- <div class="container"> -->
+            <div class="ui-wrapper">
+              <div id="tabular-data-div" class="ui-scroller"></div>
+            </div>
+          <!-- </div> -->
+        <!-- </section> -->
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!model.isDataSaved" class="loading-dots">
+    <div class="loading-dots--dot"></div>
+    <div class="loading-dots--dot"></div>
+    <div class="loading-dots--dot"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="p-1">
+      <span>
+        <input type="button" [disabled]="model.isSaveClicked || model.isReadOnlyTabularView"
+          [class.nia-cursor-not-allowed]="model.isReadOnlyTabularView" value="RESET" (click)="resetTable()"
+          class="btn btn-sm btn-outline-primary" />
+      </span>
+      <span class="float-md-right">
+        <span style="font-size: 12px; padding: 8px;" *ngIf="!model.isReadOnlyTabularView">Click on <b>SAVE</b> to update
+          the modified data.</span>
+        <span style="font-size: 12px; padding: 8px; color: red" *ngIf="model.isReadOnlyTabularView"
+          [innerHTML]="model.readOnlyTabularTxtValue"></span>
+        <input type="button" [disabled]="model.isSaveClicked || model.isReadOnlyTabularView"
+          [class.nia-cursor-not-allowed]="model.isReadOnlyTabularView" value="SAVE" (click)="saveEventCall()"
+          class="btn btn-sm btn-primary" />
+        <input type="button" value="CLOSE" (click)="closeWindow()" *ngIf="getFeature(bmodel.FID.CLOSE_CASE_EDIT).isVisible"
+        [disabled]="!getFeature(bmodel.FID.CLOSE_CASE_EDIT).isEnabled"
+      [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.CLOSE_CASE_EDIT).isEnabled " 
+       class="btn btn-sm btn-primary ml-2" />
+      </span>
+    </div>
+  </div>
+</div>

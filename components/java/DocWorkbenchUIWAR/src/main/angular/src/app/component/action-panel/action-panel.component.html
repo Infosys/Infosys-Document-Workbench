@@ -1,0 +1,49 @@
+<div class="row font-12">
+    <div class="col-md-5 float-md-left">
+        <div *ngIf="getFeature(bmodel.FID.ACTION_VIEW).isVisible">
+            <a class="button-icon urlhide-parent" title="Data Entry Complete"
+            (click)="executeAction(model.ACTION_DATA_ENTRY_COMP)">
+                <mat-icon
+                    [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.ACTION_DATA_ENTRY_COMPLETED).isEnabled || validateShowActionBtn()" 
+                    [ngClass]="!getFeature(bmodel.FID.ACTION_DATA_ENTRY_COMPLETED).isEnabled || validateShowActionBtn()?'color-dark-gray': 'ui-mat-icon-color'"
+                >assignment_turned_in</mat-icon>
+            </a>
+            <a class="button-icon urlhide-parent" title="Data Entry Approve"
+                (click)="executeAction(model.ACTION_DATA_ENTRY_APPRV)">
+                <mat-icon
+                    [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.ACTION_DATA_ENTRY_APPROVED).isEnabled || (validateShowActionBtn() && !validateApprvRejectBtn())" 
+                    [ngClass]="!getFeature(bmodel.FID.ACTION_DATA_ENTRY_APPROVED).isEnabled || (validateShowActionBtn() && !validateApprvRejectBtn()) ?'color-dark-gray': 'ui-mat-icon-color'"
+                    >check_circle
+                </mat-icon>
+            </a>
+            <a class="button-icon urlhide-parent" title="Data Entry Reject"
+                (click)="executeAction(model.ACTION_DATA_ENTRY_REJECT)">
+                <mat-icon
+                    [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.ACTION_DATA_ENTRY_REJECT).isEnabled || (validateShowActionBtn() && !validateApprvRejectBtn())" 
+                    [ngClass]="!getFeature(bmodel.FID.ACTION_DATA_ENTRY_REJECT).isEnabled || (validateShowActionBtn() && !validateApprvRejectBtn()) ?'color-dark-gray': 'ui-mat-icon-color'"
+                    >cancel
+                </mat-icon>
+            </a>
+        </div>
+        
+        <div *ngIf="docId!=0 && !isBtnShowActionsClicked && !isDocTypeFile">
+            <app-action-recommended [documentData]=document [isDataReady]=_isDataReady></app-action-recommended>
+        </div>
+    </div>
+    <div class="col-md-7" style="display:flex; align-items: flex-end; justify-content: flex-end;" *ngIf="getFeature(bmodel.FID.ACTION_VIEW).isVisible">
+        <input type="button" class="btn btn-outline-primary btn-sm float-md-right"
+            [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.ACTION_VIEW).isEnabled || validateShowActionBtn()" [disabled]="!getFeature(bmodel.FID.ACTION_VIEW).isEnabled || validateShowActionBtn()"
+            value="SHOW ACTIONS" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.ACT_PAN.SHOW_ACTION);open(docActions)">
+    </div>
+</div>
+
+<ng-template #docActions let-c="close" let-d="dismiss">
+    <div id="content" class="container-fluid" style="width:100%;height:100%;">
+        <div class="row">
+            <div class="col-md-12 nia-modal p-2">
+                <app-action-perform [documentData]=document [isDataReady]=_isDataReady [docUserDataList]="model.docUserDataList" (close)="c('Close click')">
+                </app-action-perform>
+            </div>
+        </div>
+    </div>
+</ng-template>

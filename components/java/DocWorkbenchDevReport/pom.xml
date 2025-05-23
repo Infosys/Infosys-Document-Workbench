@@ -1,0 +1,174 @@
+<!--
+Copyright 2018 Infosys Ltd.
+Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at
+http://www.apache.org/licenses/ 
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.infosys.ainauto</groupId>
+	<artifactId>docwb-dev-report</artifactId>
+	<version>0.0.1</version>
+	<packaging>pom</packaging>
+	<name>DocWorkbenchDevReport</name>
+	<description>Used for code coverage report generation</description>
+	<properties>
+		<!-- Code coverage report -->
+		<jacoco-version>0.8.8</jacoco-version>
+	</properties>
+	<dependencies>
+		<!-- ###### Generic Libraries Begin ##### -->
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>common-utils</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<!-- Data Source Begin -->
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>data-source-api</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>data-source-email-server-basic</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>data-source-file-system-basic</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>data-source-email-server-exchange</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<!-- Data Source End -->
+		<!-- Data Input Begin -->
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>data-in-out-api</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>data-in-out-basic</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<!-- Data Input End -->
+		<dependency>
+			<groupId>com.infosys.ainauto.formatconverter</groupId>
+			<artifactId>format-converter</artifactId>
+			<version>0.0.11</version>
+		</dependency>
+		<dependency>
+			<groupId>com.infosys.ainauto.telemetry</groupId>
+			<artifactId>telemetry-sdk</artifactId>
+			<version>0.0.4</version>
+		</dependency>
+		<!-- ###### Generic Libraries End ##### -->
+		
+		<!--Client Libraries Begin -->
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>script-executor-api</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>docwb-web-api</artifactId>
+			<version>0.0.4</version>
+		</dependency>
+		<!--Client Libraries End -->
+		
+		<!-- Application 01 -->
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>docwb-ui</artifactId>
+			<version>1.1.0.0</version>
+		</dependency>
+		
+		<!-- Application 02 -->
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>docwb-service</artifactId>
+			<version>1.1.0.0</version>
+		</dependency>
+		
+		<!-- Application 03 -->
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>docwb-rules</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		
+		<!-- Application 04 -->
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>docwb-engine-core</artifactId>
+			<version>0.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>docwb-engine-extractor</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>docwb-engine-1</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>docwb-engine-2</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		
+		
+		
+	</dependencies>
+	<build>
+		<plugins>
+			<!-- ##### CODE COVERAGE REPORT BEGIN ##### -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-version}</version>
+				<executions>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report-aggregate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- ##### CODE COVERAGE REPORT END ##### -->
+		</plugins>
+	</build>
+	<licenses>
+		<license>
+			<name>Apache License Version 2.0</name>
+		</license>
+	</licenses>
+	<reporting>
+		<outputDirectory>${project.build.directory}/../../report/${project.artifactId}</outputDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>3.1.0</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>dependencies</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
+</project>

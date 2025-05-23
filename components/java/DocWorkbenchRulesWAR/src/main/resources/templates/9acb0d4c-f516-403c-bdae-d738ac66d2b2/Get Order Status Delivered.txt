@@ -1,0 +1,10 @@
+Dear <<From>>, 
+
+Thank you for contacting XYZ Shopping Online. We are happy to help you.
+
+Regarding your order <<Order Numbers>>, it has been delivered with Fedex tracking number <<Get Order Status:Output:TrackingNumber>>.
+
+We thank you for shopping with us and hope you have a wonderful day. Please let us know  if there is anything else that we can help you with.
+
+Regards,
+Customer Support Team

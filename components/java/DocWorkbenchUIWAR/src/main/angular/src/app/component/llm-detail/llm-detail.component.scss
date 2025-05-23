@@ -1,0 +1,49 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+
+.content-text {
+    min-height: 70vh;
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.static {
+    background: #e8e6dc;
+    position: sticky;
+    top: 0;
+    z-index: 1;    
+  }
+
+table.fixed { table-layout:fixed; }
+table.fixed td { overflow: hidden; }
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    // display: flex;
+    align-items: center;
+  }
+  
+  mat-icon {
+    font-size: 12px; /* Match the font size to the Prompt text */
+    margin-left: 8px; /* Adjust spacing between the icon and text */
+  }
+
+  pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    font-family: 'Roboto', sans-serif;
+    font-size:12px;
+}

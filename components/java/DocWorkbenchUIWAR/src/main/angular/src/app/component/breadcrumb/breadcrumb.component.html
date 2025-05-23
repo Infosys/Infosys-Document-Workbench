@@ -1,0 +1,24 @@
+<ng-container *ngIf="getFeature(bmodel.FID.QUEUE_LIST).isVisible">
+  <div style="display: flex; justify-content: space-between;">
+    <ol *ngIf="!model.isHomePage" class="breadcrumb-resize">
+      <li>
+        <a *ngIf="getFeature(bmodel.FID.QUEUE_LIST).isEnabled" href="{{model.homeUrl}}">Home </a>
+        <a *ngIf="!getFeature(bmodel.FID.QUEUE_LIST).isEnabled">Home </a>
+      </li>
+
+      <div *ngFor="let breadcrumb of model.breadcrumbItems; let i=index" [ngSwitch]="model.breadcrumbItemsUrl[i]">
+        <li *ngSwitchCase="'*'" class="breadcrumb-item1">
+          {{ breadcrumb }}
+        </li>
+        <li *ngSwitchDefault class="breadcrumb-item1">
+          <a *ngIf="getFeature(bmodel.FID.QUEUE_LIST).isEnabled" href='{{model.breadcrumbItemsUrl[i]}}' >{{ breadcrumb }}</a>
+          <a *ngIf="!getFeature(bmodel.FID.QUEUE_LIST).isEnabled">{{ breadcrumb }}</a>
+        </li>
+      </div>
+    </ol>
+    <div *ngIf="model.showNextPrevBtn">
+      <app-case-navigator></app-case-navigator>
+    </div>
+  </div>
+  
+</ng-container>

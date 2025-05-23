@@ -1,0 +1,125 @@
+<div class="row">
+  <div class="col-md-10 font-16">
+    Actions    
+  </div>
+  <div class="col-md-2 font-12 text-right pt-1">
+    <ng-container *ngIf="getFeature(bmodel.FID.ACTION_VIEW).isVisible">
+      <ng-container *ngIf="isDocTypeFile">
+        <span *ngIf="!model.minimizeAction" class="nia-collapse-button" title='Collapse Actions' (click)="actionHeightChange()"></span>
+        <span *ngIf="model.minimizeAction" class="nia-expand-button" title='Expand Actions' (click)="actionHeightChange()"></span>
+        &nbsp;&nbsp;
+      </ng-container>    
+      <span class="nia-reload-button" title='Refresh'
+        (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.ACT_LIS.REFRESH);refreshComponent()"></span>&nbsp;&nbsp;
+      <span *ngIf="popupButton" class="nia-popout-button" (click)="open(actionlist)"></span>
+      <span *ngIf="closeButton" class="nia-wrong-button" (click)="modalWindow()"></span>
+    </ng-container>
+  </div>
+</div>
+
+  <div class="bg-white"  [style.display]="model.actionDisplay">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="p-1 font-12" [style.height.vh]="minheight">
+          <ng-container *ngIf="!getFeature(bmodel.FID.ACTION_VIEW).isVisible">
+            <div class="nia-content-not-allowed">{{bmodel.FID_ERR_MSG.NOT_ALLOWED}}</div>
+          </ng-container>
+          <ng-container *ngIf="getFeature(bmodel.FID.ACTION_VIEW).isVisible">
+            <div *ngIf="!isDataLoaded" class="loading-dots">
+              <br />
+              <br />
+              <div class="loading-dots--dot"></div>
+              <div class="loading-dots--dot"></div>
+              <div class="loading-dots--dot"></div>
+            </div>
+
+            <div class="content-text" [style.height.vh]="minheight-2">
+              <table id="action-list-{{+!popupButton}}" *ngIf="isDataLoaded"
+                class="table table-fixed table-hover table-sm">
+                <thead>
+                  <tr>
+                    <th sortable-column="0" sort-direction="desc" sort-id-col="0"
+                      sort-table-name="action-{{+!popupButton}}" class="static">#</th>
+                    <th sortable-column="1" sort-table-name="action-{{+!popupButton}}" class="static">Action Name</th>
+                    <th sortable-column="2" sort-table-name="action-{{+!popupButton}}" class="static">Result</th>
+                    <th sortable-column="3" sort-table-name="action-{{+!popupButton}}" class="static">Status</th>
+                    <th sortable-column="4" sort-table-name="action-{{+!popupButton}}" class="static">Creator</th>
+                    <th sortable-column="5" sort-table-name="action-{{+!popupButton}}" class="static">Created</th>
+                    <th sortable-column="6" sort-table-name="action-{{+!popupButton}}" class="static">Updated</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let actionData of actionDataList; let i=index">
+                    <td>
+                      {{actionDataList.length-i}}.
+                    </td>
+                    <td class="urlhide urlhide-col-name" title={{actionData.actionNameTxt}}>
+                      {{actionData.actionNameTxt}}
+                    </td>
+                    <td title={{actionData.actionResult}} class="urlhide urlhide-col-result">
+                      {{actionData.actionResult}}
+                    </td>
+                    <td class="urlhide urlhide-col-status" title={{actionData.taskStatusTxt}}>
+                      <div *ngIf="+actionData.actionNameCde===reextractAction">
+                        <a *ngIf="+actionData.taskStatusCde===completed || +actionData.taskStatusCde===forYourReview"
+                          style="color:#0079DF;cursor:pointer;text-decoration: underline;"
+                          (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.ACT_LIS.OPEN_RESULT);openReExtractedModal(reextracteddata, actionData)">{{actionData.taskStatusTxt}}</a>
+                        <span *ngIf="+actionData.taskStatusCde!=completed && +actionData.taskStatusCde!=forYourReview">
+                          {{actionData.taskStatusTxt}}</span>
+                      </div>
+                      <div *ngIf="+actionData.actionNameCde!=reextractAction">{{actionData.taskStatusTxt}}</div>
+                    </td>
+                    <td class="urlhide urlhide-col-user"
+                      title="{{actionData.createByUserTypeCde === 1 ? actionData.createByUserFullName + ' (' + actionData.createByUserLoginId + ')' : actionData.createByUserTypeTxt}}">
+                      {{actionData.createByUserTypeCde === 1 ? actionData.createByUserFullName:
+                      actionData.createByUserTypeTxt}}
+                    </td>
+                    <td class="urlhide urlhide-col-date" title={{actionData.createDtm}}>
+                      {{actionData.createDtmDuration}}
+                    </td>
+                    <td class="urlhide urlhide-col-date" title={{actionData.lastModDtm}}>
+                      {{actionData.lastModDtmDuration}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="p-1">
+          <ng-container *ngIf="getFeature(bmodel.FID.ACTION_VIEW).isVisible">
+            <app-action-panel [documentData]=documentData [isDataReady]=_isDataReady
+              [docUserDataList]="model.docUserDataList"></app-action-panel>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<ng-template #actionlist let-c="close" let-d="dismiss">
+  <div id="content">
+    <div class="row" style="width:65vw;height:65vh;margin-left:-15vw;">
+      <div class="col-md-12 nia-modal p-2">
+        <app-action-list [isDataReady]=_isDataReady [document]=documentData [closeButton]="true" [minheight]="60"
+          [popupButton]="false" [docUserDataList]="model.docUserDataList" (close)="c('Close click');"></app-action-list>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #reextracteddata let-c="close" let-d="dismiss">
+  <div id="content">
+    <div class="row" style="width:65vw;height:65vh;margin-left:-15vw;">
+      <div class="col-md-12 nia-modal p-2">
+        <app-re-extract-review [isDocTypeFile]="isDocTypeFile" [isDataReady]=_isDataReady [document]=documentData
+          [reExtractedActionData]="reExtractedActionData" [isEnableAnnotation]="model.isEnableAnnotation"
+          [closeButton]="true" [minheight]="55" (close)="c('Close click');"></app-re-extract-review>
+      </div>
+    </div>
+  </div>
+</ng-template>

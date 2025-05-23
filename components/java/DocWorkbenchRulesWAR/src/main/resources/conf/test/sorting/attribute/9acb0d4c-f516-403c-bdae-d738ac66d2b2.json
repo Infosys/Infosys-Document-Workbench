@@ -1,0 +1,201 @@
+[
+	{
+		"attrNameCde": 31,
+		"attrNameValues": [
+			{
+				"attrValue": "Remittance Advice",
+				"attributes": [
+					{
+						"tabular": [
+							{
+								"description": "Follow Javascript RegExp pattern to be validated in client-side app",
+								"orderColumnUsingAnyOfRegExp": [
+									{
+										"pattern": "^Invoice",
+										"flag": "i"
+									},
+									{
+										"pattern": "Invoices-\\d",
+										"flag": ""
+									},
+									{
+										"pattern": "invoices",
+										"flag": "i"
+									}
+								],
+								"attributes": [
+									{
+										"attrNameCde": 45,
+										"attrNameTxt": "Page Number"
+									},
+									{
+										"attrNameCde": 45,
+										"attrNameTxt": "Receipt Type"
+									},
+									{
+										"attrNameCde": 45,
+										"attrNameTxt": "Invoice Number"
+									},
+									{
+										"attrNameCde": 45,
+										"attrNameTxt": "Invoice Date"
+									},
+									{
+										"attrNameCde": 45,
+										"attrNameTxt": "Invoice Amount"
+									}
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				"attrValue": "Claims",
+				"attributes": [
+					{
+						"tabular": [
+							{
+								"description": "Follow Javascript RegExp pattern to be validated in client-side app",
+								"orderColumnUsingAnyOfRegExp": [
+									{
+										"pattern": "^Receipt",
+										"flag": ""
+									}
+								],
+								"attributes": [
+									{
+										"attrNameCde": 45,
+										"attrNameTxt": "Receipt No"
+									},
+									{
+										"attrNameCde": 45,
+										"attrNameTxt": "Receipt Date"
+									},
+									{
+										"attrNameCde": 45,
+										"attrNameTxt": "Receipt Type"
+									},
+									{
+										"attrNameCde": 45,
+										"attrNameTxt": "Amount"
+									},
+									{
+										"attrNameCde": 45,
+										"attrNameTxt": "Page Number"
+									}
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				"attrValue": "Passport",
+				"attributes": [
+					{
+						"nonTabular": [
+							{
+								"attrNameCde": 201,
+								"attrNameTxt": ""
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Name"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Surname"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "DOB"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Passport Number"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Expiry Date"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Address"
+							}
+						],
+						"tabular": []
+					}
+				]
+			},
+			{
+				"attrValue": "Invoice Document",
+				"attributes": [
+					{
+						"nonTabular": [
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "InvoiceNo"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "SupplierName"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "InvoiceDate"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "BillToParty-AddressLine1"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "BillToParty-AddressLine2"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "BillToParty-AddressLine3"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "TotalPrice"
+							},
+							{
+								"attrNameCde": 45,
+								"attrNameTxt": "Invoice Table"
+							}
+						],
+						"tabular": []
+					}
+				]
+			},
+			{
+				"attrValue": "Purchase Order",
+				"attributes": [
+					{
+						"nonTabular": [
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "PurchaseOrderNo"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "Purchaser"
+							},
+							{
+								"attrNameCde": 44,
+								"attrNameTxt": "PurchaseOrderDate"
+							},
+							{
+								"attrNameCde": 45,
+								"attrNameTxt": "Purchase Order Table"
+							}
+						],
+						"tabular": []
+					}
+				]
+			}
+		]
+	}
+]

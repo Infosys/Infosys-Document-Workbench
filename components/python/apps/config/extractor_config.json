@@ -1,0 +1,1416 @@
+{
+    "environment": "local",
+    "fileTemplates": {
+        "enabled": true,
+        "attributes": [
+            {
+                "attributeName": "category",
+                "attributeDefinitions": [
+                    {
+                        "enabled": false,
+                        "hint": "refer documentTemplates/attributes/attributeDefinitions"
+                    }
+                ],
+                "attributeRules": {
+                    "enabled": true,
+                    "name": "rule_0001_sys_property_classify_document",
+                    "input": {
+                        "match_class": {
+                            "Remittance Advice": {
+                                "anchorText": [
+                                    [
+                                        "To:.*customersupport@office.com",
+                                        "REMITTANCE ADVICE"
+                                    ]
+                                ],
+                                "anchorTextMatch": {
+                                    "method": "regex"
+                                },
+                                "pageNum": [
+                                    1
+                                ]
+                            },
+                            "INVOICE/BILL COPY": {
+                                "anchorText": [
+                                    [
+                                        "bharat sanchar",
+                                        "airtel"
+                                    ]
+                                ],
+                                "anchorTextMatch": {
+                                    "method": "regex"
+                                },
+                                "pageNum": [
+                                    1
+                                ]
+                            },
+                            "Loan Agreement": {
+                                "anchorText": [
+                                    [
+                                        "Loan Note"
+                                    ]
+                                ],
+                                "anchorTextMatch": {
+                                    "method": "regex"
+                                },
+                                "pageNum": [
+                                    1
+                                ]
+                            },
+                            "Statement of Work": {
+                                "anchorText": [
+                                    [
+                                        "STATEMENT OF WORK"
+                                    ]
+                                ],
+                                "anchorTextMatch": {
+                                    "method": "regex"
+                                },
+                                "pageNum": [
+                                    1
+                                ]
+                            },
+                            "Annual Report": {
+                                "anchorText": [
+                                    [
+                                        "Performance overview"
+                                    ]
+                                ],
+                                "anchorTextMatch": {
+                                    "method": "regex"
+                                },
+                                "pageNum": [
+                                    1
+                                ]
+                            },
+                            "Unknown": {
+                                "anchorText": [
+                                    [
+                                        "."
+                                    ]
+                                ],
+                                "anchorTextMatch": {
+                                    "method": "regex"
+                                },
+                                "pageNum": [
+                                    1
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "attributeName": "is_primary_document",
+                "attributeDefinitions": [],
+                "attributeRules": {
+                    "enabled": true,
+                    "name": "rule_0002_sys_property_primary_document",
+                    "input": {}
+                }
+            },
+            {
+                "attributeName": "is_email",
+                "attributeDefinitions": [],
+                "attributeRules": {
+                    "enabled": true,
+                    "name": "rule_0010_sys_property_identify_email",
+                    "input": {}
+                }
+            },
+            {
+                "attributeName": "document_title",
+                "attributeDefinitions": [
+                    {
+                        "enabled": false,
+                        "label": "title1",
+                        "valueType": "text",
+                        "valueRegionDefinition": [
+                            {
+                                "anchorText": [
+                                    [
+                                        "payable:"
+                                    ]
+                                ],
+                                "anchorTextMatch": {
+                                    "method": "normal",
+                                    "similarityScore": 0.95,
+                                    "occurrenceNums": [
+                                        1
+                                    ]
+                                },
+                                "anchorPoint1": {
+                                    "left": null,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": null
+                                },
+                                "anchorPoint2": {
+                                    "left": null,
+                                    "top": "0%a",
+                                    "right": "100%",
+                                    "bottom": null
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "enabled": true,
+                        "label": "title2",
+                        "valueType": "text",
+                        "valueRegionDefinition": [
+                            {
+                                "anchorText": [
+                                    [
+                                        "operating margin"
+                                    ]
+                                ],
+                                "anchorTextMatch": {
+                                    "method": "normal",
+                                    "similarityScore": 0.95
+                                },
+                                "anchorPoint1": {
+                                    "left": null,
+                                    "top": "-50%",
+                                    "right": 0,
+                                    "bottom": null
+                                },
+                                "anchorPoint2": {
+                                    "left": "-60%",
+                                    "top": "-100%",
+                                    "right": null,
+                                    "bottom": null
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "enabled": true,
+                        "label": "title3",
+                        "valueType": "text",
+                        "valueRegionDefinition": [
+                            {
+                                "anchorText": [
+                                    [
+                                        "postage paid in advance"
+                                    ]
+                                ],
+                                "anchorTextMatch": {
+                                    "method": "normal",
+                                    "similarityScore": 0.95
+                                },
+                                "anchorPoint1": {
+                                    "left": null,
+                                    "top": "-0",
+                                    "right": "1t",
+                                    "bottom": null
+                                },
+                                "anchorPoint2": {
+                                    "left": "-60%",
+                                    "top": "-20%",
+                                    "right": null,
+                                    "bottom": null
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "attributeRules": null
+            }
+        ]
+    },
+    "documentTemplates": [
+        {
+            "profile": "sys_email",
+            "enabled": true,
+            "profileMatchRule": {
+                "ruleName": "rule_0001_sys_profile_definition",
+                "ruleInput": {
+                    "profileMatchDefinitions": [
+                        {
+                            "name": "pmd_1",
+                            "ruleName": "rule_0010_sys_property_identify_email"
+                        }
+                    ],
+                    "conditions": {
+                        "and": [
+                            {
+                                "name": "pmd_1",
+                                "expectedValue": "true"
+                            }
+                        ]
+                    }
+                }
+            },
+            "attributes": [
+                {
+                    "attributeName": "email_from",
+                    "attributeDefinitions": [],
+                    "attributeRules": {
+                        "enabled": true,
+                        "name": "rule_0011_sys_property_email_from",
+                        "input": {}
+                    }
+                },
+                {
+                    "attributeName": "email_from_id",
+                    "attributeDefinitions": [],
+                    "attributeRules": {
+                        "enabled": true,
+                        "name": "rule_0015_sys_property_email_from_id",
+                        "input": {}
+                    }
+                },
+                {
+                    "attributeName": "email_to",
+                    "attributeDefinitions": [],
+                    "attributeRules": {
+                        "enabled": true,
+                        "name": "rule_0012_sys_property_email_to",
+                        "input": {}
+                    }
+                },
+                {
+                    "attributeName": "email_to_id",
+                    "attributeDefinitions": [],
+                    "attributeRules": {
+                        "enabled": true,
+                        "name": "rule_0016_sys_property_email_to_id",
+                        "input": {}
+                    }
+                },
+                {
+                    "attributeName": "email_received_date",
+                    "attributeDefinitions": [],
+                    "attributeRules": {
+                        "enabled": true,
+                        "name": "rule_0013_sys_property_email_received_date",
+                        "input": {}
+                    }
+                },
+                {
+                    "attributeName": "email_subject",
+                    "attributeDefinitions": [],
+                    "attributeRules": {
+                        "enabled": true,
+                        "name": "rule_0014_sys_property_email_subject",
+                        "input": {}
+                    }
+                },
+                {
+                    "attributeName": "email_body_refno",
+                    "attributeDefinitions": [],
+                    "attributeRules": {
+                        "enabled": true,
+                        "name": "rule_1000_cus_property_email_body_refno",
+                        "input": {}
+                    }
+                },
+                {
+                    "attributeName": "related_case_num",
+                    "attributeDefinitions": [],
+                    "attributeRules": {
+                        "enabled": true,
+                        "name": "rule_0017_sys_property_email_case_number",
+                        "input": {
+                            "case_num_regex_pattern": "case# (\\d*)"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "profile": "sample_internet_bill_bsnl",
+            "enabled": true,
+            "profileMatchRule": {
+                "ruleName": "rule_0001_sys_profile_definition",
+                "ruleInput": {
+                    "profileMatchDefinitions": [
+                        {
+                            "name": "pmd_1",
+                            "profileMatchDefinition": {
+                                "anchorText": [
+                                    "bharat sanchar"
+                                ],
+                                "anchorTextMatch": {
+                                    "method": "regex"
+                                },
+                                "pageNum": [
+                                    1
+                                ]
+                            }
+                        },
+                        {
+                            "name": "pmd_2",
+                            "profileMatchDefinition": {
+                                "anchorText": [
+                                    "ajkasjdjadjs"
+                                ],
+                                "anchorTextMatch": {
+                                    "method": "regex"
+                                },
+                                "pageNum": [
+                                    1
+                                ]
+                            }
+                        },
+                        {
+                            "name": "pmd_3",
+                            "ruleName": "rule_0004_sys_property_pdf_type"
+                        }
+                    ],
+                    "conditions": {
+                        "and": [
+                            {
+                                "name": "pmd_1",
+                                "expectedValue": "sanchar$"
+                            },
+                            {
+                                "name": "pmd_2",
+                                "expectedValue": ""
+                            },
+                            {
+                                "name": "pmd_3",
+                                "expectedValue": "PDF Scanned"
+                            }
+                        ],
+                        "or": [
+                            {
+                                "name": "pmd_1",
+                                "expectedValue": "^bharat"
+                            },
+                            {
+                                "name": "pmd_1",
+                                "expectedValue": "^sanchar"
+                            }
+                        ]
+                    }
+                }
+            },
+            "output": {
+                "saveCopyWith": {
+                    "anchorBbox": true,
+                    "regionBbox": true,
+                    "regionLabel": true
+                }
+            },
+            "attributes": [
+                {
+                    "attributeName": "invoicenum",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": true,
+                            "label": "InvoiceNum1",
+                            "valueType": "text",
+                            "valueRegionDefinition": [
+                                {
+                                    "anchorText": [
+                                        [
+                                            "Invoice No:"
+                                        ]
+                                    ],
+                                    "anchorTextMatch": {
+                                        "method": "normal",
+                                        "similarityScore": 0.95
+                                    },
+                                    "anchorPoint1": {
+                                        "left": null,
+                                        "top": -10,
+                                        "right": 0,
+                                        "bottom": null
+                                    },
+                                    "anchorPoint2": {
+                                        "left": null,
+                                        "top": null,
+                                        "right": "2t",
+                                        "bottom": "25"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "attributeName": "tariffplan",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": true,
+                            "label": "TariffPlan1",
+                            "valueType": "text",
+                            "valueRegionDefinition": [
+                                {
+                                    "anchorText": [
+                                        [
+                                            "Tariff Plan:"
+                                        ]
+                                    ],
+                                    "anchorTextMatch": {
+                                        "method": "regex"
+                                    },
+                                    "anchorPoint1": {
+                                        "left": 0,
+                                        "top": "-0.1t",
+                                        "right": null,
+                                        "bottom": null
+                                    },
+                                    "anchorPoint2": {
+                                        "left": null,
+                                        "top": null,
+                                        "right": "95%",
+                                        "bottom": "2t"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "attributeName": "vendorname",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": true,
+                            "label": "VendorName1",
+                            "valueType": "text",
+                            "valueRegionDefinition": [
+                                {
+                                    "anchorText": [
+                                        [
+                                            "Account No"
+                                        ]
+                                    ],
+                                    "anchorTextMatch": {
+                                        "method": "regex"
+                                    },
+                                    "anchorPoint1": {
+                                        "left": "0",
+                                        "top": "0",
+                                        "right": null,
+                                        "bottom": null
+                                    },
+                                    "anchorPoint2": {
+                                        "left": "-4.5t",
+                                        "top": null,
+                                        "right": null,
+                                        "bottom": "6.5t"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "profile": "sample_internet_bill_airtel",
+            "enabled": true,
+            "profileMatchRule": {
+                "ruleName": "rule_0001_sys_profile_definition",
+                "ruleInput": {
+                    "profileMatchDefinitions": [
+                        {
+                            "name": "pmd_1",
+                            "profileMatchDefinition": {
+                                "anchorText": [
+                                    [
+                                        "airtel"
+                                    ]
+                                ],
+                                "anchorTextMatch": {
+                                    "method": "regex"
+                                },
+                                "pageNum": [
+                                    1
+                                ]
+                            }
+                        },
+                        {
+                            "name": "pmd_2",
+                            "ruleName": "rule_0004_sys_property_pdf_type"
+                        }
+                    ],
+                    "conditions": {
+                        "and": [
+                            {
+                                "name": "pmd_1",
+                                "expectedValue": ".*airtel.*"
+                            }
+                        ],
+                        "or": [
+                            {
+                                "name": "pmd_2",
+                                "expectedValue": "PDF Scanned"
+                            }
+                        ]
+                    }
+                }
+            },
+            "output": {
+                "saveCopyWith": {
+                    "anchorBbox": true,
+                    "regionBbox": true,
+                    "regionLabel": true
+                }
+            },
+            "attributes": [
+                {
+                    "attributeName": "statementperiod",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": true,
+                            "label": "statementperiod_rd1",
+                            "valueType": "text",
+                            "valueRegionDefinition": [
+                                {
+                                    "anchorText": [
+                                        [
+                                            "Statement Period:"
+                                        ]
+                                    ],
+                                    "anchorTextMatch": {
+                                        "method": "normal",
+                                        "similarityScore": 0.95
+                                    },
+                                    "anchorPoint1": {
+                                        "left": "1t",
+                                        "top": null,
+                                        "right": null,
+                                        "bottom": "-1t"
+                                    },
+                                    "anchorPoint2": {
+                                        "left": "2.5t",
+                                        "top": null,
+                                        "right": null,
+                                        "bottom": "1t"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "attributeName": "amountpayable",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": true,
+                            "label": "amountpayable_rd1",
+                            "valueType": "text",
+                            "valueRegionDefinition": [
+                                {
+                                    "anchorText": [
+                                        [
+                                            "Amount Payable"
+                                        ]
+                                    ],
+                                    "anchorTextMatch": {
+                                        "method": "normal",
+                                        "similarityScore": 0.95
+                                    },
+                                    "anchorPoint1": {
+                                        "left": 0,
+                                        "top": null,
+                                        "right": null,
+                                        "bottom": 0
+                                    },
+                                    "anchorPoint2": {
+                                        "left": null,
+                                        "top": null,
+                                        "right": 0,
+                                        "bottom": "30"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "profile": "sample_infosys_annual_report",
+            "enabled": true,
+            "profileMatchRule": {
+                "ruleName": "rule_0001_sys_profile_definition",
+                "ruleInput": {
+                    "profileMatchDefinitions": [
+                        {
+                            "name": "pmd_1",
+                            "profileMatchDefinition": {
+                                "anchorText": [
+                                    "Financial highlights"
+                                ],
+                                "anchorTextMatch": {
+                                    "method": "regex"
+                                },
+                                "pageNum": [
+                                    1
+                                ]
+                            }
+                        },
+                        {
+                            "name": "pmd_2",
+                            "ruleName": "rule_0004_sys_property_pdf_type"
+                        }
+                    ],
+                    "conditions": {
+                        "and": [
+                            {
+                                "name": "pmd_2",
+                                "expectedValue": "PDF Native"
+                            }
+                        ],
+                        "or": [
+                            {
+                                "name": "pmd_1",
+                                "expectedValue": "^Financial"
+                            }
+                        ]
+                    }
+                }
+            },
+            "output": {
+                "saveCopyWith": {
+                    "anchorBbox": true,
+                    "regionBbox": true,
+                    "regionLabel": true
+                }
+            },
+            "attributes": [
+                {
+                    "attributeName": "revenueincrore",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": true,
+                            "label": "revenueincrore_rd1",
+                            "valueType": "text",
+                            "useNativeParser": true,
+                            "valueRegionDefinition": [
+                                {
+                                    "anchorText": [
+                                        "^Revenues [( in]"
+                                    ],
+                                    "anchorTextMatch": {
+                                        "method": "regex"
+                                    },
+                                    "anchorPoint1": {
+                                        "left": "-10%r",
+                                        "top": null,
+                                        "right": null,
+                                        "bottom": "1t"
+                                    },
+                                    "anchorPoint2": {
+                                        "left": null,
+                                        "top": null,
+                                        "right": "2t",
+                                        "bottom": "5t"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "attributeName": "revenuegrowth",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": true,
+                            "label": "revenuegrowth_rd1",
+                            "valueType": "text",
+                            "useNativeParser": true,
+                            "valueRegionDefinition": [
+                                {
+                                    "anchorText": [
+                                        "Revenue growth"
+                                    ],
+                                    "anchorPoint1": {
+                                        "left": "-10%r",
+                                        "top": null,
+                                        "right": null,
+                                        "bottom": "1t"
+                                    },
+                                    "anchorPoint2": {
+                                        "left": null,
+                                        "top": null,
+                                        "right": "1t",
+                                        "bottom": "5t"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "attributeName": "operatingmargin",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": true,
+                            "label": "operatingmargin_rd1",
+                            "valueType": "text",
+                            "useNativeParser": true,
+                            "valueRegionDefinition": [
+                                {
+                                    "anchorText": [
+                                        "Operating margin"
+                                    ],
+                                    "anchorPoint1": {
+                                        "left": "-5%r",
+                                        "top": null,
+                                        "right": null,
+                                        "bottom": "0.5t"
+                                    },
+                                    "anchorPoint2": {
+                                        "left": null,
+                                        "top": null,
+                                        "right": "1t",
+                                        "bottom": "3.5t"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "attributeName": "freecashflowincr",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": true,
+                            "label": "freecashflowincr_rd1",
+                            "valueType": "text",
+                            "useNativeParser": true,
+                            "valueRegionDefinition": [
+                                {
+                                    "anchorText": [
+                                        "Free Cash flows [( in]"
+                                    ],
+                                    "anchorTextMatch": {
+                                        "method": "regex"
+                                    },
+                                    "anchorPoint1": {
+                                        "left": "-5%r",
+                                        "top": null,
+                                        "right": null,
+                                        "bottom": "1t"
+                                    },
+                                    "anchorPoint2": {
+                                        "left": null,
+                                        "top": null,
+                                        "right": "1t",
+                                        "bottom": "5t"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "profile": "sample_remittance_advice",
+            "enabled": true,
+            "profileMatchRule": {
+                "ruleName": "rule_0001_sys_profile_definition",
+                "ruleInput": {
+                    "profileMatchDefinitions": [
+                        {
+                            "name": "pmd_1",
+                            "profileMatchDefinition": {
+                                "anchorText": [
+                                    "REMITTANCE ADVICE"
+                                ],
+                                "anchorTextMatch": {
+                                    "method": "regex"
+                                },
+                                "pageNum": [
+                                    1
+                                ]
+                            }
+                        }
+                    ],
+                    "conditions": {
+                        "and": [
+                            {
+                                "name": "pmd_1",
+                                "expectedValue": "REMITTANCE ADVICE"
+                            }
+                        ],
+                        "or": [
+                            {
+                                "name": "pmd_1",
+                                "expectedValue": "^REMITTANCE"
+                            }
+                        ]
+                    }
+                }
+            },
+            "output": {
+                "saveCopyWith": {
+                    "anchorBbox": true,
+                    "regionBbox": true,
+                    "regionLabel": true
+                }
+            },
+            "attributes": [
+                {
+                    "attributeName": "reference",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": true,
+                            "label": "reference1",
+                            "valueType": "text",
+                            "valueRegionDefinition": [
+                                {
+                                    "anchorText": [
+                                        [
+                                            "reference"
+                                        ]
+                                    ],
+                                    "anchorTextMatch": {
+                                        "method": "normal",
+                                        "similarityScore": 0.95
+                                    },
+                                    "anchorPoint1": {
+                                        "left": "-0.3t",
+                                        "top": null,
+                                        "right": null,
+                                        "bottom": 0
+                                    },
+                                    "anchorPoint2": {
+                                        "left": null,
+                                        "top": null,
+                                        "right": "0.4t",
+                                        "bottom": "5t"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "profile": "cus_loan_note",
+            "enabled": false,
+            "profileMatchRule": {
+                "ruleName": "rule_0001_sys_profile_definition",
+                "ruleInput": {
+                    "profileMatchDefinitions": [
+                        {
+                            "name": "pmd_1",
+                            "ruleName": "rule_1005_cus_property_identify_loan_note"
+                        }
+                    ],
+                    "conditions": {
+                        "and": [
+                            {
+                                "name": "pmd_1",
+                                "expectedValue": "true"
+                            }
+                        ]
+                    }
+                }
+            },
+            "attributes": [
+                {
+                    "attributeName": "loan_amount",
+                    "attributeDefinitions": [],
+                    "attributeRules": {
+                        "enabled": true,
+                        "name": "rule_1001_cus_property_loan_amount",
+                        "input": {}
+                    }
+                },
+                {
+                    "attributeName": "interest_rate",
+                    "attributeDefinitions": [],
+                    "attributeRules": {
+                        "enabled": true,
+                        "name": "rule_1002_cus_property_loan_interest_rate",
+                        "input": {}
+                    }
+                },
+                {
+                    "attributeName": "due_date",
+                    "attributeDefinitions": [],
+                    "attributeRules": {
+                        "enabled": true,
+                        "name": "rule_1003_cus_property_loan_due_date",
+                        "input": {}
+                    }
+                },
+                {
+                    "attributeName": "company_name",
+                    "attributeDefinitions": [],
+                    "attributeRules": {
+                        "enabled": true,
+                        "name": "rule_1004_cus_property_loan_company_name",
+                        "input": {}
+                    }
+                }
+            ]
+        },
+        {
+            "profile": "sample_infosys_sow",
+            "enabled": true,
+            "profileMatchRule": {
+                "ruleName": "rule_0002_cus_dpp_profile_definition",
+                "ruleInput": {
+                    "profileMatchDefinitions": [
+                        {
+                            "name": "pmd_1",
+                            "profileMatchAttributeExternalProvider": {
+                                "provider_name": "documentProcessorPlatform",
+                                "properties": {
+                                    "pipeline_name": "sow_profile_inference_pipeline",
+                                    "attribute_key": "is_sow_document"
+                                }
+                            }
+                        }
+                    ],
+                    "conditions": {
+                        "and": [
+                            {
+                                "name": "pmd_1",
+                                "expectedValue": "Yes"
+                            }
+                        ]
+                    }
+                }
+            },
+            "attributes": [
+                {
+                    "attributeName": "project_name",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "sow_profile_attr_inference_pipeline",
+                            "attribute_key": "project_name"
+                        }
+                    }
+                },
+                {
+                    "attributeName": "project_start_date",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "sow_profile_attr_inference_pipeline",
+                            "attribute_key": "project_start_date"
+                        }
+                    }
+                },
+                {
+                    "attributeName": "project_end_date",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "sow_profile_attr_inference_pipeline",
+                            "attribute_key": "project_end_date"
+                        }
+                    }
+                },
+                {
+                    "attributeName": "project_location",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "sow_profile_attr_inference_pipeline",
+                            "attribute_key": "project_location"
+                        }
+                    }
+                },
+                {
+                    "attributeName": "project_sow_acceptance_date",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "sow_profile_attr_inference_pipeline",
+                            "attribute_key": "project_sow_acceptance_date"
+                        }
+                    }
+                },
+                {
+                    "attributeName": "project_sow_dates",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "sow_profile_attr_inference_pipeline",
+                            "attribute_key": "project_sow_dates"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "profile": "sample_annual_report",
+            "enabled": true,
+            "profileMatchRule": {
+                "ruleName": "rule_0002_cus_dpp_profile_definition",
+                "ruleInput": {
+                    "profileMatchDefinitions": [
+                        {
+                            "name": "pmd_1",
+                            "profileMatchAttributeExternalProvider": {
+                                "provider_name": "documentProcessorPlatform",
+                                "properties": {
+                                    "pipeline_name": "annual_report_profile_inference_pipeline",
+                                    "attribute_key": "is_annual_report_document"
+                                }
+                            }
+                        }
+                    ],
+                    "conditions": {
+                        "and": [
+                            {
+                                "name": "pmd_1",
+                                "expectedValue": "Yes"
+                            }
+                        ]
+                    }
+                }
+            },
+            "attributes": [
+                {
+                    "attributeName": "women_emp_pct",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "annual_report_profile_attr_inference_pipeline",
+                            "attribute_key": "women_emp_pct"
+                        }
+                    }
+                },
+                {
+                    "attributeName": "financial_year",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "annual_report_profile_attr_inference_pipeline",
+                            "attribute_key": "financial_year"
+                        }
+                    }
+                },
+                {
+                    "attributeName": "revenue_amt",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "annual_report_profile_attr_inference_pipeline",
+                            "attribute_key": "revenue_amt"
+                        }
+                    }
+                },
+                {
+                    "attributeName": "business_rank",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "annual_report_profile_attr_inference_pipeline",
+                            "attribute_key": "business_rank"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "profile": "sample_po",
+            "enabled": true,
+            "profileMatchRule": {
+                "ruleName": "rule_0002_cus_dpp_profile_definition",
+                "ruleInput": {
+                    "profileMatchDefinitions": [
+                        {
+                            "name": "pmd_1",
+                            "profileMatchAttributeExternalProvider": {
+                                "provider_name": "documentProcessorPlatform",
+                                "properties": {
+                                    "pipeline_name": "po_profile_inference_pipeline",
+                                    "attribute_key": "is_po_document"
+                                }
+                            }
+                        }
+                    ],
+                    "conditions": {
+                        "and": [
+                            {
+                                "name": "pmd_1",
+                                "expectedValue": "Yes"
+                            }
+                        ]
+                    }
+                }
+            },
+            "attributes": [
+                {
+                    "attributeName": "deliver_to",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "po_profile_attr_inference_pipeline",
+                            "attribute_key": "deliver_to"
+                        }
+                    }
+                },
+                {
+                    "attributeName": "po_no",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "po_profile_attr_inference_pipeline",
+                            "attribute_key": "po_no"
+                        }
+                    }
+                },
+                {
+                    "attributeName": "material_code",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "po_profile_attr_inference_pipeline",
+                            "attribute_key": "material_code"
+                        }
+                    }
+                },
+                {
+                    "attributeName": "material_des",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "po_profile_attr_inference_pipeline",
+                            "attribute_key": "material_des"
+                        }
+                    }
+                },
+                {
+                    "attributeName": "qty",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "po_profile_attr_inference_pipeline",
+                            "attribute_key": "qty"
+                        }
+                    }
+                },
+                {
+                    "attributeName": "unit_cost",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "po_profile_attr_inference_pipeline",
+                            "attribute_key": "unit_cost"
+                        }
+                    }
+                },
+                {
+                    "attributeName": "total_cost",
+                    "attributeDefinitions": [
+                        {
+                            "enabled": false
+                        }
+                    ],
+                    "attributeRules": {
+                        "enabled": false
+                    },
+                    "attributeExternalProvider": {
+                        "enabled": true,
+                        "provider_name": "documentProcessorPlatform",
+                        "properties": {
+                            "pipeline_name": "po_profile_attr_inference_pipeline",
+                            "attribute_key": "total_cost"
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "attributeExternalProviders": [
+        {
+            "provider_name": "documentProcessorPlatform",
+            "properties": {
+                "pipeline_name": "sow_profile_inference_pipeline",
+                "processor_deployment_config_path": "C:/DocWorkbench/components/python/apps/config/dpp_deployment_config.json",
+                "processor_input_config_path": "C:/nfs/docwbdx/data/config/dpp_docwb_infy_sow_profile_inference_pipeline_input_config.json"
+            }
+        },
+        {
+            "provider_name": "documentProcessorPlatform",
+            "properties": {
+                "pipeline_name": "sow_profile_attr_inference_pipeline",
+                "processor_deployment_config_path": "C:/DocWorkbench/components/python/apps/config/dpp_deployment_config.json",
+                "processor_input_config_path": "C:/nfs/docwbdx/data/config/dpp_docwb_infy_sow_attr_inference_pipeline_input_config.json"
+            }
+        },
+        {
+            "provider_name": "documentProcessorPlatform",
+            "properties": {
+                "pipeline_name": "annual_report_profile_inference_pipeline",
+                "processor_deployment_config_path": "C:/nfs/docwbdx/data/config/dpp_deployment_config.json",
+                "processor_input_config_path": "C:/nfs/docwbdx/data/config/dpp_docwb_infy_annual_report_profile_inference_pipeline_input_config.json"
+            }
+        },
+        {
+            "provider_name": "documentProcessorPlatform",
+            "properties": {
+                "pipeline_name": "annual_report_profile_attr_inference_pipeline",
+                "processor_deployment_config_path": "C:/nfs/docwbdx/data/config/dpp_deployment_config.json",
+                "processor_input_config_path": "C:/nfs/docwbdx/data/config/dpp_docwb_infy_annual_report_attr_inference_pipeline_input_config.json"
+            }
+        },
+        {
+            "provider_name": "documentProcessorPlatform",
+            "properties": {
+                "pipeline_name": "po_profile_attr_inference_pipeline",
+                "processor_deployment_config_path": "C:/nfs/docwbdx/data/config/dpp_deployment_config.json",
+                "processor_input_config_path": "C:/nfs/docwbdx/data/config/dpp_docwb_infy_po_profile_attr_inference_pipeline_input_config.json"
+            }
+        },
+        {
+            "provider_name": "documentProcessorPlatform",
+            "properties": {
+                "pipeline_name": "po_profile_inference_pipeline",
+                "processor_deployment_config_path": "C:/nfs/docwbdx/data/config/dpp_deployment_config.json",
+                "processor_input_config_path": "C:/nfs/docwbdx/data/config/dpp_docwb_infy_po_profile_inference_pipeline_input_config.json"
+            }
+        }
+    ]
+}

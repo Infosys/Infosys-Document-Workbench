@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-md-11 font-16">
+    Assign/Reassign Case
+  </div>
+  <div class="col-md-1 font-12 text-right pt-1">
+    <span class="nia-wrong-button" (click)="closeWindow()"></span>
+  </div>
+</div>
+<div class="bg-white">
+  <div class="row mt-2 mb-2">
+    <div class="col-md-2 p-1"></div>
+    <div class="col-md-8 p-1">
+      <div *ngIf="!isDataLoaded" class="loading-dots screen-style">
+        <br/>
+        <br/>
+        <div class="loading-dots--dot"></div>
+        <div class="loading-dots--dot"></div>
+        <div class="loading-dots--dot"></div>
+        <br/>
+        <br/>
+      </div>
+      <div class="row" *ngIf="isDataLoaded" >
+        <br />
+        <br />
+        <div class="col-md-4">
+          <label class="font-13">Case Owner:</label>
+        </div>
+        <div class="col-md-8" style="display:flex; ">
+          <select class="form-control form-control-sm font-14" [(ngModel)]="model.userSelectedOwnerId" (change)="checkIfFormIsValid()">
+            <ng-container *ngFor="let a of userDataList">
+              <option [value]="a.userId">
+                {{a.userFullName}} ({{a.userLoginId}})
+              </option>
+            </ng-container>
+          </select>
+          <span *ngIf="model.isChangedOwner" class="attr-value-dirty"></span>
+        </div>
+        <br />
+        <div class="col-md-4">
+          <label class="font-13">Case Reviewer:</label>
+        </div>
+        <div class="col-md-8" style="display:flex">
+          <select class="form-control form-control-sm font-14" [(ngModel)]="model.userSelectedReviewerId" (change)="checkIfFormIsValid()" 
+          [class.nia-cursor-not-allowed]="!checkIfReviewerDropdownAllowed()" [disabled]="!checkIfReviewerDropdownAllowed()">
+            <ng-container *ngFor="let a of userDataList">
+              <option [value]="a.userId">
+                {{a.userFullName}} ({{a.userLoginId}})
+              </option>
+            </ng-container> 
+          </select>
+          <span *ngIf="model.isChangedReviewer" class="attr-value-dirty"></span>
+        </div>
+        <br />
+        <br />
+      </div>
+    </div>
+    <div class="col-md-2 p-1"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 p-2">
+      <div class="">
+        <input type="button" value="Cancel" (click)="closeWindow()" class="btn btn-sm btn-outline-primary" />
+        <input type="button" value="Assign" (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.CAS_ASS.REASSIGN);assignCase()" 
+        class="btn btn-sm btn-outline-primary float-md-right" [disabled]="!isFormValid"/>
+      </div>
+    </div>
+
+  </div>
+  <div class="row" *ngIf="executeStatusMessage">
+    <div class="col-md-12 p-0 text-center">
+      <div class="">
+        <span class="font-12 text-danger">{{executeStatusMessage}}</span>
+      </div>
+    </div>
+
+  </div>
+</div>

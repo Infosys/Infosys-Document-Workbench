@@ -1,0 +1,132 @@
+{
+	"actionScriptMapping": [
+		{
+			"actionNameCde": 4,
+			"queueNameCde": 3,
+			"scriptExecutor": {
+				"scriptId": 100,
+				"scriptName": "GetInvoiceStatus",
+				"callbackUrl": "http://localhost:8088/docwbengine/api/v1/callback/scriptexecutor/status",
+				"categoryId": 156,
+				"companyId": 2,
+				"executionMode": 7,
+				"referenceKey": "MS",
+				"remoteServerNames": "default"
+			},
+			"isAutoSendEmail": false,
+			"minConfidencePctRequired": 80
+		},
+		{
+			"actionNameCde": 5,
+			"queueNameCde": 3,
+			"scriptExecutor": {
+				"scriptId": 800,
+				"scriptName": "ReactivateAccount",
+				"callbackUrl": "http://localhost:8088/docwbengine/api/v1/callback/scriptexecutor/status",
+				"categoryId": 156,
+				"companyId": 2,
+				"executionMode": 7,
+				"referenceKey": "MS",
+				"remoteServerNames": "default"
+			},	
+			"isAutoSendEmail": false,
+			"minConfidencePctRequired": 80
+		},
+		{
+			"actionNameCde": 6,
+			"queueNameCde": 3,
+			"scriptExecutor": {
+				"scriptId": 300,
+				"scriptName": "ReactivateCreditCard",
+				"callbackUrl": "http://localhost:8088/docwbengine/api/v1/callback/scriptexecutor/status",
+				"categoryId": 156,
+				"companyId": 2,
+				"executionMode": 7,
+				"referenceKey": "MS",
+				"remoteServerNames": "default"
+			},
+			"isAutoSendEmail": false,
+			"minConfidencePctRequired": 80
+		},
+		{
+			"actionNameCde": 8,
+			"queueNameCde": 3,
+			"scriptExecutor": {
+				"scriptId": 200,
+				"scriptName": "GetOrderStatus",
+				"callbackUrl": "http://localhost:8088/docwbengine/api/v1/callback/scriptexecutor/status",
+				"categoryId": 156,
+				"companyId": 2,
+				"executionMode": 7,
+				"referenceKey": "MS",
+				"remoteServerNames": "default"
+			},
+			"isAutoSendEmail": false,
+			"minConfidencePctRequired": 80
+		},
+		{
+			"actionNameCde": 9,
+			"queueNameCde": 3,
+			"scriptExecutor": {
+				"scriptId": 400,
+				"scriptName": "CancelCreditCard",
+				"callbackUrl": "http://localhost:8088/docwbengine/api/v1/callback/scriptexecutor/status",
+				"categoryId": 156,
+				"companyId": 2,
+				"executionMode": 7,
+				"referenceKey": "MS",
+				"remoteServerNames": "default"
+			},	
+			"isAutoSendEmail": false,
+			"minConfidencePctRequired": 80
+		},
+		{
+			"actionNameCde": 10,
+			"queueNameCde": 3,
+			"scriptExecutor": {
+				"scriptId": 500,
+				"scriptName": "ForgotUsername",
+				"callbackUrl": "http://localhost:8088/docwbengine/api/v1/callback/scriptexecutor/status",
+				"categoryId": 156,
+				"companyId": 2,
+				"executionMode": 7,
+				"referenceKey": "MS",
+				"remoteServerNames": "default"
+			},
+			"isAutoSendEmail": false,
+			"minConfidencePctRequired": 80
+		},
+		{
+			"actionNameCde": 12,
+			"queueNameCde": 3,
+			"scriptExecutor": {
+				"scriptId": 600,
+				"scriptName": "GetProductPricingDetails",
+				"callbackUrl": "http://localhost:8088/docwbengine/api/v1/callback/scriptexecutor/status",
+				"categoryId": 156,
+				"companyId": 2,
+				"executionMode": 7,
+				"referenceKey": "MS",
+				"remoteServerNames": "default"
+			},
+			"isAutoSendEmail": false,
+			"minConfidencePctRequired": 80
+		},
+		{
+			"actionNameCde": 14,
+			"queueNameCde": 3,
+			"scriptExecutor": {
+				"scriptId": 700,
+				"scriptName": "GetInvoiceBillCopy",
+				"callbackUrl": "http://localhost:8088/docwbengine/api/v1/callback/scriptexecutor/status",
+				"categoryId": 156,
+				"companyId": 2,
+				"executionMode": 7,
+				"referenceKey": "MS",
+				"remoteServerNames": "default"
+			},
+			"isAutoSendEmail": false,
+			"minConfidencePctRequired": 80
+		}
+	]
+}

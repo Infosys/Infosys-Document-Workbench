@@ -1,0 +1,553 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~ngx-toastr/toastr-bs4-alert";
+$icon-font-path: "~open-iconic/font/fonts/";
+@import "~open-iconic/font/css/open-iconic-bootstrap.scss";
+// Angular v8 onwards not detecting annotator css automatically. Hence its required to added here manually
+@import "~annotator/css/annotator.css";
+@import "~jsoneditor/dist/jsoneditor.min.css";
+@import "~primeicons/primeicons.css";
+
+body {
+  background-color: #f1f1f1;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+// div {
+//     border:1px solid red;
+// }
+
+a {
+  text-decoration: none;
+}
+
+.font-11 {
+  font-size: 11px !important;
+}
+
+.font-12 {
+  font-size: 12px !important;
+}
+
+.font-13 {
+  font-size: 13px !important;
+}
+
+.font-14 {
+  font-size: 14px !important;
+}
+
+.font-16 {
+  font-size: 16px !important;
+}
+
+.font-18 {
+  font-size: 18px !important;
+}
+
+::-webkit-scrollbar {
+  width: 0.5em;
+  height: 0.5em;
+  //background-color: black;
+}
+
+::-webkit-scrollbar-track {
+  width: 0.1em;
+  height: 0.1em;
+  -webkit-box-shadow: inset 0 0 6px rgba(77, 77, 77, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  // -webkit-box-shadow: inset 0 0 6px rgba(77,77,77,0.5);
+  background-color: darkgrey;
+  outline: 1px solid darkgrey;
+}
+
+.no-padding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.nia-button {
+  @extend .btn;
+  @extend .btn-outline-light;
+  @extend .btn-sm;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  background-position: center;
+  border: 0px;
+}
+
+// .nia-x-button {
+//     @extend .btn;
+//     //@extend .btn-sm;
+//     background-repeat: no-repeat;
+//     background-color: transparent;
+//     width:30px;
+//     height:30px;
+//     background-position: center;
+//     border: 0px;
+//     font-family: Arial, Helvetica, sans-serif;
+//     font-size: 18;
+// }
+
+// .nia-refresh-button {
+//    @extend .nia-button;
+//    background-image: url("./assets/img/reset.png");
+// }
+
+.nia-search-button {
+  @extend .nia-button;
+  background-image: url("./assets/img/search.png");
+}
+
+.nia-edit-button {
+  @extend .oi;
+  @extend .oi-pencil;
+  cursor: pointer;
+}
+
+.nia-edit-button-not-allowed {
+  @extend .oi;
+  @extend .oi-pencil;
+  cursor: not-allowed;
+}
+.nia-info-button {
+  @extend .oi;
+  @extend .oi-info;
+  cursor: pointer;
+}
+
+.nia-eye{
+  @extend .oi;
+  @extend .oi-eye;
+  cursor: pointer;
+}
+
+.nia-chevron-bottom-1{
+    @extend .oi;
+    @extend .oi-chevron-bottom;
+    cursor: pointer;
+    font-size: 10px
+}
+
+.nia-key-button {
+  @extend .oi;
+  // @extend .oi-flag;
+  // @extend .oi-media-play;
+  @extend .oi-cog;
+}
+
+.nia-tags-button {
+  @extend .oi;
+  @extend .oi-tags;
+  position: initial;
+}
+
+.nia-tag-button {
+  @extend .oi;
+  @extend .oi-tag;
+  position: initial;
+}
+
+.nia-tabular-button {
+  @extend .oi;
+  @extend .oi-grid-three-up;
+  position: initial;
+}
+
+.nia-popout-button {
+  @extend .oi;
+  @extend .oi-external-link;
+  cursor: pointer;
+}
+
+.nia-reload-button {
+  @extend .oi;
+  @extend .oi-reload;
+  cursor: pointer;
+}
+
+.nia-delete-button {
+  @extend .oi;
+  @extend .oi-delete;
+  cursor: pointer;
+}
+
+.nia-delete-button-not-allowed {
+  @extend .oi;
+  @extend .oi-delete;
+  cursor: not-allowed;
+}
+
+.nia-plus-button {
+  @extend .oi;
+  @extend .oi-plus;
+  cursor: pointer;
+}
+
+.nia-plus-button-not-allowed {
+  @extend .oi;
+  @extend .oi-plus;
+  cursor: not-allowed;
+}
+
+.nia-plus-green-button {
+  @extend .oi;
+  @extend .oi-plus;
+  cursor: pointer;
+  color: green;
+}
+
+.nia-check-button {
+  @extend .oi;
+  @extend .oi-check;
+  cursor: pointer;
+}
+
+.nia-check-green-button {
+  @extend .oi;
+  @extend .oi-check;
+  cursor: pointer;
+  color: green;
+}
+
+.nia-check-green-button-not-allowed {
+  @extend .oi;
+  @extend .oi-check;
+  cursor: not-allowed;
+  color: green;
+}
+
+.nia-file-button {
+  @extend .oi;
+  @extend .oi-paperclip;
+  cursor: pointer;
+}
+
+.nia-file-attachment {
+  @extend .oi;
+  @extend .oi-paperclip;
+}
+
+.nia-file-download {
+  @extend .oi;
+  @extend .oi-data-transfer-download;
+  cursor: pointer;
+}
+
+.nia-sentiment {
+  @extend .oi;
+  @extend .oi-pulse;
+}
+
+.nia-sentiment-negative {
+  @extend .oi;
+  @extend .oi-thumb-down;
+  color: red;
+}
+
+.nia-info {
+  @extend .oi;
+  @extend .oi-info;
+  color: blue;
+}
+
+.nia-wrong-button {
+  @extend .oi;
+  @extend .oi-circle-x;
+  cursor: pointer;
+}
+
+.nia-cancel-button {
+  @extend .oi;
+  @extend .oi-x;
+  cursor: pointer;
+  position: initial;
+}
+
+.nia-cancel-red-button {
+  @extend .oi;
+  @extend .oi-x;
+  cursor: pointer;
+  color: red;
+}
+
+.nia-cancel-red-button-not-allowed {
+  @extend .oi;
+  @extend .oi-x;
+  cursor: not-allowed;
+  color: red;
+}
+
+.nia-cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+.nia-chevron-right {
+  @extend .oi;
+  @extend .oi-chevron-right;
+  font-size: 10px;
+}
+
+.nia-chevron-bottom {
+  @extend .oi;
+  @extend .oi-chevron-bottom;
+  font-size: 10px;
+  color: red;
+}
+
+.nia-menu-item-selected {
+  @extend .oi;
+  @extend .oi-sun;
+  color: red;
+  font-size: 12px;
+}
+
+.nia-menu-item-not-selected {
+  @extend .oi;
+  @extend .oi-sun;
+  color: gray;
+  font-size: 12px;
+}
+
+.nia-modal {
+  background-color: #f1f1f1;
+}
+
+.nia-action-undo {
+  @extend .oi;
+  @extend .oi-action-undo;
+  cursor: pointer;
+}
+
+.nia-trash {
+  @extend .oi;
+  @extend .oi-trash;
+  cursor: pointer;
+}
+
+.nia-person {
+  @extend .oi;
+  @extend .oi-person;
+  color: #9d9999;
+}
+
+.nia-expand-button {
+  @extend .oi;
+  @extend .oi-caret-bottom;
+  cursor: pointer;
+}
+.nia-collapse-button {
+  @extend .oi;
+  @extend .oi-caret-top;
+  cursor: pointer;
+}
+
+.nia-content-not-allowed{
+  text-align: center;
+  padding-top: 5% !important;
+  font-size:12px;
+  // color: red;
+}
+
+/*** Toaster override **/
+.toast-message {
+  word-wrap: break-word;
+  //background-color: #F1F1F1;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px !important;
+}
+
+.toast-container .toast {
+  width: 200px;
+}
+
+@keyframes dot-keyframes {
+  0% {
+    opacity: 0.4;
+    transform: scale(1, 1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2, 1.2);
+  }
+
+  100% {
+    opacity: 0.4;
+    transform: scale(1, 1);
+  }
+}
+
+.loading-dots {
+  text-align: center;
+  width: 100%;
+
+  &--dot {
+    animation: dot-keyframes 1.5s infinite ease-in-out;
+    background-color: rgba(0, 0, 0, 0.774);
+    border-radius: 5px;
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+
+    &:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 1s;
+    }
+  }
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+img {
+  //Don't use vh or vw here then it will affect in view.
+  max-width: 100%;
+  max-height: 100%;
+}
+
+// material slide bar background color
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: rgba(0, 0, 0, 0.38) !important;
+}
+
+// material slide circle background color
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #4c7ebb !important;
+}
+
+.mat-slide-toggle-bar {
+  height: 10px !important;
+  width: 30px !important;
+}
+
+.mat-slide-toggle-thumb {
+  height: 15px !important;
+  width: 15px !important;
+  background-color: #4c7ebb !important;
+}
+
+// To avoid multiple(3) cursors
+.mat-slide-toggle-thumb-container,
+.mat-slide-toggle-label {
+  cursor: default !important;
+}
+
+.ui-table {
+  border: none;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.ui-table thead th {
+  border: none;
+  // padding: 10px;
+  text-align: left;
+  text-shadow: 1px 1px 1px #fff;
+  white-space: nowrap;
+}
+.ui-table tbody td {
+  // padding: 10px;
+  text-shadow: 1px 1px 1px #fff;
+  // white-space: nowrap;
+}
+.ui-wrapper {
+  position: relative;
+}
+.ui-scroller {
+  overflow-x: scroll;
+  overflow-y: visible;
+  padding-bottom: 5px;
+  width: 90%;
+}
+
+.ui-table .ui-sticky-col {
+  right: 0;
+  position: absolute;
+  top: auto;
+  width: 6vw;
+  border-bottom: 4px solid #e8e6dc;
+}
+
+.ui-mat-icon-color{
+  color: #474747
+}
+
+.highlight-asc,
+.highlight-desc,
+.highlight-custom {
+  text-decoration: underline;
+}
+
+.nia-hidden {
+  display: none;
+}
+
+.nia-active {
+  display: block;
+}
+
+.nia-overlay {
+  background-color: rgb(192, 191, 191, 0.5);
+  cursor: not-allowed;
+}
+
+#nia-overlay-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: black;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.content-text {
+  overflow: auto;
+}
+
+// Specific to IE10+ CSS can be added here.
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .toast-center-center {
+    top: 55px;
+    transform: translate(-100%, -50%);
+    -ms-transform: translate(100%, -50%);
+  }
+
+  // position: initial(not supported) replacement for IE11
+  .nia-cancel-button,
+  .nia-tag-button,
+  .nia-tabular-button,
+  .row-add {
+    position: static;
+  }
+}
+
+.urlhide-parent{
+  cursor: pointer;
+  color: #4b4b4b;
+  :hover{
+    color: #4b4b4b;
+  }
+}
+
+

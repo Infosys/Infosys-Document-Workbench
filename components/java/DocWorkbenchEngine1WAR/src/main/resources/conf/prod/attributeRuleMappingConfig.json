@@ -1,0 +1,212 @@
+{
+	"attributeRuleMapping": [
+		{
+			"queueNameCde": 15,
+			"baseRules": [
+				{
+					"attrNameCde": 19,
+					"ruleClass": "rule019ExtractEmailCategory",
+					"ruleType": "email",
+					"rules": [
+						{
+							"ruleResult": [
+								"invoice.status"
+							],
+							"rules": [
+								{
+									"attrNameCde": 18,
+									"ruleClass": "rule018ExtractInvoiceNumbers"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"Remittance Advice"
+							],
+							"rules": [
+								{
+									"attrNameCde": 18,
+									"ruleClass": "rule106ExtractRemittanceInvoice"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"ORDER STATUS (WISMO)"
+							],
+							"rules": [
+								{
+									"attrNameCde": 24,
+									"ruleClass": "rule024ExtractOrderNumber"
+								},
+								{
+									"attrNameCde": 24,
+									"ruleClass": "rule021ExtractPurchaseOrder"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"New Line/Recon/Upgrade"
+							],
+							"rules": [
+								{
+									"attrNameCde": 102,
+									"ruleClass": "rule102ExtractPlanType"
+								},
+								{
+									"attrNameCde": 103,
+									"ruleClass": "rule103ExtractPlanTerm"
+								},
+								{
+									"attrNameCde": 104,
+									"ruleClass": "rule104ExtractModel"
+								},
+								{
+									"attrNameCde": 105,
+									"ruleClass": "rule105ExtractConfiguration"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"Account/Card Activation"
+							],
+							"rules": [
+								{
+									"attrNameCde": 22,
+									"ruleClass": "rule022ExtractBankAccountNumber"
+								},
+								{
+									"attrNameCde": 23,
+									"ruleClass": "rule023ExtractCreditCardNumber"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"Card Cancellation"
+							],
+							"rules": [
+								{
+									"attrNameCde": 23,
+									"ruleClass": "rule023ExtractCreditCardNumber"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"Forgot Username"
+							],
+							"rules": [
+								{
+									"attrNameCde": 44,
+									"groupName": "userinfo",
+									"ruleClass": "rule101ExtractFromAddress"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"INVOICE/BILL COPY"
+							],
+							"rules": [
+								{
+									"attrNameCde": 44,
+									"groupName": "userinfo",
+									"ruleClass": "rule101ExtractFromAddress"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"Bestellstatus"
+							],
+							"rules": [
+								{
+									"attrNameCde": 24,
+									"ruleClass": "ruleG024ExtractOrderNumber"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"Loan Agreement"
+							],
+							"rules": [
+								{
+									"attrNameCde": 44,
+									"groupName": "loaninfo",
+									"ruleClass": "rule000ExtractUsingConfigurationV3"
+								}
+							]
+						}
+					]
+				},
+				{
+					"attrNameCde": 31,
+					"ruleClass": "rule031ExtractAttachmentDocumentType",
+					"ruleType": "document",
+					"rules": [
+						{
+							"ruleResult": [
+								"Account/Card Activation"
+							],
+							"rules": [
+								{
+									"attrNameCde": 23,
+									"ruleClass": "rule023ExtractCreditCardNumber"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"ORDER STATUS (WISMO)"
+							],
+							"rules": [
+								{
+									"attrNameCde": 24,
+									"ruleClass": "rule024ExtractOrderNumber"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"invoice.status"
+							],
+							"rules": [
+								{
+									"attrNameCde": 18,
+									"ruleClass": "rule018ExtractInvoiceNumbers"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"Remittance Advice"
+							],
+							"rules": [
+								{
+									"attrNameCde": 18,
+									"ruleClass": "rule106ExtractRemittanceInvoice"
+								}
+							]
+						},
+						{
+							"ruleResult": [
+								"Loan Agreement"
+							],
+							"rules": [
+								{
+									"attrNameCde": 44,
+									"groupName": "loaninfo",
+									"ruleClass": "rule000ExtractUsingConfigurationV3"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

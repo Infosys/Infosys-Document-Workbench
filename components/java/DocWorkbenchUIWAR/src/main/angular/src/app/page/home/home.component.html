@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <div id="content" class="container-fluid">
+      <div class="row h-100 mb-0">
+          <div *ngIf="model.isShowSidebar"  class="col-md-2 no-padding m-0" [style.display]="model.menuState" [ngClass]="model.cssSidebarClass">
+              <!--<app-menu [@slideInOut]="menuState" [style.display]="menuState2"></app-menu>-->
+              <app-menu></app-menu>
+          </div>
+          <div class="col-md-10" [ngClass]="model.cssMainContentClass">
+             <app-header *ngIf="model.isShowHeader" (showSidebar)="showSidebarHandler($event)"></app-header>
+              <div id="main-content" #mainContentArea>
+                  <router-outlet></router-outlet>
+              </div>
+          </div>
+      </div>
+      <div *ngIf="model.isShowFooter" class="row mt-0">
+          <footer class="footer footer-fixed">
+              <app-footer></app-footer>
+          </footer>
+      </div>
+  </div>
+</div>
+
+

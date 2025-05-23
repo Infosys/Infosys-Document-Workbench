@@ -1,0 +1,14 @@
+<div class="main-div" *ngIf="getFeature(bmodel.FID.AUDIT_CASE_VIEW).isVisible">
+    <a [routerLink]="" [queryParams]="{view:model.selTabNum}" class="button-icon urlhide-parent" title="Previous Case"
+        (click)="navigateCase('Previous')" >
+        <span class="material-icons ui-mat-icon-color icon-font"
+            [ngClass]="clicked"
+        >arrow_circle_left</span>
+    </a>
+    <a [routerLink]="" [queryParams]="{view:model.selTabNum}" class="button-icon urlhide-parent" title="Next Case"
+        (click)="navigateCase('Next')" >
+        <span class="material-icons ui-mat-icon-color icon-font"
+            [ngClass]="clicked"
+        >arrow_circle_right</span>
+    </a>
+</div>

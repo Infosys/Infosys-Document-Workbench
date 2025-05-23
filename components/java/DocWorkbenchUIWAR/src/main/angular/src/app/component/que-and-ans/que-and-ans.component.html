@@ -1,0 +1,251 @@
+<div class="bg-white ">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="p-1 font-12 qna-data" [style.height.vh]="model.minheight+6.4">
+                <div [style.height.vh]="22">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Question:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="float-md-right">
+                                <label for="numberSelect"
+                                    title="Max num of chunks to be used as context. Chunks can be pages, sections etc.">
+                                    Top K</label>&nbsp;
+                                <select id="numberSelect" [(ngModel)]="model.selectedNumber">
+                                    <option *ngFor="let number of model.numbers" [value]="number">{{ number }}</option>
+                                </select>
+                                &nbsp;
+                                <input type="checkbox" [(ngModel)]="model.from_cache" />
+                                <label
+                                    title="When checked avoids call if answer already exist from previous query.&#013;This helps in faster response and cost optimization.">
+                                    &nbsp;Use cache
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <textarea type="text" [style.height.vh]="22-10" style="resize: none;" #queTextArea
+                                    (input)="updateButtonsState(queTextArea.value)"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <label>Factual</label>
+                                    <mat-slider thumbLabel step="0.1" min="0" max="1" [(ngModel)]="model.sliderValue"
+                                        color="primary">
+                                        <!--(input)="onSliderChange($event)" [displayWith]="formatSliderValue" -->
+                                    </mat-slider>
+                                    <label>Creative</label>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <input type="button" class="btn btn-outline-primary btn-sm bt  float-md-right"
+                                        style="margin-top: 3%;" value="CLEAR"
+                                        [disabled]="model.isDisabled"
+                                        (click)="clearQueAns(queTextArea)" />
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="button" class="btn btn-outline-primary btn-sm bt  float-md-right"
+                                        style="margin-top: 3%;" value="QUERY"
+                                        [disabled]="model.isDisabled || model.isQueryButtonClicked"
+                                        (click)="fetchAnswer(queTextArea.value)" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- <div>&nbsp;</div> -->
+                <div style="overflow: auto;max-height: {{ model.max_height}}">
+                    <table class="table table-fixed table-hover table-sm fixed">
+                        <thead>
+                            <tr>
+                                <th class="static" style="width: 25% !important;">
+                                    <span>Document </span>
+                                </th>
+                                <th class="static" style="width: 65% !important;">
+                                    <span>Answer</span>
+                                </th>
+                                <th class="static" style="width: 10% !important;">
+                                    <!-- Copy button column -->
+                                </th>
+                                <!-- <th class="static">
+                                    <label>Attribute</label>
+                                </th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngIf="model.isQueryButtonClicked">
+                                <div *ngIf="!model.isDataLoaded" class="loading-dots">
+                                    <div class="loading-dots--dot"></div>
+                                    <div class="loading-dots--dot"></div>
+                                    <div class="loading-dots--dot"></div>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="model.isDataLoaded">
+                                <div *ngIf="model.errorMsg"
+                                    style="font-weight: bold; padding-top: 10px; color: #e85656; text-align: center;">
+                                    {{model.errorMsg}}
+                                </div>
+                                <ng-container *ngIf="model.answers and !model.errorMsg">
+                                    <ng-container *ngFor="let answerData of model.answers;">
+                                        <tr>
+                                            <td>
+                                                <div
+                                                    *ngIf="answerData.answer==='[NO DATA FOUND]'||(answerData.error && answerData.page_num==0); else elseTemplate">
+                                                    {{getMaskedFileName(answerData.doc_name,8)}}
+                                                </div>
+                                                <!-- <ng-template #elseTemplate>
+                                                    <a style="color:#0079DF;cursor:pointer;display:underline;"
+                                                        (click)="openLLMDetail(modelpromptandresponse,answerData)">
+                                                        {{getMaskedFileName(answerData.doc_name,4)}}</a>
+                                                    <a style="color:#0079DF;text-decoration: underline;cursor:pointer;"
+                                                        (click)="navigateToPDFPage(answerData.page_num)">
+                                                        (Pg.{{answerData.page_num}})</a>
+                                                </ng-template> -->
+                                                <ng-template #elseTemplate>
+                                                    <div title="{{answerData.doc_name}}">
+                                                        {{getMaskedFileName(answerData.doc_name,8)}}
+                                                    </div>
+                                                    <div class="py-2">
+                                                        <span style="cursor:pointer;">
+                                                            <mat-icon class="material-icons-outlined"
+                                                                (click)="openLLMDetail(modelpromptandresponse,answerData)"
+                                                                title="Query Details">open_in_new</mat-icon>
+                                                        </span>
+                                                        <span class="px-2">
+                                                            <div class="pageno_box"
+                                                                (click)="navigateToPDFPage(answerData.page_num)"
+                                                                title="Navigate to PDF page">
+                                                                Page:{{answerData.page_num}}
+                                                            </div>
+                                                        </span>
+                                                    </div>
+                                                </ng-template>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="answerData.answer"
+                                                    [class.expanded]="answerData.expandedAnswer" class="limited-text"
+                                                    (click)="toggleExpand('answer', answerData)">
+                                                    {{answerData.answer}}
+                                                </span>
+                                                <span *ngIf="answerData.error"
+                                                    [class.expanded]="answerData.expandedError" class="limited-text"
+                                                    (click)="toggleExpand('error', answerData)"
+                                                    style="font-weight: bold; padding-top: 10px; color: #e85656; text-align: center;">
+                                                    {{answerData.error}}
+                                                </span>
+                                                <div class="rating py-2">
+                                                    <!-- <mat-icon *ngFor="let star of [1, 2, 3]; let i = index"  class="star-icon"
+                                                        [class.selected]="star <= answerData.rating"
+                                                        title="{{model.tooltips[i]}}"
+                                                        [ngStyle]="{'color': star <= answerData.rating ? 'orange' : 'black'}"
+                                                        (click)="answerData.feedbackSubmitted || overlayRef ? null : setRatingAndOpenFeedbackForm(answerData, star,model.contentid)">
+                                                        {{star <= answerData.rating ? 'star' : 'star' }}
+                                                            </mat-icon> -->
+                                                    <mat-icon
+                                                        *ngFor="let icon of ['sentiment_very_dissatisfied', 'sentiment_neutral', 'sentiment_satisfied_alt']; let i = index"
+                                                        class="star-icon" [class.selected]="icon === answerData.rating"
+                                                        title="{{model.tooltips[i]}}"
+                                                        [ngStyle]="{'color': ['#ea2525', '#ffd740', '#29b729'][i], 'border': i+1 === answerData.rating ? '1px solid black' : 'none', 'height': i+1 === answerData.rating ? '17px' : 'none', 'width': i+1 === answerData.rating ? '17.5px' : 'none', 'display':'inline-block', 'align-content': 'center'}"
+                                                        (click)="answerData.feedbackSubmitted || overlayRef ? null : setRatingAndOpenFeedbackForm(answerData, i+1, model.contentid)">
+                                                        {{icon}}
+                                                    </mat-icon>
+                                                </div>
+                                            </td>
+                                            <td style="text-align: right;">
+                                                <ng-container *ngIf="answerData.llm_response['from_cache']"><span
+                                                        title="Answer fetched from cache"><mat-icon>history</mat-icon></span></ng-container>
+                                                <button class="button-icon" title="Copy answer to clipboard"
+                                                    [cdkCopyToClipboard]="answerData.answer"
+                                                    (click)="onCopyButtonClickMsg()">
+                                                    <mat-icon>content_copy</mat-icon></button>
+                                                <!-- <span class="feedback-container end-0">
+                                                    <mat-icon title="Feedback"
+                                                        (click)="openFeedbackForm()">rate_review</mat-icon>
+                                                </span> -->
+                                            </td>
+                                        </tr>
+                                        <!-- Drop Down of Attribute Name-->
+
+                                        <!-- <input list="browsers" id="myBrowser" name="myBrowser" />
+                                        <datalist id="browsers"> -->
+                                        <!-- Document level -->
+                                        <!-- <ng-container *ngIf="model.attachmentAttrDataList !== undefined">
+                                                <ng-container *ngFor="let attachmentData of model.attachDataList;">
+                                                    <ng-container *ngFor="let attachmentAttrData of model.attachmentAttrDataList;">
+                                                        <ng-container
+                                                            *ngIf="attachmentAttrData['attachmentId'] === attachmentData.attachmentId">
+                                                            <ng-container
+                                                                *ngFor="let attributeData of attachmentAttrData.attributes;">
+                                                                <ng-container *ngIf="!isMultiAttribute(attributeData.attrNameCde) && !isUpstreamDocId(attributeData.attrNameCde)">
+                                                                    <option value="{{attributeData.attrNameTxt}}"></option>
+                                                                </ng-container>
+                                                                <ng-container *ngIf="isMultiAttribute(attributeData.attrNameCde)">
+                                                                    <ng-container *ngFor="let attrData of attributeData.attributes">
+                                                                        <option value="{{attrData.attrNameTxt}}"></option>
+                                                                    </ng-container>
+                                                                </ng-container>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container> -->
+                                        <!--  TODO:Email level-->
+                                        <!-- <ng-container *ngIf="!model.isDocTypeFile">
+                                                <ng-container *ngFor="let attributeData of model.attributeDataList;">
+                                                    <ng-container *ngIf="!isMultiAttribute(attributeData.attrNameCde)">
+                                                        <option value="{{attributeData.attrNameTxt}}"></option>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="isMultiAttribute(attributeData.attrNameCde)">
+                                                        <ng-container *ngFor="let attrData of attributeData.attributes">
+                                                            <option value="{{attrData.attrNameTxt}}"></option>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container> -->
+                                        <!-- </datalist> -->
+                                        <!-- </td> -->
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- <div class="row">
+                    <div class="col-md-12">
+                        <p><label>Page #{{model.pageNo}}</label></p>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="row">
+        <div class="col-md-12">
+            <div class="p-1">
+                <input type="button" class="btn btn-outline-primary btn-sm bt  float-md-left" value="CANCEL"
+                    (click)="cancel()" />
+                <input type="button" class="btn btn-outline-primary btn-sm bt float-md-right" value="SAVE"
+                    (click)="save()" />
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<ng-template #modelpromptandresponse let-c="close" let-d="dismiss">
+    <div id="content">
+        <div class="row">
+            <div class="col-md-12 nia-modal p-2" style="    min-width:65vw;
+        max-width: 65vw;margin-left:-15vw;">
+                <app-llm-detail [answerData]=model.answerData [closeButton]="true" [minheight]="260"
+                    (close)="c('Close click');"></app-llm-detail>
+            </div>
+        </div>
+    </div>
+</ng-template>

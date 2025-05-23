@@ -1,0 +1,14 @@
+<!--
+Copyright 2022 Infosys Ltd.
+Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at
+http://www.apache.org/licenses/ 
+-->
+ <service>
+      <id>Infosys Email Workbench Rules</id>
+      <name>Infosys Email Workbench Rules</name>
+      <description>This service runs Emailwb Rules application.</description>
+      <env name="MYAPP_HOME" value="%BASE%"/>
+      <executable>java</executable>
+      <arguments>-jar "%BASE%\docwb-rules.war"</arguments>
+      <logmode>rotate</logmode>
+    </service>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.infosys.ainauto</groupId>
+	<artifactId>docwb-rules</artifactId>
+	<version>0.0.1</version>
+	<packaging>war</packaging>
+	<name>DocWorkbenchRules</name>
+	<description>Document Workbench Rules Server</description>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.18</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<drools-version>7.4.1.Final</drools-version>
+		<tfs.changeset.num>0000</tfs.changeset.num>
+		<spring.boot.admin.version>2.7.16</spring.boot.admin.version>
+		<!-- Code coverage report -->
+		<jacoco-version>0.8.8</jacoco-version>
+		<war.file.name>${project.artifactId}</war.file.name>
+		<my.deploy.folder>${project.build.directory}/EXECUTABLE</my.deploy.folder>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- ##### SPRING BOOT ADMIN CLIENT BEGIN ##### -->
+		<dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
+			<version>${spring.boot.admin.version}</version>
+		</dependency>
+		<!-- ##### SPRING BOOT ADMIN CLIENT END ##### -->
+		<!-- ##### FOR TESTING BEGIN ##### -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.junit.vintage</groupId>
+		    <artifactId>junit-vintage-engine</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		<!-- ##### FOR TESTING END ##### -->
+		<!-- ##### FOR SWAGGER BEGIN ##### -->
+	    <dependency>
+		    <groupId>org.springdoc</groupId>
+		    <artifactId>springdoc-openapi-ui</artifactId>
+		    <version>1.8.0</version>
+		</dependency>
+		<!-- ##### FOR SWAGGER END ##### -->
+		<!-- ##### FOR RULES ENGINE BEGIN ##### -->
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-ci</artifactId>
+			<version>${drools-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-decisiontables</artifactId>
+			<version>${drools-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-core</artifactId>
+			<version>${drools-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-compiler</artifactId>
+			<version>${drools-version}</version>
+		</dependency>
+		<!-- ##### FOR RULES ENGINE END ##### -->
+		<!-- ##### INTERNAL JARS BEGIN ##### -->
+		<dependency>
+			<groupId>com.infosys.ainauto</groupId>
+			<artifactId>common-utils</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<!-- ##### INTERNAL JARS END ##### -->
+		<!-- ##### FOR SECURITY BEGIN ##### -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.8.3</version>
+		</dependency>
+		<!-- ##### FOR SECURITY END ##### -->
+	</dependencies>
+	<build>
+		<finalName>${war.file.name}</finalName>
+		<plugins>
+		<!-- ##### CODE COVERAGE REPORT BEGIN ##### -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-version}</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- ##### CODE COVERAGE REPORT END ##### -->
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<!-- The development profile is active by default -->
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<outputDirectory>${my.deploy.folder}</outputDirectory>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>client</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<excludes>
+							<exclude>*.properties</exclude>
+							<exclude>*.xml</exclude>
+							<exclude>rules/**</exclude>
+							<exclude>mapping/**</exclude>
+							<exclude>sorting/**</exclude>
+							<exclude>templates/**</exclude>
+							<exclude>conf/**</exclude>
+						</excludes>
+						<filtering>false</filtering>
+					</resource>
+				</resources>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<outputDirectory>${my.deploy.folder}</outputDirectory>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<archive>
+								<manifestEntries>
+									<Class-Path>config/</Class-Path>
+								</manifestEntries>
+								<manifestSections>
+									<manifestSection>
+										<name>Nia Build</name>
+										<manifestEntries>
+											<BuildTime>${maven.build.timestamp}</BuildTime>
+											<ProjectVersion>${project.version}</ProjectVersion>
+											<ChangesetNum>${tfs.changeset.num}</ChangesetNum>
+											<Environment>${project.activeProfiles[0].id}</Environment>
+										</manifestEntries>
+									</manifestSection>
+								</manifestSections>
+							</archive>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>env-set</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target if="deploy.env.name">
+										<echo message="Copy environment specific properties files"/>
+										<copy todir="${my.deploy.folder}/config">
+											<fileset dir="src/main/resources/conf/${deploy.env.name}" includes="**" />
+										</copy>
+									</target>									
+								</configuration>
+							</execution>
+							<execution>
+								<id>env-not-set</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target unless="deploy.env.name">
+										<echo>Copying all environment properties files</echo>
+										<copy todir="${my.deploy.folder}/config.dev">
+											<fileset dir="src/main/resources/conf/dev" includes="**" />
+										</copy>
+										<copy todir="${my.deploy.folder}/config.test">
+											<fileset dir="src/main/resources/conf/test" includes="**" />
+										</copy>
+										<copy todir="${my.deploy.folder}/config.prod">
+											<fileset dir="src/main/resources/conf/prod" includes="**" />
+										</copy>
+										<copy todir="${my.deploy.folder}/config.demo1">
+											<fileset dir="src/main/resources/conf/demo1" includes="**" />
+										</copy>
+										<copy todir="${my.deploy.folder}/config.demo2">
+											<fileset dir="src/main/resources/conf/demo2" includes="**" />
+										</copy>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>client2</id>
+			<!-- For external Tomcat, override WAR file name without dashes -->
+			<properties>
+				<war.file.name>docwbrules</war.file.name>
+			</properties>
+			<dependencies>
+				<!-- Exclude embedded tomcat server -->
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<archive>
+								<manifestEntries>
+									<Class-Path>config/</Class-Path>
+								</manifestEntries>
+								<manifestSections>
+									<manifestSection>
+										<name>Nia Build</name>
+										<manifestEntries>
+											<BuildTime>${maven.build.timestamp}</BuildTime>
+											<ProjectVersion>${project.version}</ProjectVersion>
+											<ChangesetNum>${tfs.changeset.num}</ChangesetNum>
+											<Environment>${project.activeProfiles[0].id}</Environment>
+										</manifestEntries>
+									</manifestSection>
+								</manifestSections>
+							</archive>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	<licenses>
+		<license>
+			<name>Apache License Version 2.0</name>
+		</license>
+	</licenses>
+	<reporting>
+		<outputDirectory>${project.build.directory}/../../report/${project.artifactId}</outputDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>3.1.0</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>dependencies</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
+</project>

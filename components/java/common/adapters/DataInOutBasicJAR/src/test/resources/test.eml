@@ -1,0 +1,118 @@
+Received: from 
+Received: from 
+Received: 
+Authentication-Results: 
+Received-SPF: 
+ PU1APC01FT028.
+Received:
+X-Mailer:
+From: <Mail@office.com>
+Subject: OneDrive Tip when you Work from home - Verify if your data is synced to
+ OneDrive storage
+Date: Wed, 27 May 2020 21:07:23 +0530
+Message-ID: 
+Content-Type: multipart/related;
+	boundary=""
+To: undisclosed-recipients:;
+X-TM-AS-GCONF: 00
+Return-Path: OfficeIT@office.com
+X-OrganizationHeadersPreserved: 
+X-MS-Exchange-Organization-ExpirationStartTime: 
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason:
+X-MS-Exchange-Organization-ExpirationInterval: 
+X-MS-Exchange-Organization-ExpirationIntervalReason: 
+X-MS-Exchange-Organization-Network-Message-Id:
+
+X-EOPAttributedMessage:
+X-MS-Exchange-Organization-MessageDirectionality: 
+X-MS-Exchange-Organization-AuthSource: 
+X-MS-Exchange-Organization-AuthAs: Internal
+X-MS-Exchange-Organization-AuthMechanism: 10
+X-CrossPremisesHeadersPromoted:
+
+X-CrossPremisesHeadersFiltered:
+ 
+X-Forefront-Antispam-Report:
+
+X-MS-PublicTrafficType: Email
+X-OriginatorOrg: company.com
+X-MS-Office365-Filtering-Correlation-Id: 
+X-MS-TrafficTypeDiagnostic: :
+X-LD-Processed: 
+X-MS-Exchange-Transport-Forked: True
+X-MS-Exchange-AtpMessageProperties: SA|SL
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Exchange-Organization-SCL: -1
+X-Microsoft-Antispam: BCL:0;
+X-PSINMDFA: 1.0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2020 15:37:57.0803
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+X-MS-Exchange-CrossTenant-Id: 
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: 
+X-MS-Exchange-Transport-EndToEndLatency: 
+X-MS-Exchange-Processed-By-BccFoldering: 1
+X-Microsoft-Antispam-Mailbox-Delivery:
+X-Microsoft-Antispam-Message-Info:
+MIME-Version: 1.0
+
+------=_NextPart_001_23CA_E6E46357.35951B06
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_000_0128_14B2CAAC.D3890C25"
+
+------=_NextPart_000_0128_14B2CAAC.D3890C25
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+
+Verify your data in OneDrive storage
+ 
+OneDrive for Business client enables you to sync important files between yo=
+ur computer and the cloud. With this you can now access your files from any=
+ of your managed device, which can be your computer, your mobile device, or=
+ even through the OneDrive for Business Web. 
+ 
+OneDrive enables you to Share files with your team members 
+ and collaborate. OneDrive acces=
+s is enabled only from Infosys managed devices. To avoid access issues when=
+ not in Infosys network, use Internet explorer for better experience.
+ 
+You can work on your synced files directly in file explorer and access your=
+ files even when you=E2=80=99re offline. These changes will sync with your =
+OneDrive storage whenever you=E2=80=99re online. If you add, change or dele=
+te a file/folder in your OneDrive folder(D:\OneDrive - Infosys Limited), th=
+e same process [addition/change/deletion] will be replicated on your OneDri=
+ve cloud and vice versa. Only files which are in OneDrive folder (D:\OneDri=
+ve - Infosys Limited) will be in sync with OneDrive cloud .
+ 
+PST=E2=80=99s connected to outlook won=E2=80=99t sync to ODFB and will crea=
+te multiple versions of the PST every time you close outlook. This will ult=
+imately end up in consuming entire 5TB of ODFB storage. Once storage is ful=
+l, none of the changes made will get updated. Always keep your active PST o=
+utside OneDrive folder to avoid OneDrive space issue.
+ 
+Following these few simple steps during system changewill help avoid data loss =
+and verify that the data is synced with OneDrive storage. During data sync =
+folder structure gets created first and then file sync starts .Do not stop =
+sync unless you have verified that all files are synced and present on OneD=
+rive cloud and data size on cloud storage matches with local OneDrive folde=
+r.
+ 
+Please make sure to follow below steps to verify all your data are in sync =
+with OneDrive storage. 
+ 
+1.	Access OneDrive Web   and check if all your data =
+(check specifically for files ) are present under main folders.
+2.	Cross check your Data size on cloud storage matches with local OneDrive =
+folder from OneDrive Settings >> Account tab 
+ 
+                           
+3.	Go to Manage Storage option  in above settings  and you can  see the sto=
+rage metric of your data usage 
+ 
+Team -OneDrive
+Still not using OneDrive to sync files?
+Start using ODFB now.. in Just 2 simple steps

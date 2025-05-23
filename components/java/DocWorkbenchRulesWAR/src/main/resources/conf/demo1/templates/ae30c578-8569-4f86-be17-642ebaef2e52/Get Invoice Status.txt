@@ -1,0 +1,8 @@
+Hi <<From>>, 
+
+Your invoice # <<Invoice Numbers>> has a status of <<Get Invoice Status>>.
+
+Please let us know if you've any other questions.
+
+Thanks,
+Customer Support Team

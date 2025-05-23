@@ -1,0 +1,75 @@
+<div class="feedback-card" #dragHandle [class.minimized-card]="minimized">
+    <div class="feedback-title" *ngIf="!minimized">
+        <span>Feedback</span>
+        <div>
+            <span class="minimize-btn px-3" title="Minimize" (click)="onMinimizeClick()">─</span>
+            <span class="nia-wrong-button close-btn" title="Close" (click)="onCloseClick()"></span>
+        </div>
+    </div>
+    <div class="feedback-content" *ngIf="!minimized">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="rating-section" (mousedown)="$event.stopPropagation()">
+                <div>
+                    <span>Rating:</span>
+                </div>
+                <!-- <div class="star-container">
+                    <div *ngFor="let star of [1, 2, 3]; let i = index">
+                        <mat-icon title="{{model.tooltips[i]}}"
+                            [ngStyle]="{'color': starHovered >= star ? 'grey' : form.value.rating >= star ? 'orange' : 'black'}"
+                            (click)="onRatingClick(star)">  
+                            {{form.value.rating >= star ? 'star' : 'star'}}
+                        </mat-icon>
+                    </div>
+                </div> -->
+                <!-- (mouseenter)="onStarHover(star)" (mouseleave)="onStarLeave()" -->
+                <div class="star-container">
+                    <div
+                        *ngFor="let icon of ['sentiment_very_dissatisfied', 'sentiment_neutral', 'sentiment_satisfied_alt']; let i = index">
+                        <mat-icon title="{{model.tooltips[i]}}"
+                            [ngStyle]="{'color': ['#ea2525', '#ffd740', '#29b729'][i], 'border': i+1 === form.value.rating ? '1px solid black' : 'none', 'height': i+1 === form.value.rating ? '24px' : 'none', 'width': i+1 === form.value.rating ? '25px' : 'none', 'display':'inline-block', 'align-content': 'center'}"
+                            (click)="onRatingClick(i+1)">
+                            {{icon}}
+                        </mat-icon>
+                    </div>
+                </div>
+                <div *ngIf="form.get('rating').invalid && form.get('rating').touched" class="hint">
+                    *Please select a rating
+                </div>
+            </div>
+            <div>
+                <div class="input-section row" (mousedown)="$event.stopPropagation()">
+                    <div class="input-field col-md-9">
+                        <label>Expected Answer:</label>
+                        <textarea class="height" formControlName="expectedAnswer"></textarea>
+                        <!-- <mat-icon class="history-icon" (click)="resetExpectedAnswer()">history</mat-icon> -->
+                        <div *ngIf="form.get('expectedAnswer').invalid && form.get('rating').value < 3" class="hint">
+                            *Mandatory Field
+                        </div>
+                    </div>
+                    <div class="input-field col-md-3">
+                        <label>Page No:</label>
+                        <input class="height" formControlName="pageNo" (input)="pageInput($event)">
+                        <div *ngIf="form.get('pageNo').invalid && form.get('rating').value < 3" class="hint">
+                            *Mandatory Field
+                        </div>
+                    </div>
+                </div>
+                <div class="input-section row pt-2" (mousedown)="$event.stopPropagation()">
+                    <div class="input-field col-md-9">
+                        <label>Comment:</label>
+                        <textarea class="height" formControlName="comment"></textarea>
+                    </div>
+                    <div class="input-field col-md-3 sub-btn">
+                        <input class="height" class="btn btn-sm btn-primary float-md-right" type="button" value="Submit"
+                            (click)="onSubmit()" [disabled]="form.invalid" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="minimized-icon" *ngIf="minimized" (dblclick)="onRestoreClick()" title="Feedback">
+        <!-- <mat-icon style="color: orange;">star</mat-icon> -->
+        <mat-icon style="color: grey;">{{form.value.rating === 1 ? 'sentiment_very_dissatisfied' : form.value.rating ===
+            2 ? 'sentiment_neutral' : 'sentiment_satisfied_alt'}}</mat-icon>
+    </div>
+</div>

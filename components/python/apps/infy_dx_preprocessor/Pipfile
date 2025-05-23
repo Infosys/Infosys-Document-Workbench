@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+autopep8 = "==1.5.1"
+
+[packages]
+schedule = "==1.0.0"
+
+# Internal libraries in alphabetical order
+infy_common_utils = {path = "./lib/infy_common_utils-0.0.8-py3-none-any.whl"}
+infy_telemetry_sdk = {path = "./lib/infy_telemetry_sdk-0.0.5-py3-none-any.whl"}
+infy_ocr_generator = {path = "./lib/infy_ocr_generator-0.0.13-py3-none-any.whl", extras=["tesseract"]}
+
+[requires]
+python_version = "3"

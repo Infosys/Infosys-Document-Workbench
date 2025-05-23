@@ -1,0 +1,117 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "object",
+    "properties": {
+        "response": {
+            "type": "object",
+            "properties": {
+                "tables": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "tableId": {
+                                "type": "integer",
+                                "minimum": 0
+                            },
+                            "tableName": {
+                                "type": "string",
+                                "minLength": 1
+                            },
+                            "columns": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "colId": {
+                                            "type": "integer",
+                                            "minimum": 0
+                                        },
+                                        "colName": {
+                                            "type": "string",
+                                            "minLength": 1
+                                        },
+                                        "rows": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "rowId": {
+                                                        "type": "integer",
+                                                        "minimum": 0
+                                                    },
+                                                    "cell": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "value": {
+                                                                "type": "string"
+                                                            },
+                                                            "confidencePct": {
+                                                                "type": "integer"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "confidencePct",
+                                                            "value"
+                                                        ]
+                                                    }
+                                                },
+                                                "required": [
+                                                    "rowId",
+                                                    "cell"
+                                                ]
+                                            },
+                                            "minItems": 1,
+                                            "uniqueItems": true
+                                        }
+                                    },
+                                    "required": [
+                                        "colId",
+                                        "colName",
+                                        "rows"
+                                    ]
+                                },
+                                "minItems": 1,
+                                "uniqueItems": true
+                            }
+                        },
+                        "required": [
+                            "tableId",
+                            "tableName",
+                            "columns"
+                        ]
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true
+                }
+            },
+            "required": [
+                "tables"
+            ]
+        },
+        "transactionId": {
+            "type": "string"
+        },
+        "responseCde": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "responseMsg": {
+            "type": "string"
+        },
+        "responseTimeInSecs": {
+            "type": "number"
+        },
+        "timestamp": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "response",
+        "responseCde",
+        "transactionId",
+        "responseMsg",
+        "responseTimeInSecs",
+        "timestamp"
+    ]
+}

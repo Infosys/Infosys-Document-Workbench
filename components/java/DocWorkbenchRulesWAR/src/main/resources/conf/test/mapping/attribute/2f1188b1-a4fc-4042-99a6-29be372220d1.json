@@ -1,0 +1,30 @@
+[
+	{
+		"attrNameCde": 31,
+		"attrNameValues": [
+			{
+				"attrValue": "Passport",
+				"attributes": [
+					{
+						"attrNameCde": 200
+					},
+					{
+						"attrNameCde": 201
+					},
+					{
+						"attrNameCde": 202
+					},
+					{
+						"attrNameCde": 203
+					},
+					{
+						"attrNameCde": 204
+					},
+					{
+						"attrNameCde": 117
+					}
+				]
+			}
+		]
+	}
+]

@@ -1,0 +1,65 @@
+<div id="nia-annotator-content" class="row">
+  <div class="col-md-12">
+    <div class="bg-white">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="p-1 font-12 content-container">
+            <!-- Start: Angualr embed Viewer -->
+            <div class="content" *ngIf="model.fileViewer ==='embed'">
+              <div id="embedContent" [innerHTML]="model.fileView"></div>
+            </div>
+            <!-- End: Angualr embed Viewer -->
+
+            <!-- Start: Angualr ngx-extended-pdf-viewer -->
+            <div class="content" id="pdfContent"
+              [ngClass]="{'nia-hidden': model.fileViewer !=='pdf', 'nia-active': model.fileViewer ==='pdf'}">
+              <!-- pdf-viewer is commented as extended version used  -->
+              <!-- <pdf-viewer [style.height.vh]="height-2" [original-size]="false" [src]="model.content"
+                [render-text]="true" style="display: block;" (text-layer-rendered)="callbackStartAnnotator($event);">
+              </pdf-viewer> -->
+              <!-- Condition to load pdf on IE11  -->
+              <ng-container *ngIf="model.fileViewPdfIE">
+                <div id="embedPdfIEDiv" [innerHTML]="model.fileViewPdfIE"></div>
+              </ng-container>
+              <ng-container *ngIf="!model.fileViewPdfIE">
+                <ngx-extended-pdf-viewer [src]="model.contentPdf" useBrowserLocale="true" [handTool]="false" theme = "dark"
+                  (textLayerRendered)="callbackStartAnnotator($event);callbackTextLayerRendered($event);" (currentZoomFactor)="callbackZoomFactor($event);" [showDownloadButton]=false
+                  [showSecondaryToolbarButton]=false [showOpenFileButton]=false [showPrintButton]=false [(page)] = "model.renderPdfPage" (pageChange)="callbackPageChanged($event)"
+                  [zoom]="'page-width'" [showBookmarkButton]=false [showFindButton]=false height="{{height-4}}vh" [showRotateButton]=false [showPagingButtons]=true
+                  (pageRendered)="callbackPageRendered($event);">
+                </ngx-extended-pdf-viewer>
+              </ng-container>
+            </div>
+            <!-- End: Angualr ngx-extended-pdf-viewer -->
+
+            <!-- Start: Notes Viwer -->
+            <div class="content" id="textContent" [style.height.vh]="height-4" *ngIf="model.content"
+              [ngClass]="{'nia-hidden': model.fileViewer !=='text', 'nia-active': model.fileViewer ==='text'}">
+              <pre>{{model.content}}</pre>
+            </div>
+            <!-- End: Notes Viwer-->
+
+            <!-- Start: HTML Viwer -->
+            <div class="content" [style.height.vh]="height-4" [innerHTML]="model.contentHtml"
+              [ngClass]="{'nia-hidden': model.fileViewer !=='html', 'nia-active': model.fileViewer ==='html'}"
+              id="htmlContent"></div>
+            <!-- End: HTML Viwer-->
+
+            <!-- Start: ng2-PDFJS Viewer -->
+            <!-- <div class="content" *ngIf="model.displayViewer==='ng2PDFJS'" id="textContent">
+              <ng2-pdfjs-viewer pdfSrc="/assets/test.pdf" ></ng2-pdfjs-viewer>
+            </div> -->
+            <!-- End: ng2-PDFJS Viewer -->
+
+            <!-- Start: PDFJS Viewer -->
+            <!-- <div class="content" *ngIf="model.displayViewer==='pdfJS'" id="textContent">
+              <div id="pdfcanvas" [style.height.vh]="height-10" class="pdfViewer"></div>
+            </div> -->
+            <!-- End: Angualr PDF Viewer -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

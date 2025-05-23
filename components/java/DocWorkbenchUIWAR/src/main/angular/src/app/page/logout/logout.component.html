@@ -1,0 +1,13 @@
+<ng-container *ngIf="!model.isDataLoaded">
+  <span class="loading-dots">
+    <span class="loading-dots--dot"></span>
+    <span class="loading-dots--dot"></span>
+    <span class="loading-dots--dot"></span>
+</span>
+</ng-container>
+<ng-container *ngIf="model.isDataLoaded">
+  <p>
+    You've successfully logged out! To login again, <a [routerLink]="['/login']" [queryParams]="{ returnUrl: returnUrl }" >click here.</a> 
+  </p>  
+</ng-container>
+

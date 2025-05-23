@@ -1,0 +1,50 @@
+<div class="row">
+  <div *ngIf="selectedEmailData.emailBodyHtml" class="col-md-11 font-16">
+    {{selectedEmailData.emailSubject}} (Outbound Email - HTML Text)
+  </div>
+  <div *ngIf="!selectedEmailData.emailBodyHtml" class="col-md-11 font-16">
+    {{selectedEmailData.emailSubject}} (Outbound Email - Plain Text)
+  </div>
+  <div class="col-md-1 font-12 text-right pt-1">
+    <span *ngIf="closeButton" class="nia-wrong-button" (click)="modalWindow()"></span>
+  </div>
+</div>
+<div class="bg-white" [style.minHeight.px]="minheight">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="p-1 content-text font-12">
+
+        <ng-container>
+          <div class="content-header">
+            To: {{selectedEmailData.emailTo}}
+            <span *ngIf="selectedEmailData.emailCC">
+              <br />
+              Cc: {{selectedEmailData.emailCC}}
+            </span>
+            <br /> Sent Date: {{selectedEmailData.emailSentDtm}}
+            <br /> Subject: {{selectedEmailData.emailSubject}}
+
+       
+           <div *ngIf="selectedEmailData.attachmentDataList.length>0">
+              <div>
+                <span *ngFor="let attachmentData of selectedEmailData.attachmentDataList; let i=index">
+                  <span class="nia-file-button" title={{attachmentData.fileName}}
+                    (click)="viewAttachments(selectedEmailData.emailOutboundId,attachmentData.attachmentId,attachmentData.fileName)">&nbsp;{{i+1}}.{{getMaskedFileName(attachmentData.fileName,5)}}&nbsp;</span>
+                </span>
+              </div>
+            </div>
+          </div>
+      
+          <br />
+          <span *ngIf="selectedEmailData.emailBodyHtml">
+            <div [innerHTML]="model.emailBodyHtml"></div>
+          </span>
+          <div *ngIf="!selectedEmailData.emailBodyHtml">
+            <pre
+              style="font-family: 'Roboto', sans-serif;font-size:12px; overflow-x: hidden; white-space: pre-line;"><div [innerHTML]="model.emailBodyText"></div></pre>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

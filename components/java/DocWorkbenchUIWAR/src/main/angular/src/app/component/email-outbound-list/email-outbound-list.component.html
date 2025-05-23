@@ -1,0 +1,118 @@
+<div class="row">
+  <div class="col-md-11 font-16">
+    Outbound Emails
+  </div>
+  <div class="col-md-1 font-12 text-right pt-1">
+    <ng-container *ngIf="getFeature(bmodel.FID.OUTBOUND_EMAIL_VIEW).isVisible">
+      <span *ngIf="popupButton" class="nia-popout-button" (click)="open(sentEmail)"></span>
+      <span *ngIf="closeButton" class="nia-wrong-button" (click)="modalWindow()"></span>
+    </ng-container>
+  </div>
+</div>
+<div class="bg-white">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="p-1 font-12" [style.height.vh]="minheight">
+        <ng-container *ngIf="!getFeature(bmodel.FID.OUTBOUND_EMAIL_VIEW).isVisible">
+          <div class="nia-content-not-allowed">{{bmodel.FID_ERR_MSG.NOT_ALLOWED}}</div>
+        </ng-container>
+        <ng-container *ngIf="getFeature(bmodel.FID.OUTBOUND_EMAIL_VIEW).isVisible">
+          <div *ngIf="!isDataLoaded" class="loading-dots">
+            <br />
+            <br />
+            <div class="loading-dots--dot"></div>
+            <div class="loading-dots--dot"></div>
+            <div class="loading-dots--dot"></div>
+          </div>
+          <div class="content-text" [style.height.vh]="minheight-2">
+            <table id="email-outbound-list-{{+!popupButton}}" *ngIf="isDataLoaded"
+              class="table table-fixed table-hover table-sm">
+              <thead>
+                <tr>
+                  <th sortable-column="0" sort-direction="desc" sort-id-col="0" sort-table-name="EOL-{{+!popupButton}}"
+                    class="static">#</th>
+                  <th sortable-column="1" sort-table-name="EOL-{{+!popupButton}}" class="static">Subject</th>
+                  <th sortable-column="2" sort-table-name="EOL-{{+!popupButton}}" class="static">To</th>
+                  <th class="static">
+                    <span class="nia-file-attachment"></span>
+                  </th>
+                  <th sortable-column="4" sort-table-name="EOL-{{+!popupButton}}" class="static">Creator</th>
+                  <th sortable-column="5" sort-table-name="EOL-{{+!popupButton}}" class="static">Sent Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let emailData of emailDataList; let i=index">
+                  <td>
+                    {{emailDataList.length-i}}.
+                  </td>
+                  <td class="urlhide">
+                    <a title={{emailData.emailSubject}} style="color:#0079DF;cursor:pointer;display:underline;"
+                      (click)="openSentEmailContent(sentemailContent,emailData)">{{emailData.emailSubject}}</a>
+                  </td>
+                  <td class="urlhide" title={{emailData.emailTo}}>
+                    {{emailData.emailTo}}
+                  </td>
+                  <td>
+                    <span *ngIf="emailData.attachmentDataList.length>0" class="nia-file-attachment"></span>
+                  </td>
+                  <td class="urlhide urlhide-user"
+                    title="{{emailData.createByUserTypeCde === 1 ? emailData.createByUserFullName + ' (' + emailData.createByUserLoginId + ')' : emailData.createByUserTypeTxt}}">
+                    {{emailData.createByUserTypeCde === 1 ? emailData.createByUserFullName:
+                    emailData.createByUserTypeTxt}}
+                  </td>
+                  <td class="urlhide" title={{emailData.emailSentDtm}}>
+                    {{emailData.emailSentDtm}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="p-1">
+        <input type="button" class="btn btn-outline-primary btn-sm float-md-right"
+          *ngIf="getFeature(bmodel.FID.OUTBOUND_EMAIL_VIEW).isVisible" value="COMPOSE EMAIL"
+          [disabled]="!getFeature(bmodel.FID.OUTBOUND_EMAIL_VIEW).isEnabled || (documentData==null || isBtnComposeEmailEnabled)"
+          [class.nia-cursor-not-allowed]=" !getFeature(bmodel.FID.OUTBOUND_EMAIL_VIEW).isEnabled || (documentData==null || isBtnComposeEmailEnabled)"
+          (click)="open(email)" />
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #email let-c="close" let-d="dismiss">
+  <div id="content">
+    <div class="row" style="width:900px;position: absolute;margin-left:-40%;">
+      <div class="col-md-12 nia-modal p-2">
+        <app-email-outbound-compose [isDataReady]=_isDataReady [document]=documentData [closeButton]="true"
+          [minheight]="230" [textareaheight]="230" [popupButton]="false" (close)="c('Close click');"
+          (sentEmailAdded)="sentEmailAdded($event)"></app-email-outbound-compose>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #sentemailContent let-c="close" let-d="dismiss">
+  <div id="content">
+    <div class="row">
+      <div class="col-md-12 nia-modal p-2" style="    min-width: 50vw;
+      max-width: 50vw;">
+        <app-email-outbound-content [selectedEmailData]=selectedEmailData [closeButton]="true" [minheight]="260"
+          (close)="c('Close click');"></app-email-outbound-content>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #sentEmail let-c="close" let-d="dismiss">
+  <div id="content">
+    <div class="row" style="width:65vw;height:65vh;margin-left:-15vw;">
+      <div class="col-md-12 nia-modal p-2">
+        <app-email-outbound-list [isDataReady]=isDataLoaded [document]=documentData [closeButton]="true"
+          [minheight]="55" [popupButton]="false" (close)="c('Close click');"></app-email-outbound-list>
+      </div>
+    </div>
+  </div>
+</ng-template>

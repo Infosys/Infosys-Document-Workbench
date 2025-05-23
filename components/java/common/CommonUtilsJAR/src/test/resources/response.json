@@ -1,0 +1,140 @@
+{
+  "response": {
+    "attributes": [
+      {
+        "quoteNumber": "Quote # 11803873"
+      },
+      {
+        "signatureDetected": false
+      }
+    ],
+    "table1": {
+      "name": "Proposal",
+      "columnOrder": [
+        "Pricing Prepared For",
+        "Prepared On",
+        "Price Valid Until",
+        "Currency",
+        "Total Mrc",
+        "Total Nrc"
+      ],
+      "columnLabels": [
+        "Pricing Prepared For",
+        "Prepared On",
+        "Price Valid Until",
+        "Currency",
+        "Total Mrc",
+        "Total Nrc"
+      ],
+      "row1": {
+        "Pricing Prepared For": "Telstra USA",
+        "Prepared On": "01/31/2020",
+        "Price Valid Until": "04/29/2020",
+        "Currency": "USD",
+        "Total Mrc": "852.65",
+        "Total Nrc": "0.00"
+      }
+    },
+    "table2": {
+      "name": "Product Information",
+      "columnOrder": [
+        "Term",
+        "Total Mrc",
+        "Total Nrc",
+        "# Sites"
+      ],
+      "columnLabels": [
+        "Term",
+        "Total Mrc",
+        "Total Nrc",
+        "# Sites"
+      ],
+      "row1": {
+        "Term": "1 Year",
+        "Total Mrc": "852.65",
+        "Total Nrc": ".00",
+        "# Sites": "1"
+      }
+    },
+    "table3": {
+      "name": "Location",
+      "columnOrder": [
+        "Pricing Prepared For",
+        "Prepared On",
+        "Price Valid Until",
+        "Currency",
+        "Total Mrc",
+        "Total Nrc"
+      ],
+      "columnLabels": [
+        "Pricing Prepared For",
+        "Prepared On",
+        "Price Valid Until",
+        "Currency",
+        "Total Mrc",
+        "Total Nrc"
+      ],
+      "row1": {
+        "Site Name": "CPHLPAAP 3543 SIMPSON FERRY RD - L3 POP COMMON DMARC",
+        "Countr y": "USA",
+        "Site Address": "3543 SIMPSON FERRY RD CAMP HILL, PA 17011",
+        "USF": "Interstate",
+        "Mrc": "852.65",
+        "Nrc": ".00",
+        "Port": "Fast Ethernet (100 Mb)",
+        "Mrc.1": "687.75",
+        "Nrc.1": ".00",
+        "Mrc.2": "164.90",
+        "Nrc.2": ".00"
+      }
+    },
+    "table4": {
+      "name": "Product Detail",
+      "columnOrder": [
+        "Description",
+        "Qty",
+        "Mrc",
+        "Nrc",
+        "Priced Amount",
+        "Mrc Per"
+      ],
+      "columnLabels": [
+        "Description",
+        "Qty",
+        "Mrc",
+        "Nrc",
+        "Priced Amount",
+        "Mrc Per"
+      ],
+      "row1": {
+        "Description": "A - 3543 SIMPSON FERRY RD CAMP HILL, PA 17011  On Net Access - Fast Ethernet (100 Mb) - [Bandwidth = Fast Ethernet (100 Mb), Sub Bandwidth = 100]",
+        "Qty": "1",
+        "Mrc": "164.90",
+        "Nrc": "0.00",
+        "Priced Amount": "",
+        "Mrc Per": ""
+      },
+      "row2": {
+        "Description": "A - 3543 SIMPSON FERRY RD CAMP HILL, PA 17011 IP VPN Port - Fast Ethernet (100 Mb) - [Bandwidth = Fast Ethernet (100 Mb), Network Integrity = No, CRTP = No, Multicast = No]",
+        "Qty": "1",
+        "Mrc": "75.00",
+        "Nrc": "0.00",
+        "Priced Amount": "",
+        "Mrc Per": ""
+      },
+      "row3": {
+        "Description": "A - 3543 SIMPSON FERRY RD CAMP HILL, PA 17011 Commit - Basic Plus & Basic - [Capacity (Mb) = 50.000]",
+        "Qty": "1",
+        "Mrc": "612.75",
+        "Nrc": "0.00",
+        "Priced Amount": "50.000",
+        "Mrc Per": "12.26/Mb"
+      }
+    }
+  },
+  "transactionId": "848119814",
+  "responseCde": 0,
+  "responseMsg": "Success",
+  "responseTimeInSecs": 0,
+  "timestamp": "2020-06-24 09:50:39 PM"
+}

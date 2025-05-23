@@ -1,0 +1,102 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+.feedback-card {
+    font: inherit;
+    border: 1px solid #f1f1f1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    background-color: #f1f1f1;
+    padding: 2px;
+    position: relative;
+    cursor: move;
+
+    .draggable {
+        position: absolute;
+    }
+
+    .minimized {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    .minimized-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .feedback-title {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 10px 0px 10px;
+        font-size: 16px !important;
+
+        .close-btn {
+            font-size: 12px;
+        }
+    }
+
+    .feedback-content {
+        background-color: white;
+        padding: 10px;
+        margin: 10px;
+        cursor: pointer;
+        font-size: 12px !important;
+
+        .rating-section {
+            .star-container {
+                display: flex;
+                gap: 10px;
+            }
+        }
+
+        .input-section {
+            display: flex;
+            justify-content: space-between;
+
+            .input-field {
+                display: flex;
+                flex-direction: column;
+
+                .height {
+                    height: 5.5vh;
+                }
+
+                .history-icon {
+                    position: absolute;
+                    top: 30px;
+                    right: 6px;
+                    cursor: pointer;
+                    font-size: 13px;
+                    visibility: hidden;
+                }
+                &:hover .history-icon {
+                    visibility: visible;
+                }
+                .hint{
+                    color: red;
+                    font-size: 7px;
+                }
+            }
+
+            .sub-btn {
+                padding-top: 7%;
+            }
+        }
+    }
+}
+
+.minimized-card {
+    border: 1px solid #f1f1f1;
+    border-radius: 50%;
+    padding: 5px;
+    background-color: white;
+}
+
+body.dragging {
+    pointer-events: none;
+}

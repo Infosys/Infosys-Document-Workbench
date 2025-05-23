@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-12">
+    <div *ngIf="model.isUserList">
+      <app-user-list [maxAllowedHeightInPx]="model.childComponentMaxAllowedHeightInPx"
+        [maxAllowedWidthInPx]="model.childComponentMaxAllowedWidthInPx">
+      </app-user-list>
+    </div>
+    <div *ngIf="model.isRbacList">
+      <app-rbac-list [maxAllowedHeightInPx]="model.childComponentMaxAllowedHeightInPx"
+        [maxAllowedWidthInPx]="model.childComponentMaxAllowedWidthInPx">
+      </app-rbac-list>
+    </div>
+    <div *ngIf="model.isPersonalQueueList">
+      <app-queue-list [maxAllowedHeightInPx]="model.childComponentMaxAllowedHeightInPx"
+        [maxAllowedWidthInPx]="model.childComponentMaxAllowedWidthInPx"
+        [queueListMode]="'personal'">
+      </app-queue-list>
+    </div>
+    <div *ngIf="model.isAdminQueueList">
+      <app-queue-list [maxAllowedHeightInPx]="model.childComponentMaxAllowedHeightInPx"
+        [maxAllowedWidthInPx]="model.childComponentMaxAllowedWidthInPx"
+        [queueListMode]="'general'">
+      </app-queue-list>
+    </div>
+  </div>
+</div>

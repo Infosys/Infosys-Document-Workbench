@@ -1,0 +1,72 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "main"
+		},
+		{
+			"path": "../config/",
+			"name": "[1. External Config Folder]",
+		},
+		{
+			"path": "../../../middleware/airflow/dags",
+			"name": "[2. DAGS]"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			".venv": true,
+			"logs": true,
+			"**/__pycache__": true,
+			"archive": true,
+			"dist": true,
+			"build": true,
+			"*.egg-info": true,
+			".pytest_cache": true,
+			"target": true
+		},
+		"editor.formatOnSave": true,
+		"python.linting.pep8Enabled": true,
+		"python.linting.pylintPath": "pylint",
+		"python.linting.pylintArgs": [
+			"--rcfile",
+			"../apps.pylintrc"
+		],
+		"python.linting.pylintEnabled": true,
+		"python.venvPath": "${workspaceFolder:main}/.venv",
+	},
+	"launch": {
+		"configurations": [
+			{
+				"name": "Python: app_executor_container",
+				"type": "python",
+				"request": "launch",
+				"program": "app_executor_container.py",
+				"console": "integratedTerminal",
+				"cwd": "${workspaceFolder:main}/src",
+				"args": [
+					"--request_id",
+					"R-12d1cd23-8697-425b-8f4a-c6c8642f4626",
+					"--extractor_outfile_path",
+					"c:/workarea/documentworkbench/data/output/R-12d1cd23-8697-425b-8f4a-c6c8642f4626_extractor_response.json",
+					"--master_config",
+					"C:/DocWorkbench/components/python/apps/config/master_client_config.json",
+					// "--extractor_multi_outfile_path",
+					// "c:/workarea/documentworkbench/data/output/R-ec2fd2f9-d861-4b29-aac7-ea306d8779df_multi_extractor_response.json",
+					// "--postprocessor_outfile_path",
+					// "c:/workarea/documentworkbench/data/output/postprocess/post_processor_response.json",
+				]
+			},
+			{
+				"name": "Python: app_scheduler",
+				"type": "python",
+				"request": "launch",
+				"program": "app_scheduler.py",
+				"console": "integratedTerminal",
+				"cwd": "${workspaceFolder:main}/src",
+				"justMyCode": false
+			}
+		],
+		"compounds": []
+	}
+}

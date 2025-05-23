@@ -1,0 +1,192 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+// div {
+//     border:1px solid red;
+// }
+
+// th, td {
+//   border:1px solid orange;
+// }
+
+:host {
+  --user-table-width: 1100px; // Default value
+}
+
+div {
+    padding: 0;
+    margin: 0;
+}
+.email-tbl {
+    color: #007CC3;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #D6EFFD;
+}
+
+thead {
+    background-color: #E8E6DC !important;
+}
+
+.search {
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.email-text {
+    height: 150px !important;
+    font-size: 12px;
+    overflow: auto;
+}
+
+.table tr.active td {
+  background-color:#123456 !important;
+  color: white;
+
+}
+
+.user-tbl-columns{
+
+  $user-table-width: var(--user-table-width);
+
+  // Local variable declarations
+  $table-col-index-map: (
+    checkbox: 1,
+    full-name: 2,
+    email-id: 3,
+    login-id: 4,
+    user-type: 5,
+    enabled: 6,
+    user-role: 7,
+    user-settings: 8
+  );
+
+  $table-col-width-map: (
+    checkbox: .03,
+    full-name: .20,
+    email-id: .20,
+    login-id: .10,
+    user-type: .07,
+    enabled: .07,
+    user-role: .10,
+    user-settings: .23
+  );
+
+  // Column1
+  th:nth-child(#{map-get($table-col-index-map, checkbox )}) {
+    $my-width: #{map-get($table-col-width-map, checkbox)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, checkbox )}) {
+    $my-width: #{map-get($table-col-width-map, checkbox)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: center;
+  }
+
+  // Column2
+  th:nth-child(#{map-get($table-col-index-map, full-name )}) {
+    $my-width: #{map-get($table-col-width-map, full-name)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, full-name )}) {
+    $my-width: #{map-get($table-col-width-map, full-name)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  // Column3
+  th:nth-child(#{map-get($table-col-index-map, email-id )}) {
+    $my-width: #{map-get($table-col-width-map, email-id)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, email-id )}) {
+    $my-width: #{map-get($table-col-width-map, email-id)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  // Column4
+  th:nth-child(#{map-get($table-col-index-map, login-id )}) {
+    $my-width: #{map-get($table-col-width-map, login-id)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, login-id )}) {
+    $my-width: #{map-get($table-col-width-map, login-id)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  // Column5
+  th:nth-child(#{map-get($table-col-index-map, user-type )}) {
+    $my-width: #{map-get($table-col-width-map, user-type)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, user-type )}) {
+    $my-width: #{map-get($table-col-width-map, user-type)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  // Column6
+  th:nth-child(#{map-get($table-col-index-map, enabled )}) {
+    $my-width: #{map-get($table-col-width-map, enabled)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, enabled )}) {
+    $my-width: #{map-get($table-col-width-map, enabled)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  // Column7
+  th:nth-child(#{map-get($table-col-index-map, user-role )}) {
+    $my-width: #{map-get($table-col-width-map, user-role)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, user-role )}) {
+    $my-width: #{map-get($table-col-width-map, user-role)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  // Column8
+  th:nth-child(#{map-get($table-col-index-map, user-settings )}) {
+    $my-width: #{map-get($table-col-width-map, user-settings)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+
+  td:nth-child(#{map-get($table-col-index-map, user-settings )}) {
+    $my-width: #{map-get($table-col-width-map, user-settings)};
+    width: calc(#{$user-table-width} * #{$my-width});
+    text-align: left;
+  }
+}
+
+tbody{
+    overflow-y: auto;
+    height: auto;
+    //height:90px;
+  }
+thead,tbody{
+      display: block;
+  }
+

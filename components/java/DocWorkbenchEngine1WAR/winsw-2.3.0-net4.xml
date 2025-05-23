@@ -1,0 +1,14 @@
+<!--
+Copyright 2018 Infosys Ltd.
+Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at
+http://www.apache.org/licenses/ 
+-->
+ <service>
+      <id>Infosys Email Workbench Engine 1</id>
+      <name>Infosys Email Workbench Engine 1</name>
+      <description>This service runs Emailwb Engine application.</description>
+      <env name="MYAPP_HOME" value="%BASE%"/>
+      <executable>java</executable>
+      <arguments>-Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=6088 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=localhost -Dcom.sun.management.jmxremote.rmi.port=6088 -jar "%BASE%\docwb-engine-1.jar"</arguments>
+      <logmode>rotate</logmode>
+    </service>

@@ -1,0 +1,97 @@
+[
+	{
+		"attrNameCde": 31,
+		"attrNameValues": [
+			{
+				"attrValue": "Remittance Advice",
+				"attributes": []
+			},
+			{
+				"attrValue": "Invoice",
+				"attributes": []
+			},
+			{
+				"attrValue": "Passport",
+				"attributes": [
+					{
+						"attrNameCde": 200
+					},
+					{
+						"attrNameCde": 201
+					},
+					{
+						"attrNameCde": 202
+					},
+					{
+						"attrNameCde": 203
+					},
+					{
+						"attrNameCde": 204
+					},
+					{
+						"attrNameCde": 205
+					}
+				]
+			},
+			{
+				"attrValue": "Loan Agreement",
+				"attributes": [
+					{
+						"attrNameCde": 108
+					},
+					{
+						"attrNameCde": 109
+					},
+					{
+						"attrNameCde": 110
+					},
+					{
+						"attrNameCde": 111
+					},
+					{
+						"attrNameCde": 112
+					},
+					{
+						"attrNameCde": 113
+					}
+				]
+			},
+			{
+				"attrValue": "Certificate of Incorporation",
+				"attributes": [
+					{
+						"attrNameCde": 114
+					},
+					{
+						"attrNameCde": 115
+					},
+					{
+						"attrNameCde": 116
+					},
+					{
+						"attrNameCde": 117
+					},
+					{
+						"attrNameCde": 118
+					},
+					{
+						"attrNameCde": 119
+					},
+					{
+						"attrNameCde": 120
+					},
+					{
+						"attrNameCde": 121
+					},
+					{
+						"attrNameCde": 122
+					}
+				]
+			},
+			{
+				"attrValue": "Lease for Property",
+				"attributes": []
+			}
+		]
+	}
+]

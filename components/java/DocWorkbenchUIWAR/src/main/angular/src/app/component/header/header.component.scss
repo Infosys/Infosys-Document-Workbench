@@ -1,0 +1,93 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+// div {
+//     border:1px solid red;
+// }
+
+// th, td {
+//   border:1px solid orange;
+// }
+
+.header {
+    background-color: #4c7ebb;
+    padding: .2rem 1rem !important;
+}
+
+.left-arrow {
+    //margin-left: -29px;
+    cursor: pointer;
+    background:url(../../../assets/img/left-menu-arrow1.png) no-repeat ;
+    //display: table-cell;
+    height: 30px;
+    width: 30px;
+    padding:0;
+    margin:0;
+}
+
+
+.right-arrow {
+    //margin-left: -29px;
+    cursor: pointer;
+    background:url(../../../assets/img/left-menu-arrow2.png) no-repeat ;
+    height: 30px;
+    width: 30px;
+    padding:0;
+    margin:0;
+}
+
+//Angular v8 onwards /deep/ should be replace as ::ng-deep manually
+.my-avatar ::ng-deep .avatar-content {
+    //background-color : red !important;
+    border:1px solid white;
+    cursor: pointer;
+}
+
+.icon-dropdown-menu {
+    display: flex;
+}
+//#content1 > div:nth-child(2) { flex: 1; }
+
+//To get the chevron in the center after the avatar circle
+.dropdown-toggle::after {
+    display: none; //Hide the chevron
+    margin-top: 15px;
+}
+
+//Placeholder for future changes
+// .dropdown-menu {
+//     //color: yellow;
+//     // margin: 0;
+//     // padding: 0;
+//     //background-color: #F1F1F1;
+// }
+
+.dropdown-divider {
+    //margin: 0;
+    padding: 0;
+}
+
+//Customization to make drop down items more compact
+.dropdown-item {
+    //color: red;
+    padding-left: 5%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    cursor: pointer;
+}
+//Customization to hide effect of button click where color changes on press
+.dropdown-item:active {
+    //color: red;
+    background-color: white;
+    color: black;
+}
+
+.dropdown-item-text {
+    //color: red;
+    padding-left: 5%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+}

@@ -1,0 +1,325 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+thead {
+  background-color: #e8e6dc !important;
+}
+
+div {
+  padding: 0;
+  margin: 0;
+}
+// .extracted-data-table {
+// div {
+//     border:1px solid red;
+// }
+
+//  th, td {
+//    border:1px solid orange;
+//  }
+// }
+.static {
+  background: #e8e6dc;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.ed-content-text {
+  overflow: auto;
+}
+
+select:disabled {
+  background-color: rgb(235, 235, 228);
+  color: rgb(84, 84, 84);
+}
+
+select {
+  font-size: 12px;
+  height: 22px;
+}
+
+.attrValue-select {
+  width: 97%;
+  padding-inline-start: 0px;
+}
+
+.attrNameTxt-select {
+  width: 100%;
+}
+
+.urlhide-fileName {
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 6vw;
+  text-overflow: ellipsis;
+}
+
+$header-bg-color: lightgrey;
+$header-text-color: black;
+.attribute-header {
+  tr {
+    background-color: $header-bg-color;
+    color: $header-text-color;
+    font-size: 11px;
+    :hover {
+      background-color: $header-bg-color;
+      color: $header-text-color;
+    }
+  }
+  td {
+    color: $header-text-color;
+    border-bottom-style: outset;
+    font-weight: bold;
+    font-size: 11px;
+    :hover {
+      background-color: $header-bg-color;
+      color: $header-text-color;
+    }
+  }
+}
+
+.extracted-data-table {
+  // border: 3pt solid red;
+  // display: block;
+  input[type="text"] {
+    padding-left: 0.2rem;
+    margin-bottom: 5px;
+    padding-bottom: 0px;
+    height: 22px;
+    width: 100%;
+  }
+
+  textarea[type="text"] {
+    padding-left: 0.2rem;
+    width: 97%;
+    padding-bottom: 0px;
+    //padding-right: 0.2rem;
+  }
+
+  .attr-value-dirty::after {
+    content: "*";
+    position: absolute;
+    vertical-align: super;
+    margin-top: -5px;
+    font-weight: bold;
+    margin-left: 2px;
+  }
+
+  .attr-value-dirty {
+    position: relative;
+  }
+
+  .mat-slide-toggle-bar {
+    height: 9px !important;
+    width: 28px !important;
+  }
+
+  .mat-slide-toggle-thumb {
+    height: 14px !important;
+    width: 14px !important;
+    background-color: #4c7ebb !important;
+  }
+
+  // To avoid multiple(3) cursors
+  .mat-slide-toggle-thumb-container,
+  .mat-slide-toggle-label {
+    cursor: default !important;
+  }
+
+  // To fix table header length issue
+  .mat-slide-toggle {
+    height: 17px !important;
+  }
+
+  // To avoid Horizontal scrollbar
+  .mat-slide-toggle .mat-slide-toggle-ripple {
+    height: 0px !important;
+    width: 0px !important;
+  }
+
+  // To override yellow color for scroll bar checked after disabled.
+  .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: rgba(0, 0, 0, 0.38) !important;
+  }
+
+  .attr-tr-highlighted{
+    background-color: rgb(235, 235, 228);
+    border-left: 1pt solid rgb(253, 6, 6);
+  }
+  .expand-row-rel-to-parent{
+    border-bottom: 3pt solid white;
+  }
+
+  // Specific to IE10+ CSS can be added here.
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    textarea[type="text"] {
+      padding-bottom: 4px;
+    }
+    .err-msg-div {
+      padding-top: 4px;
+    }
+    .mat-slide-toggle {
+      padding-top: 4px;
+    }
+  }
+}
+
+.expand-row-attr-src-details{
+  // background-color: white;
+  tr, td {
+      background-color: white;
+      border-style:hidden;
+  }
+  .attr-src-card {
+    margin: 5px !important;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    // padding-left: 2px;
+    // padding-right: 2px;
+    // padding: 2px;
+  }
+  .expand-row-table{
+    width: 100%;
+    display: block;
+  }
+}
+
+.urlhide-attribute-icon {
+  max-width: 1vw;
+}
+
+.urlhide-attribute-name {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 7vw;
+  max-width: 7vw;
+  text-overflow: ellipsis;
+}
+
+.attribute-val{
+  max-width: 20vw;
+}
+
+.urlhide-attribute-name:hover{
+  cursor: pointer;
+}
+
+.show-attr-action-hide {
+  display: none;
+}
+
+.urlhide-attribute-name:hover, .urlhide-attribute-icon:hover{
+  .show-attr-action-hide {
+    display: block;
+    float: right;
+    padding-top: 2px;
+    margin-left: 1px;
+  }
+}
+
+//  .urlhide-attribute-value {
+//     max-width: 15vw;
+//  }
+
+.urlhide-attribute-confidence {
+  min-width: 4vw;
+}
+
+.urlhide-attribute-control-panel {
+  width: 42px;
+}
+
+#index {
+  // color: white;
+  padding: 0;
+  text-align: left;
+  font-weight: bold;
+  // background: #4c7ebb;
+}
+
+#index::after {
+  content: ".";
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}
+
+.extracted-data-icons {
+  padding-left: 9.5px;
+  position: initial;
+}
+
+.extracted-data-conf-column {
+  max-width: 4vw;
+  min-width: 4vw;
+}
+
+.row-add {
+  margin-top: 1px;
+  position: initial;
+}
+
+.person-icon::before {
+  position: absolute;
+  font-size: 0.6em;
+  margin-top: 15px;
+}
+
+
+.person-icon {
+  position: relative;
+  float: left;
+}
+
+// Specific to IE10+ CSS can be added here.
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  // position: initial(not supported) replacement for IE11
+  .extracted-data-icons,
+  .row-add {
+    position: static;
+  }
+}
+
+.insights-icon{
+  font-size: 20px;
+  padding-right: 7px;
+  position: relative;
+  top: 5px;
+  margin-top: -10px;
+  display: inline-block;
+}
+
+/* Styles for tab labels */
+::ng-deep a.mat-tab-link {
+    // min-width: 25px !important;
+    min-width: 9vw;
+    max-width: 9vw;
+    height: 25px;
+    background-color: transparent;
+    color: black;
+    font-size: 12px;
+    text-align: start;
+    // cursor: pointer;
+  }
+  
+  /* Styles for the active tab label */
+  ::ng-deep a.mat-tab-link.mat-tab-label-active {
+    // min-width: 25px !important;
+    min-width: 9vw;
+    max-width: 9vw;
+    height: 25px;
+    background-color: #4c7ebb;
+    color: white;
+    // cursor: not-allowed;
+    // pointer-events: none;
+  }
+  
+  ::ng-deep .mat-tab-header,
+  .mat-tab-nav-bar {
+    border-bottom: none;
+  }

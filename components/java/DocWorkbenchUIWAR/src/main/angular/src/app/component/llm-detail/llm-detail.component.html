@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-11 font-16">
+        LLM Details
+    </div>
+    <div class="col-md-1 font-12 text-right pt-1">
+        <span *ngIf="closeButton" class="nia-wrong-button" (click)="modalWindow()"></span>
+    </div>
+</div>
+<div [style.minHeight.px]="minheight">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="p-1 content-text font-12">
+                <table class="table table-fixed table-hover table-sm fixed">
+                    <thead>
+                        <tr>
+                            <th class="static">
+                                Prompt <button title="Copy to clipboard" [cdkCopyToClipboard]="model.copyPrompt" (click)="onCopyButtonClickMsg()">
+                                    <mat-icon>content_copy</mat-icon></button>
+                            </th>
+                            <th style="width: 1vh;">&nbsp;</th>
+                            <th class="static">
+                                Response <button title="Copy to clipboard" [cdkCopyToClipboard]="model.llmResponse" (click)="onCopyButtonClickMsg()">
+                                    <mat-icon>content_copy</mat-icon></button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="bg-white" style="word-wrap: break-word;">
+                                <span [innerHTML]="getFormattedPrompt() "></span>
+                            </td>
+                            <td>&nbsp;</td>
+                            <td class="bg-white" style="word-wrap: break-word;">
+                                <pre  title="Copy to clipboard" >{{model.llmResponse}}</pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

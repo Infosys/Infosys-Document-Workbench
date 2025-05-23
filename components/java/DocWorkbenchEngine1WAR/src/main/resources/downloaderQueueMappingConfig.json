@@ -1,0 +1,129 @@
+{
+	"downloaderQueueMapping": [
+		{
+			"documentDownloader": {
+				"defaultRules": [
+					"rule020ExtractSenderId",
+					"rule001ExtractSenderName",
+					"rule002ExtractReceivedDate",
+					"rule003ExtractSubject",
+					"rule009ExtractBody",
+					"rule019ExtractEmailCategory",
+					"rule004ExtractToAddress",
+					"rule005ExtractToAddressId",
+					"rule006ExtractCcAddress",
+					"rule007ExtractCcAddressId",
+					"rule010ExtractBodyHtml",
+					"rule027ExtractSentiment"
+				],
+				"categoryAssignments": [
+					{
+						"entity": "emailSubjectRegExPattern",
+						"attrNameCde": 19,
+						"entityToAttributeMap": {
+							"prisma": {
+								"attrValue": "Prisma",
+								"confidencePct": 91
+							},
+							"Lube": {
+								"attrValue": "Order-Status",
+								"confidencePct": 93
+							},
+							"Loan": {
+								"attrValue": "Loan Agreement",
+								"confidencePct": 93
+							}
+						}
+					},
+					{
+						"entity": "emailBodyRegExPattern",
+						"attrNameCde": 19,
+						"entityToAttributeMap": {}
+					}
+				],
+				"queueAssignments": [
+					{
+						"entity": "queueNameCde",
+						"attrNameCde": 19,
+						"attrValueToEntityMap": {
+							"Prisma": 11
+						},
+						"noMatchEntity": 15
+					}
+				]
+			},
+			"attributeExtractor": {
+				"defaultRules": [
+					"rule033ExtractFileMetadata"
+				],
+				"conditionalRules": [
+					{
+						"attrNameCde": 19,
+						"attrValueToRuleMap": {
+							"invoice.status": [
+								"rule018ExtractInvoiceNumbers",
+								"rule031ExtractAttachmentDocumentType"
+							],
+							"Remittance Advice": [
+								"rule106ExtractRemittanceInvoice",
+								"rule031ExtractAttachmentDocumentType"
+							],
+							"ORDER STATUS (WISMO)": [
+								"rule021ExtractPurchaseOrder",
+								"rule024ExtractOrderNumber",
+								"rule031ExtractAttachmentDocumentType"
+							],
+							"New Line/Recon/Upgrade": [
+								"rule102ExtractPlanType",
+								"rule103ExtractPlanTerm",
+								"rule104ExtractModel",
+								"rule105ExtractConfiguration"
+							],
+							"Account/Card Activation": [
+								"rule022ExtractBankAccountNumber",
+								"rule023ExtractCreditCardNumber",
+								"rule031ExtractAttachmentDocumentType"
+								
+							],
+							"Card Cancellation": [
+								"rule022ExtractBankAccountNumber",
+								"rule023ExtractCreditCardNumber",
+								"rule031ExtractAttachmentDocumentType"
+							],
+							"Forgot Username": [
+								"rule101ExtractFromAddress"
+							],
+							"INVOICE/BILL COPY": [
+								"rule101ExtractFromAddress"
+							],
+							"Bestellstatus": [
+								"ruleG024ExtractOrderNumber"
+							],
+							"Loan Agreement": [
+								"rule031ExtractAttachmentDocumentType",
+								"rule000ExtractUsingConfigurationV3"
+							]
+						},
+						"noMatchRules": [
+							"rule000ExtractUsingConfigurationV3"
+						]
+					}
+				]
+			},
+			"caseOpener": {
+				"userAssignments": [
+					{
+						"entity": "userId",
+						"attrNameCde": 19,
+						"attrValueToEntityMap": {
+							"Account/Card Activation": 1007,
+							"Card Cancellation": 1008
+						},
+						"noMatchEntity": -2
+					}
+				],
+				"isAutoTriggerAction": true
+			}
+		}
+	]
+}

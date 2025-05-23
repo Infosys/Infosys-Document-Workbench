@@ -1,0 +1,25 @@
+# ===============================================================================================================#
+# Copyright 2018 Infosys Ltd.                                                                                    #
+# Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at  #
+# http://www.apache.org/licenses/                                                                                #
+# ===============================================================================================================#
+[Unit]
+Description=Infosys Docwb Engine 2 service (Dev)
+After=network.target
+
+[Service]
+SuccessExitStatus=143
+Type=simple
+WorkingDirectory=/home/projadmin/workarea/docwbsln/apps/docwbengine2
+ExecStart=/usr/bin/bash -c 'java -jar docwb-engine-2.jar'
+ExecStop=/bin/kill -15 $MAINPID
+User=projadmin
+Group=projadmin
+Restart=always
+RestartSec=9
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=docwbengine2
+
+[Install]
+WantedBy=multi-user.target

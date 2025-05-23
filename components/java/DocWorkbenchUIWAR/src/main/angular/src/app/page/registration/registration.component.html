@@ -1,0 +1,127 @@
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<div class="left-box">
+  <h1 style='padding-left: 25px; padding-top: 10px;'>{{title}}
+  </h1>
+  <div class="padding-64 padding-large">
+
+    <form *ngIf="!model.isUserRegistered" (ngSubmit)="addNewUser()" action="registration" name="RegistrationForm"
+      method="POST" autocomplete="off">
+
+      <h1 style='padding-top: 20px; padding-left: 60px;'>CREATE AN ACCOUNT
+      </h1>
+
+      <div class="section">
+        <div style="text-align: center;">
+          <input class="input" placeholder=" Full Name " type="text" required name="fullname" autocomplete="off"
+            [(ngModel)]="model.fullname">
+        </div>
+        <div style="font-weight: bold; padding-top: 10px; color: #e85656; text-align: center;"
+          *ngIf="model.isFormSubmitted && model.errorCde == 13">
+          {{model.errorTxt}}
+        </div>
+      </div>
+
+      <div class="section ">
+        <div style="text-align: center">
+          <input class="input" placeholder=" Email Id" type="text" required name="emailid" autocomplete="off"
+            [(ngModel)]="model.emailid">
+        </div>
+        <div style="font-weight: bold; padding-top: 10px; color: #e85656; text-align: center;"
+          *ngIf="model.isFormSubmitted && (model.errorCde == 14 || model.errorCde == 17)">
+          {{model.errorTxt}}
+        </div>
+      </div>
+
+      <div class="section ">
+        <div style="text-align: center">
+          <input class="input" placeholder=" Login Id" type="text" required name="loginid" autocomplete="off"
+            [(ngModel)]="model.loginid">
+        </div>
+        <div style="font-weight: bold; padding-top: 10px; color: #e85656; text-align: center;"
+          *ngIf="model.isFormSubmitted && (model.errorCde == 11 || model.errorCde == 15 || model.errorCde == 18)">
+          {{model.errorTxt}}
+        </div>
+      </div>
+
+      <!-- <div class="section ">
+        <div style="text-align: center">
+          <input class="input" placeholder="Tenant Id" type="text" required name="tenantId" autocomplete="off" [(ngModel)]="model.tenantId">
+        </div>
+        <div style="font-weight: bold; padding-top: 10px; color: #e85656; text-align: center;"
+        *ngIf="model.isFormSubmitted && (model.errorCde == 19)">
+          {{model.errorTxt}}
+        </div>
+      </div> -->
+
+      <div class="section ">
+        <div style="text-align: center">
+          <select required
+            style="width: 250px; height: 30px; background-color: #443e3e; color: #8e8a8a; padding-inline-start: 2px; padding-bottom: 2px;"
+            name="usertype" [(ngModel)]="model.usertype">
+            <option value="" disabled selected hidden>User Type</option>
+            <option value=1>User</option>
+            <option value=2>Service</option>
+            <option value=3>Bot</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="section ">
+        <div style="text-align: center">
+          <input class="input" placeholder=" Password" type="password" required name="password"
+            [(ngModel)]="model.passwrd">
+        </div>
+        <div style="font-weight: bold; padding-top: 10px; color: #e85656; text-align: center;"
+          *ngIf="model.isFormSubmitted && (model.errorCde == 12 || model.errorCde == 16)">
+          {{model.errorTxt}}
+        </div>
+      </div>
+
+      <div class="section ">
+        <div style="text-align: center">
+          <input class="input" placeholder=" Confirm Password" type="password" required name="confirmpassword"
+            [(ngModel)]="model.confirmPasswrd">
+        </div>
+        <div style="font-weight: bold; padding-top: 10px; color: #e85656; text-align: center;"
+          *ngIf="model.isDiffPassword">
+          'Confirm Password' doesn't match with 'Password'
+        </div>
+      </div>
+
+      <div class="section">
+        <div style="text-align: center">
+          <input type="submit" class="button" value="SIGN UP">
+        </div>
+        <div style="font-weight: bold; padding-top: 10px; color: #e85656; text-align: center;"
+          *ngIf="model.isFormSubmitted && (model.errorCde == 19)">
+          {{model.errorTxt}}
+        </div>
+      </div>
+
+      <div class="section"></div>
+    </form>
+
+    <div *ngIf="model.isFormSubmitted && model.isUserRegistered">
+      <p style="font-weight: 400; padding-top: 150px; font-size: inherit; color: white;text-transform: unset;">
+        User
+        <strong>
+          {{model.loginid}}
+        </strong> registered successfully.
+      <p style="text-transform: unset; color:white;">Please wait for admin to approve your registration.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class='right-box'>
+  <div class='padding-64'>
+    <br>
+    <br>
+    <p>ENTER YOUR DETAILS TO LOG IN</p>
+    <br>
+    <p>
+      <a href='{{model.loginUrl}}' class='button blue'>LOGIN</a>
+    </p>
+  </div>
+</div>

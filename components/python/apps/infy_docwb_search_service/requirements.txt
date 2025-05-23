@@ -1,0 +1,28 @@
+# ===============================================================================================================#
+# Copyright 2023 Infosys Ltd.                                                                                    #
+# Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at  #
+# http://www.apache.org/licenses/                                                                                #
+# ===============================================================================================================#
+
+#[dev-packages]
+pytest==7.3.1
+pytest-cov==2.12.1
+autopep8==1.5.1
+
+#[packages]
+python-dotenv==1.0.0
+uvicorn==0.20.0
+fastapi==0.88.0
+numpy==1.24.4
+./lib/infy_dpp_ai-0.0.3-py3-none-any.whl
+./lib/infy_gen_ai_sdk-0.0.4-py3-none-any.whl[st]
+./lib/infy_dpp_sdk-0.0.10-py3-none-any.whl
+./lib/infy_fs_utils-0.0.3-py3-none-any.whl
+# huggingface-hub is temporarly added to resolve the issue of "NameError: name 'SentenceTransformer' is not defined"
+huggingface-hub==0.25.2
+# temporarily added as gen_ai_sdk installs older version of openai throwing `unexpected keyword argument 'proxies'` error
+openai==1.55.3
+
+#Below is needed for FAISS DEV environment
+typing-inspect==0.8.0
+#typing_extensions==4.5.0

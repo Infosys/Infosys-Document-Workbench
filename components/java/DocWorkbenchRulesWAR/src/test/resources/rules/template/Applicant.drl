@@ -1,0 +1,23 @@
+package com.infosys.ainauto.rulesadapter.test
+
+import com.infosys.ainauto.docwb.rules.model.Applicant
+
+rule "Is Under Age?"
+salience 10
+activation-group "myGroup1"
+when
+    $a : Applicant( age < 21 )    
+then
+    $a.setResult( "Under age XXX" );
+    System.out.println("Under age");
+end
+
+rule "Is Over Age?"
+salience 20
+activation-group "myGroup1"
+when
+    $a : Applicant( age > 21 )    
+then
+    $a.setResult( "Over age XXX" );
+    System.out.println("Over age");
+end

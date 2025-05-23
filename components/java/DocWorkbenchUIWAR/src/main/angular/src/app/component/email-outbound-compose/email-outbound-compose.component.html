@@ -1,0 +1,89 @@
+<div class="row">
+  <div class="col-md-11 font-16">
+    Compose Email {{emailBody.dirty?'*':''}}
+  </div>
+  <div class="col-md-1 font-12 text-right pt-1">
+    <span *ngIf="popupButton" class="nia-popout-button" (click)="open(email)"></span>
+    <span *ngIf="closeButton" class="nia-wrong-button" (click)="modalWindow()"></span>
+  </div>
+</div>
+<div class="bg-white">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="p-1 font-14">
+        <span class="col-md-0.5" style="padding-left: 1px;">
+          <label>To: </label>
+        </span>
+        <span class="col-md-11.5">
+          <input style="width:852px;" [(ngModel)]="to">
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="font-14">
+      <label style="padding-left: 4px;">Cc: </label>
+      <input style="width: 852px;" [(ngModel)]="cC">
+    </div>
+  </div>
+  <div class="row">
+    <div style="width: 53px;">
+      <div class="p-1 font-14">
+        <label style="width:5%; padding-top: 5px;">Subject:</label>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="p-1 font-14">
+        <input type="text" class="textbox" [(ngModel)]="subject">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="p-1 font-14">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Template Name:</label>
+          </div>
+          <div class="col-md-9">
+            <div *ngIf="!isDataLoaded" class="loading-dots">
+              <div class="loading-dots--dot"></div>
+              <div class="loading-dots--dot"></div>
+              <div class="loading-dots--dot"></div>
+            </div>
+            <select class="form-control form-control-sm font-14" *ngIf="isDataLoaded" [(ngModel)]="templateNameSelected"
+              style="height: 4vh;" (change)="ProcessTemplate()">
+              <ng-container *ngFor="let t of templateDataList">
+                <option [value]="t.templateName">
+                  {{t.templateName}}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div id="lstActive">
+      <app-nia-file-attachment (attachmentFileList)="sentAttachmentAdded($event)"></app-nia-file-attachment>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <quill-editor [modules]="editor_modules" [placeholder]="placeholderValue"
+        [styles]="{'max-height':'35vh','min-height':'35vh'}" [(ngModel)]="templateText" [(formControl)]="emailBody"
+        (onContentChanged)="onEditorContentChange()"></quill-editor>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="p-1">
+        <input type="button" class="btn btn-sm btn-outline-primary" *ngIf="getFeature(bmodel.FID.OUTBOUND_EMAIL_CREATE).isVisible" [disabled]="!getFeature(bmodel.FID.OUTBOUND_EMAIL_CREATE).isEnabled" [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.OUTBOUND_EMAIL_CREATE).isEnabled" style="height: 5vh;" value="SAVE DRAFT"
+          (click)="saveDraft(to,cC)" /> {{emailSendStatus}}
+        <input type="button" class="btn btn-sm btn-primary float-md-right" style="height: 5vh;" value="SEND EMAIL"
+        *ngIf="getFeature(bmodel.FID.OUTBOUND_EMAIL_CREATE).isVisible" [class.nia-cursor-not-allowed]="!getFeature(bmodel.FID.OUTBOUND_EMAIL_CREATE).isEnabled" [disabled]="!getFeature(bmodel.FID.OUTBOUND_EMAIL_CREATE).isEnabled || (isBtnSendClicked)" (click)="sendEmail(to,cC)" />
+      </div>
+    </div>
+  </div>
+</div>

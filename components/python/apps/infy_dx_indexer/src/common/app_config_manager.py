@@ -1,0 +1,31 @@
+# ===============================================================================================================#
+# Copyright 2023 Infosys Ltd.                                                                                    #
+# Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at  #
+# http://www.apache.org/licenses/                                                                                #
+# ===============================================================================================================#
+
+"""Module containing AppConfigManager class"""
+
+import os
+import configparser
+from common.singleton import Singleton
+
+
+class AppConfigManager(metaclass=Singleton):
+    def __init__(self):
+        config_files = [os.path.abspath('../config/config.ini')]
+        self.__app_config = self.__get_config_parser(config_files)
+
+    def __get_config_parser(self, config_file):
+        config_parser = configparser.ConfigParser()
+        config_parser.read(config_file)
+        return config_parser
+
+    def get_app_config(self):
+        return self.__app_config
+
+    def get_about_app(self):
+        return {
+            "service_name": self.__app_config["DEFAULT"]["service_name"],
+            "service_version": self.__app_config["DEFAULT"]["service_version"]
+        }

@@ -1,0 +1,120 @@
+package com.client.template.business.rules
+
+import com.infosys.ainauto.docwb.rules.model.domain.InputOutputWrapperData;
+import com.infosys.ainauto.docwb.rules.model.domain.DocumentData;
+import com.infosys.ainauto.docwb.rules.model.domain.ActionData;
+import com.infosys.ainauto.docwb.rules.model.domain.AttributeData;
+import com.infosys.ainauto.docwb.rules.model.domain.AttachmentData;
+import com.infosys.ainauto.docwb.rules.model.domain.RecommendedActionData;
+import com.infosys.ainauto.commonutils.ListUtility;
+
+import java.util.List;
+import java.util.ArrayList;
+
+function List<RecommendedActionData> getRecommendation(DocumentData documentData) {
+	List<RecommendedActionData> recommendationList= new ArrayList<RecommendedActionData>(); 
+	
+	if (documentData==null 
+		|| (!ListUtility.hasValue(documentData.getAttributes()) 
+		&& !ListUtility.hasValue(documentData.getAttachments()))) {
+		return recommendationList;
+	}
+	//Email Flow
+	if(documentData.getDocTypeCde()==1){
+	for(AttributeData attributeData : documentData.getAttributes()){
+		String categoryName =  attributeData.getAttrValue();
+		if(attributeData.getAttrNameCde()==19 && categoryName!=null){
+				recommendationList.add(getRecommendedActionData(categoryName, attributeData.getAttrNameCde()));
+				break;
+			}  
+		}
+	}
+	//File Flow
+	if(documentData.getDocTypeCde()==2){
+		for(AttachmentData attachmentData : documentData.getAttachments()){
+			boolean isFound = false;	
+			if(attachmentData!=null && ListUtility.hasValue(attachmentData.getAttributes())){	
+				for(AttributeData attributeData : attachmentData.getAttributes()){
+					String type =  attributeData.getAttrValue();
+					if(attributeData.getAttrNameCde()==31 && type!=null){
+						recommendationList.add(getRecommendedActionData(type, attributeData.getAttrNameCde()));
+						isFound = true;
+						break;
+					}  
+				}
+			}  
+			if(isFound){
+				break;
+			}
+		}
+	}
+	return recommendationList; 
+}
+
+
+function RecommendedActionData getRecommendedActionData(String type, int attrNameCde){
+			RecommendedActionData recommendedActionData = new RecommendedActionData();
+	if(attrNameCde == 19){
+		if (type.equalsIgnoreCase("Account/Card Activation")) {
+			setData(recommendedActionData, 6, 90, 101);
+		} 
+		else if (type.equalsIgnoreCase("Billing Address Info")) {
+			setData(recommendedActionData, 7, 80, 101);
+		} 
+		else if (type.equalsIgnoreCase("Billing Enquiry/Dispute")) {
+			setData(recommendedActionData, 13, 80, 101);
+		} 
+		else if (type.equalsIgnoreCase("Card Cancellation")) {
+			setData(recommendedActionData, 9, 80, 101);
+		} 
+		else if (type.equalsIgnoreCase("Debit Card Application Query")) {
+			setData(recommendedActionData, 11, 80, 101);
+		} 
+		else if (type.equalsIgnoreCase("Forgot Username")) {
+			setData(recommendedActionData, 10, 80, 101);
+		} 
+		else if (type.equalsIgnoreCase("invoice.status")) {
+			setData(recommendedActionData, 4, 80, 101);
+		} 
+		else if (type.equalsIgnoreCase("INVOICE/BILL COPY")) {
+			setData(recommendedActionData, 14, 80, 101);
+		} 
+		else if (type.equalsIgnoreCase("New Line/Recon/Upgrade")) {
+			setData(recommendedActionData, 12, 80, 101);
+		}
+		else if (type.equalsIgnoreCase("ORDER STATUS (WISMO)")) {
+			setData(recommendedActionData, 8, 90, 101);
+		}
+		else if (type.equalsIgnoreCase("Bestellstatus")) {
+			setData(recommendedActionData, 8, 90, 101);
+		}
+		else if (type.equalsIgnoreCase("Remittance Advice")) {
+			setData(recommendedActionData, 4, 80, 101);
+		}
+	}else if(attrNameCde == 31){
+	//For DocWb Export action will be the default action
+		setData(recommendedActionData, 202, 80, 101);
+	}
+	
+	return recommendedActionData;
+}
+
+function setData(RecommendedActionData recommendedActionData, int aName, float cPct, float rPct){
+	if(recommendedActionData!=null){
+		recommendedActionData.setActionNameCde(aName);
+		recommendedActionData.setConfidencePct(cPct);
+		recommendedActionData.setRecommendedPct(rPct);
+	}
+}
+
+
+rule "Default"
+salience 30
+activation-group "myGroup1"
+when
+    $InputOutputWrapperData: InputOutputWrapperData();
+    $documentData: DocumentData() from $InputOutputWrapperData.inputData;
+then
+    $InputOutputWrapperData.setOutputData( getRecommendation($documentData) );
+end
+

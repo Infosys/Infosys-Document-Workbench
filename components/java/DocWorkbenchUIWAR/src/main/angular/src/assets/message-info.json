@@ -1,0 +1,349 @@
+{
+    "message": [
+        {
+            "msgCode": 101,
+            "msgText": "Action added."
+        },
+        {
+            "msgCode": 102,
+            "msgText": "Data could not be saved. Please try again later."
+        },
+        {
+            "msgCode": 103,
+            "msgText": "Case assigned."
+        },
+        {
+            "msgCode": 104,
+            "msgText": "Could not assign as case details changed. Please try again."
+        },
+        {
+            "msgCode": 105,
+            "msgText": "Case closed."
+        },
+        {
+            "msgCode": 106,
+            "msgText": "Email saved and will be sent shortly."
+        },
+        {
+            "msgCode": 107,
+            "msgText": "Email could not be sent. Please try again later."
+        },
+        {
+            "msgCode": 108,
+            "msgText": "Email saved."
+        },
+        {
+            "msgCode": 109,
+            "msgText": "Email could not be saved. Please try again later."
+        },
+        {
+            "msgCode": 110,
+            "msgText": "Attributes added"
+        },
+        {
+            "msgCode": 111,
+            "msgText": "Attributes could not be added. Please try again later."
+        },
+        {
+            "msgCode": 112,
+            "msgText": "Attributes updated."
+        },
+        {
+            "msgCode": 113,
+            "msgText": "Attributes could not be updated. Please try again later."
+        },
+        {
+            "msgCode": 114,
+            "msgText": "Attributes deleted."
+        },
+        {
+            "msgCode": 115,
+            "msgText": "Attributes could not be deleted. Please try again later."
+        },
+        {
+            "msgCode": 116,
+            "msgText": "Data saved successfully."
+        },
+        {
+            "msgCode": 117,
+            "msgText": "Role could not be updated. Please try again later."
+        },
+        {
+            "msgCode": 118,
+            "msgText": "User enabled status could not be updated. Please try again later."
+        },
+        {
+            "msgCode": 119,
+            "msgText": "Case could not be closed as you're not the case owner."
+        },
+        {
+            "msgCode": 120,
+            "msgText": "User could not be added to the queue. Please try again later."
+        },
+        {
+            "msgCode": 121,
+            "msgText": "User could not be removed from the queue. Please try again later."
+        },
+        {
+            "msgCode": 122,
+            "msgText": "Please enter To address."
+        },
+        {
+            "msgCode": 123,
+            "msgText": "Incorrect email id in To address. Please enter valid To address."
+        },
+        {
+            "msgCode": 124,
+            "msgText": "Incorrect email id in Cc address. Please enter valid Cc address."
+        },
+        {
+            "msgCode": 125,
+            "msgText": "Draft saved successfully."
+        },
+        {
+            "msgCode": 126,
+            "msgText": "Attributes could not be added. Please provide an Attribute value."
+        },
+        {
+            "msgCode": 127,
+            "msgText": "Attributes could not be updated. Please provide an Attribute value."
+        },
+        {
+            "msgCode": 128,
+            "msgText": "Email Body is more than 2MB. Please reduce the content in Email Body."
+        },
+        {
+            "msgCode": 129,
+            "msgText": "Email cannot be saved as draft if attachments are present. Please remove the attachments."
+        },
+        {
+            "msgCode": 130,
+            "msgText": "Changes that you made may not be saved."
+        },
+        {
+            "msgCode": 131,
+            "msgText": "Changes that you made may not be saved. Are you sure to close?"
+        },
+        {
+            "msgCode": 132,
+            "msgText": "Email body has exceeded the limit of 2000 characters!"
+        },
+        {
+            "msgCode": 133,
+            "msgText": "Current password entered is incorrect"
+        },
+        {
+            "msgCode": 134,
+            "msgText": "Password must be of 6 characters & should contains a combination of uppercase, lowercase letter, special character & number."
+        },
+        {
+            "msgCode": 135,
+            "msgText": "New password and current password cannot be the same"
+        },
+        {
+            "msgCode": 136,
+            "msgText": "'Confirm New Password' doesn't match with 'New Password'"
+        },
+        {
+            "msgCode": 137,
+            "msgText": "Password was successfully updated"
+        },
+        {
+            "msgCode": 138,
+            "msgText": "Case could not be closed as there are pending actions."
+        },
+        {
+            "msgCode": 139,
+            "msgText": "Document type updated."
+        },
+        {
+            "msgCode": 140,
+            "msgText": "Document type could not be updated. Please try again later."
+        },
+        {
+            "msgCode": 141,
+            "msgText": "Attribute already exists. Please update existing one."
+        },
+        {
+            "msgCode": 142,
+            "msgText": "Action status updated."
+        },
+        {
+            "msgCode": 143,
+            "msgText": "Problem occurred while updating Action status."
+        },
+        {
+            "msgCode": 144,
+            "msgText": "Attributes could not be deleted. Please uncheck Category and retry again."
+        },
+        {
+            "msgCode": 145,
+            "msgText": "Attributes could not be deleted. Please uncheck Document Type and retry again."
+        },
+        {
+            "msgCode": 146,
+            "msgText": "Attributes could not be deleted. Please uncheck Category, Document Type and retry again."
+        },
+        {
+            "msgCode": 147,
+            "msgText": "Re-Extraction is not allowed as there are pending actions."
+        },
+        {
+            "msgCode": 148,
+            "msgText": "Action could not be executed as there is a pending Re-Extracted action."
+        },
+        {
+            "msgCode": 149,
+            "msgText": "Add/Delete/Modify attributes are not allowed as there is a pending Re-Extracted action."
+        },
+        {
+            "msgCode": 150,
+            "msgText": "Please change Category and/or Document Type from Unknown and proceed for Re-Extraction."
+        },
+        {
+            "msgCode": 152,
+            "msgText": "No data to save. Please save the modified data at row level and retry again."
+        },
+        {
+            "msgCode": 153,
+            "msgText": "Please change attribute name from 'Category' to something else for newly added attribute."
+        },
+        {
+            "msgCode": 154,
+            "msgText": "Please change attribute name from 'Document Type' to something else for newly added attribute."
+        },
+        {
+            "msgCode": 155,
+            "msgText": "Please remove the duplicate attribute name(s)."
+        },
+        {
+            "msgCode": 156,
+            "msgText": "Re-Extract - Result saved successfully."
+        },
+        {
+            "msgCode": 157,
+            "msgText": "Annotation(s) saved"
+        },
+        {
+            "msgCode": 158,
+            "msgText": "Annotation(s) deleted"
+        },
+        {
+            "msgCode": 159,
+            "msgText": "Changes made to annotation(s) and/or attribute(s) may not be saved. Do you want to proceed?"
+        },
+        {
+            "msgCode": 160,
+            "msgText": "No changes to save."
+        },
+        {
+            "msgCode": 161,
+            "msgText": "Please save all edited row and retry again."
+        },
+        {
+            "msgCode": 162,
+            "msgText": "Attributes could not be added. Please provide an attribute name."
+        },
+        {
+            "msgCode": 163,
+            "msgText": "Attributes could not be added. Please select an attribute type."
+        },
+        {
+            "msgCode": 164,
+            "msgText": "Attributes saved successfully."
+        },
+        {
+            "msgCode": 165,
+            "msgText": "Error occured while saving one or more attributes."
+        },
+        {
+            "msgCode": 166,
+            "msgText": "Attributes could not be saved. Please try again later."
+        },
+        {
+            "msgCode": 167,
+            "msgText": "Name is required."
+        },
+        {
+            "msgCode": 168,
+            "msgText": "Name already exist."
+        },
+        {
+            "msgCode": 169,
+            "msgText": "Value is required."
+        },
+        {
+            "msgCode": 170,
+            "msgText": "Some graphics may not be visible."
+        },
+        {
+            "msgCode": 171,
+            "msgText": "Annotation not supported."
+        },
+        {
+            "msgCode": 172,
+            "msgText": "<b>Read-only</b> mode as unsaved data exists in <b>Extracted Data</b>."
+        },
+        {
+            "msgCode": 173,
+            "msgText": "Duplicate value exists"
+        },
+        {
+            "msgCode": 174,
+            "msgText": "Please change attribute name from table name to something else for newly added attribute."
+        },
+        {
+            "msgCode": 175,
+            "msgText": "Annotation could not be added. Please fill valid values."
+        },
+        {
+            "msgCode": 176,
+            "msgText": "Remove leading / trailing spaces."
+        },
+        {
+            "msgCode": 177,
+            "msgText": "Error occured while saving modified RBAC."
+        },
+        {
+            "msgCode": 178,
+            "msgText": "RBAC saved successfully."
+        },
+        {
+            "msgCode": 179,
+            "msgText": "Extracted value source region is not found."
+        },
+        {
+            "msgCode": 180,
+            "msgText": "No details to show."
+        },
+        {
+            "msgCode": 181,
+            "msgText": "LDAP user is not allowed to change password."
+        },
+        {
+            "msgCode": 182,
+            "msgText": "Please provide attached file name"
+        },
+        {
+            "msgCode": 183,
+            "msgText":"Invalid Search Key. Format expected is key1:value1;key2:value2"
+        },
+        {
+            "msgCode": 184,
+            "msgText":"fromEventDtm:Date should be in one of the following formats-'yyyy-MM-dd hh:mm:ss' OR 'yyyy-MM-dd'"
+        },
+        {
+            "msgCode": 185,
+            "msgText": "Reached Last Case in the Selected Sub Queue."
+        },
+        {
+            "msgCode": 186,
+            "msgText": "Reached First Case in the Selected Sub Queue."
+        },
+        {
+            "msgCode": 187,
+            "msgText": "The max length of 300 characters is reached!"
+        }
+        
+    ]
+}

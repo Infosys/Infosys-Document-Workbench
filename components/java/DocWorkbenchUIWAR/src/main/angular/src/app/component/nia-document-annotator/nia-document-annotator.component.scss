@@ -1,0 +1,114 @@
+/** =============================================================================================================== *
+ * Copyright 2018 Infosys Ltd.                                                                                    *
+ * Use of this source code is governed by Apache License Version 2.0 that can be found in the LICENSE file or at    *
+ * http://www.apache.org/licenses/ 
+ * ================================================================================================================ *
+ */
+.content {
+ overflow-y: auto;
+ overflow-x: hidden;
+}
+
+pre {
+  font-family: sans-serif;
+  white-space: pre-wrap;
+  font-size: 11px;
+  overflow: hidden;
+}
+
+::selection {
+  background: rgba(255, 255, 10, 0.3);
+}
+
+::ng-deep span.sup {
+  position: relative;
+  margin-left: -1px;
+}
+
+::ng-deep span.sup::after {
+  content: attr(data-index);
+  position: absolute;
+  // padding-left: 5px;
+  // padding-right: 5px;
+  // padding-top: 0;
+  // padding-bottom: 0;
+  vertical-align: sub;
+  font-size: 10px;
+  // font-weight: 900;
+  color: red;
+  margin-top: 10px;
+}
+
+::ng-deep #attributes {
+  height: 10px !important;
+  max-height: 10px !important;
+  overflow: auto;
+}
+
+::ng-deep .annotator-hl {
+  border: 1px solid #808080 !important;
+}
+
+::ng-deep .annotator-hl.user-added {
+  background: #66ff66;
+}
+::ng-deep .annotator-hl.user-deleted {
+  background: #ffad99;
+  text-decoration: line-through;
+}
+::ng-deep .annotator-hl.user-edited {
+  background: #ffc266;
+}
+
+::ng-deep .textlayer-on {
+  .canvasWrapper {
+    display: none;
+  }
+  .textLayer {
+    opacity: 1 !important;
+  }
+  .textLayer > span {
+    color: black !important;
+  }
+}
+::ng-deep .textlayer-off {
+  .textLayer {
+    display: none;
+  }
+  .canvasWrapper {
+    display: block;
+  }
+}
+
+::ng-deep .show{
+  display: block;
+}
+
+::ng-deep .hide{
+  display: none;
+}
+
+// the following css added to make the toolbar of ngx-extended-pdf-viewer stable. 
+// Previously 'Go to First Page' and 'Go to Last Page' buttons and 'Total number of pages ('of 1')' text were dissapearing on page resize.
+::ng-deep ngx-extended-pdf-viewer button#primaryFirstPage.toolbarButton,
+::ng-deep ngx-extended-pdf-viewer button#primaryLastPage.toolbarButton,
+::ng-deep ngx-extended-pdf-viewer span#numPages.toolbarLabel
+{
+  display: inherit !important;
+  visibility: visible !important;
+}
+
+//added to slightly move the zoom buttons of the ngx-extended-pdf-viewer toolbar.
+::ng-deep ngx-extended-pdf-viewer #toolbarViewerMiddle {
+  left: 55% !important;
+}
+
+//following css added to change the height of the pdf viewer.
+:host {
+  --pdf-viewer-height: 63.22vh; // Default value
+}
+
+::ng-deep div.zoom{
+  $pdf-viewer-height: var(--pdf-viewer-height);
+  height: $pdf-viewer-height !important;
+}

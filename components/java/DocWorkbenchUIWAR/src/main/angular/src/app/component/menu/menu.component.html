@@ -1,0 +1,30 @@
+<div id="sidebar">
+  <!-- <br /> -->
+  <div class="mt-2 ml-1">
+    <ng-container *ngIf="model.queueButtonsVisible">
+      <a *ngIf="model.queueModeFlatVisible" class="button-icon urlhide-parent" title="Show My Queues flat"
+        (click)="onQueueModeClick('flat')">
+        <mat-icon class="control-icon" [class.nia-cursor-not-allowed]="!model.queueModeFlatEnabled"
+          [ngClass]="(model.selectedQueueModeCde===0)?'color-red':'color-dark-gray'">
+          table_rows
+        </mat-icon>
+      </a>
+
+      <a *ngIf="model.queueModeHierarchyVisible" class="button-icon urlhide-parent" title="Show My Queues hierarchically"
+        (click)="onQueueModeClick('hierarchy')">
+        <mat-icon class="control-icon" [class.nia-cursor-not-allowed]="!model.queueModeHierarchyEnabled"
+          [ngClass]="(model.selectedQueueModeCde===1)?'color-red':'color-dark-gray'">
+          account_tree
+        </mat-icon>
+      </a>
+    </ng-container>
+    &nbsp; <!--To create an empty row space-->
+    <!-- <input type="text" class="form-control form-control-sm font-10" placeholder="Search..."
+    style="display: inline-block; width:50%"/> -->
+  </div>
+  <div id="lstActive">
+    <app-nia-tree-view [items]="model.treeItems" [selectedId]="model.selectedItemId"
+      (itemClicked)="onTreeItemClick($event)"></app-nia-tree-view>
+  </div>
+  <br/>
+</div>

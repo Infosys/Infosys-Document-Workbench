@@ -1,0 +1,161 @@
+<div class="row">
+    <div class="col-md-9 font-16">
+        Extraction Path
+    </div>
+    <div class="col-md-3 font-12 text-right pt-1">
+        <a class="urlhide-parent" title="Go back to Extracted Data"
+            (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_PAT.GOTO_ED);"
+            [routerLink]="['/home/workdata',model.queueNameCde,model.document.docId]">
+            <mat-icon>arrow_back</mat-icon>
+        </a>
+    </div>
+</div>
+<div class="bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="p-1 font-12" [style.height.vh]="model.minheight">
+                <ng-container *ngIf="!getFeature(bmodel.FID.ATTRIBUTE_EXTRACTIONPATH_VIEW).isVisible">
+                    <div class="nia-content-not-allowed">{{bmodel.FID_ERR_MSG.NOT_ALLOWED}}</div>
+                </ng-container>
+                <ng-container *ngIf="getFeature(bmodel.FID.ATTRIBUTE_EXTRACTIONPATH_VIEW).isVisible">
+                    <div *ngIf="!model.isDataLoaded" class="loading-dots">
+                        <br />
+                        <br />
+                        <div class="loading-dots--dot"></div>
+                        <div class="loading-dots--dot"></div>
+                        <div class="loading-dots--dot"></div>
+                    </div>
+
+                    <div class="ep-content-text" [style.height.vh]="model.minheight-2">
+                        <ng-container *ngIf="model.attrSourceDataList.length==0">
+                            <div class="no-data-found">No data found</div>
+                        </ng-container>
+                        <ng-container *ngFor="let attrSrcData of model.attrSourceDataList; let i=index">
+                            <mat-accordion>
+                                <mat-expansion-panel
+                                    [class.attr-tr-highlighted]="isAttributeEPHighlighted(attrSrcData['bizAttrName'])">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title class="urlhide-attribute-name">
+                                            {{attrSrcData["bizAttrName"]}}
+                                        </mat-panel-title>
+                                        <mat-panel-description class="urlhide-attribute-value">
+                                            <ng-container *ngIf="attrSrcData['bizAttrValue']">
+                                                {{attrSrcData["bizAttrValue"]}}
+                                            </ng-container>
+                                            <ng-container *ngIf="attrSrcData['bizAttrValue']==''">
+                                                -
+                                            </ng-container>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <b>Rule Execution History</b>
+                                    <table class="ep-table">
+                                        <tr>
+                                            <th>Raw Attribute Value</th>
+                                            <th>Page</th>
+                                            <ng-container *ngFor="let ruleData of attrSrcData.rules; let i=index">
+                                                <th colspan="2">
+                                                    <table class="ep-table">
+                                                        <tr>
+                                                            <td colspan="2">Rule{{i+1}}
+                                                                <!-- {{ruleData["name"]}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                                                            </td>
+                                                        <tr>
+                                                        <tr>
+                                                            <td class="rule-value">i/p</td>
+                                                            <td class="rule-value">o/p</td>
+                                                        <tr>
+                                                    </table>
+                                                </th>
+                                            </ng-container>
+                                            <!-- <th>Business Attribute Value</th> -->
+                                        </tr>
+                                        <ng-container
+                                            *ngFor="let rawAttrData of attrSrcData.rawAttrValues; let ai=index">
+                                            <tr>
+                                                <td class="urlhide-attribute-name"
+                                                    [class.attr-tr-highlighted]="rawAttrData.isHighlighted"><a
+                                                        style="color:#0079DF;cursor:pointer;text-decoration: underline;"
+                                                        (click)="triggerTelemetryEvents(bmodel.TELE_EVENTS.INTERACT, bmodel.TELEID.EXT_PAT.HIGHLIGH_ATTR_BBOX);manageSelectedAttribute(attrSrcData['bizAttrName'], true, rawAttrData);">{{rawAttrData["text"]}}</a>
+                                                </td>
+                                                <td class="rule-value">{{rawAttrData["page"]}}</td>
+                                                <ng-container *ngFor="let ruleData of attrSrcData.rules; let i=index">
+                                                    <ng-container
+                                                        *ngIf="isSelected(rawAttrData['id'],ruleData['input'])">
+                                                        <td class="rule-value">X</td>
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="!isSelected(rawAttrData['id'],ruleData['input'])">
+                                                        <td>&nbsp;</td>
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="isSelected(rawAttrData['id'],ruleData['output'])">
+                                                        <td class="rule-value">X</td>
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="!isSelected(rawAttrData['id'],ruleData['output'])">
+                                                        <td>&nbsp;</td>
+                                                    </ng-container>
+                                                </ng-container>
+                                                <!-- <ng-container *ngIf="attrSrcData.rawAttrValues.length === ai+1 && getDerivedAttrValue(attrSrcData).length>0">
+                                    <td>{{attrSrcData["bizAttrValue"]}}</td>
+                                </ng-container>
+                                <ng-container *ngIf="attrSrcData.rawAttrValues.length !== ai+1 || getDerivedAttrValue(attrSrcData).length===0">
+                                    <td>&nbsp;</td>
+                                </ng-container> -->
+                                            </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="getDerivedAttrValue(attrSrcData).length===0">
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <ng-container *ngFor="let ruleData of attrSrcData.rules; let i=index">
+                                                    <ng-container *ngIf="attrSrcData.rules.length !== i+1">
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="attrSrcData.rules.length === i+1">
+                                                        <td>&nbsp;</td>
+                                                        <td class="rule-value">{{attrSrcData["bizAttrValue"]}}</td>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </tr>
+                                        </ng-container>
+                                    </table>
+                                    <br />
+                                    <b>Rule Detail</b>
+                                    <table class="ep-table">
+                                        <tr>
+                                            <th>Rule</th>
+                                            <th>Name</th>
+                                        </tr>
+                                        <ng-container *ngFor="let ruleData of attrSrcData.rules; let i=index">
+                                            <tr>
+                                                <td class="rule-name">Rule{{i+1}}</td>
+                                                <td style="text-align: left;">{{ruleData["name"]}}</td>
+                                            </tr>
+                                        </ng-container>
+                                    </table>
+                                    &nbsp;
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #auditextracteddata let-c="close" let-d="dismiss">
+    <div id="content">
+        <div class="row" style="width:65vw;position:absolute; margin-left:-15vw;">
+            <div class="col-md-12 nia-modal p-2">
+                <app-extraction-path [isDocTypeFile]="model.isDocTypeFile" [isDataReady]=model._isDataReady
+                    [document]=model.documentData [closeButton]="true" [popupButton]="false" [minheight]="55"
+                    (close)="c('Close click');">
+                </app-extraction-path>
+            </div>
+        </div>
+    </div>
+</ng-template>
